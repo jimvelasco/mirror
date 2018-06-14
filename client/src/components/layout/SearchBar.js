@@ -34,6 +34,7 @@ class SearchBar extends Component {
           // Value of input: {this.state.term}
           onChange={event => this.onInputChange(event.target.value)}
         />
+        <i id="filtersubmit" className="fa fa-search fa-1x " />
       </div>
     );
   }

@@ -14,8 +14,8 @@ class Thumbnails extends Component {
       match: { params }
     } = props;
     this.state = { category: params.category };
+    //console.log(this.state);
   }
-  // const {category} = null;
   componentDidMount() {
     // //console.log("thumbnails did mount " + this.state.category);
     // const {
@@ -79,6 +79,9 @@ class Thumbnails extends Component {
 
     if (cat !== cat2) {
       // this.setState({ category: cat });
+      //this.props.match.params.category = cat;
+      //this.props.cat = cat;
+      //console.log(this.props.match.params.category);
       this.props.getThumbnails(cat);
     }
   }
@@ -91,7 +94,7 @@ class Thumbnails extends Component {
 
     // console.log(this.props.match.params.category);
     // console.log("**************");
-    // console.log(this.state.category);
+    //console.log(this.state.category);
     // if (this.props.match.params.category === this.state.category) {
     // } else {
     //   this.runQuery(this.props.match.params.category);
@@ -100,7 +103,12 @@ class Thumbnails extends Component {
     //this.setState({ category: this.props.match.params.category });
     //this.store.dispatch(getThumbnails("sports"));
 
-    const { thumbnails, loading } = this.props.thumbnailreducer;
+    //console.log("category from state " + this.state.category);
+
+    const { thumbnails, loading, category } = this.props.thumbnailreducer;
+    //const cat = this.state.category;
+    //console.log("category from reducer " + category);
+    //let category = this.props.match.params.category;
     let thumbContent;
 
     if (thumbnails === null || loading) {
@@ -117,6 +125,9 @@ class Thumbnails extends Component {
     return (
       <div className="feed">
         <div className="container">
+          <h3 className="xbg-info" style={{ textAlign: "center" }}>
+            {category}
+          </h3>
           <div className="row">
             <div className="col-md-12 image-container">{thumbContent}</div>
           </div>
@@ -133,7 +144,7 @@ Thumbnails.propTypes = {
 
 const mapStateToProps = state => ({
   thumbnailreducer: state.thumbnailreducer,
-  category: state.category
+  category: state.thumbnailreducer.category
 });
 
 export default connect(

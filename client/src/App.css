@@ -46,7 +46,9 @@ search-bar {
 }
 
 .search-bar input {
-  width: 70%;
+  /* width: 70%; */
+  width: 300px;
+  margin-left: 300px;
 }
 
 .image-float {
@@ -58,4 +60,14 @@ search-bar {
 
 .image-container {
   background-color: #343a40;
+}
+
+#filtersubmit {
+  position: relative;
+  z-index: 1;
+  left: -25px;
+  top: 1px;
+  color: #000000;
+  cursor: pointer;
+  width: 30;
 }

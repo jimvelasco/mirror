@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SearchBar from "./SearchBar";
 
 import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
@@ -53,16 +52,18 @@ class Landing extends Component {
         <div className="dark-overlay landing-inner text-light">
           <div className="container">
             <div className="row">
-              <div className="col-md-12 text-center">
+              {/* <div className="col-md-12 text-center">
                 <SearchBar />
-              </div>
+              </div> */}
             </div>
             <div className="row">
               <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4" style={{ marginTop: "150px" }}>
+                <h1 className="display-3 mb-4" style={{ marginTop: "0px" }}>
                   Mirror
                 </h1>
-                <p className="lead">Animate with Audio!</p>
+                <p className="lead" style={{ marginTop: "65px" }}>
+                  Animate with Audio!
+                </p>
                 <hr />
                 {isAuthenticated ? authLinks : guestLinks}
               </div>

@@ -33,12 +33,16 @@ export default function(state = initialState, action) {
       // console.log(action.payload);
       //console.log("in reducer here is the state " + category);
       // console.log("++++++++++++");
-      // console.log(...state);
+      // console.log(state);
+      // //console.log(category);
       // console.log("++++++++++++");
+      // console.log(action.payload.data);
+      // console.log(action.payload.cat);
 
       return {
         ...state,
-        thumbnails: action.payload,
+        thumbnails: action.payload.data,
+        category: action.payload.category, //state.category, //action.payload.category,
         loading: false
       };
     // return {

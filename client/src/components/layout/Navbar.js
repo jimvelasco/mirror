@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+import SearchBar from "./SearchBar";
 
 import logo from "../../img/image1.jpeg";
 
@@ -121,6 +122,9 @@ class Navbar extends Component {
                   <Link to="/thumbnails/thumbs/amazing" className="nav-link">
                     Amazing
                   </Link>
+                </li>
+                <li className="nav-item ">
+                  <SearchBar />
                 </li>
               </ul>
               {isAuthenticated ? authLinks : guestLinks}{" "}

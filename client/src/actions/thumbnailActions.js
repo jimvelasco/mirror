@@ -32,7 +32,9 @@ export const getThumbnails = category => dispatch => {
     .then(res =>
       dispatch({
         type: GET_THUMBNAILS,
-        payload: res.data
+        // payload: {data:res.data,category:category},
+        payload: { data: res.data, category: category },
+        category: category
       })
     )
     .catch(err =>
