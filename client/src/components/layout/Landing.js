@@ -59,7 +59,7 @@ class Landing extends Component {
             </div>
             <div className="row">
               <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4" style={{ marginTop: "50px" }}>
+                <h1 className="display-3 mb-4" style={{ marginTop: "150px" }}>
                   Mirror
                 </h1>
                 <p className="lead">Animate with Audio!</p>

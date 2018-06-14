@@ -8,7 +8,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h3 style={{ textAlign: "center" }}>Dispatch Dashboard</h3>
+        <h3 style={{ textAlign: "center" }}>Mirror Dashboard</h3>
         {/* <Shuttles />
         <Trips /> */}
       </div>
