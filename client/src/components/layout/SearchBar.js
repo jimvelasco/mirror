@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import { performThumbWildcardSearch } from "../../actions/thumbnailActions";
+import { performThumbnailSearch } from "../../actions/thumbnailActions";
 
 import TextFieldGroup from "../common/TextFieldGroup";
 
@@ -53,7 +53,8 @@ class SearchBar extends Component {
       };
       // console.log(searchData);
       // console.log("search term is " + searchData.searchterm);
-      this.props.performThumbWildcardSearch(searchData.searchterm);
+      // this.props.performThumbWildcardSearch(searchData.searchterm);
+      this.props.performThumbnailSearch("wildcard", searchData.searchterm);
       // this.setState({ searchterm: "" });
       // console.log("here are the props");
       // console.log(this.props);
@@ -108,7 +109,7 @@ const mapStateToProps = state => {
 // }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ performThumbWildcardSearch }, dispatch);
+  return bindActionCreators({ performThumbnailSearch }, dispatch);
 }
 
 // const mapDispatchToProps = (dispatch, ownProps) =>

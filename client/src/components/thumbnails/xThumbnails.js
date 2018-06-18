@@ -37,7 +37,7 @@ class Thumbnails extends Component {
     //   this.props.getThumbnails(cat);
     // }
     // this.setState({ category: cat });
-    this.props.getThumbnails(this.state.category);
+    this.props.getThumbnails(this.state.searchterm);
   }
 
   runQuery = category => {
@@ -66,8 +66,8 @@ class Thumbnails extends Component {
     // console.log("these are the next props");
     // console.log(nextProps);
     //console.log(nextProps.match.params.category);
-    let cat = nextProps.match.params.category;
-    let cat2 = this.props.match.params.category;
+    let cat = nextProps.match.params.searchterm;
+    let cat2 = this.props.match.params.searchterm;
     // console.log(cat + " - " + cat2);
     // console.log("---------");
     // console.log(this.state.category);
@@ -105,7 +105,7 @@ class Thumbnails extends Component {
 
     //console.log("category from state " + this.state.category);
 
-    const { thumbnails, loading, category } = this.props.thumbnailreducer;
+    const { thumbnails, loading, searchterm } = this.props.thumbnailreducer;
     //const cat = this.state.category;
     //console.log("category from reducer " + category);
     //let category = this.props.match.params.category;
@@ -144,7 +144,7 @@ Thumbnails.propTypes = {
 
 const mapStateToProps = state => ({
   thumbnailreducer: state.thumbnailreducer,
-  category: state.thumbnailreducer.category
+  searchterm: state.thumbnailreducer.searchterm
 });
 
 export default connect(

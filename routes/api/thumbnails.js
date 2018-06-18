@@ -3,9 +3,10 @@ const router = express.Router();
 const Thumbnail = require("../../models/Thumbnail");
 //const validateSearchInput = require("../../validation/search");
 
-// @route   GET api/posts/test
+// @route   GET api/thumbnails/thumbs
 // @desc    Tests posts route
 // @access  Public
+// these are triggered from the thumbnailActions
 
 router.get("/thumbs/:cat", (req, res) => {
   // console.log("in api getting stuff thumbs");
@@ -15,11 +16,11 @@ router.get("/thumbs/:cat", (req, res) => {
   if (req.params.cat === "all") {
     Thumbnail.find()
       .then(thumbs => res.json(thumbs))
-      .catch(err => res.status(404).json({ nousersfound: "No shuttle found" }));
+      .catch(err => res.status(404).json({ noresults: "No Categories found" }));
   } else {
     Thumbnail.find({ category: req.params.cat })
       .then(thumbs => res.json(thumbs))
-      .catch(err => res.status(404).json({ nousersfound: "No shuttle found" }));
+      .catch(err => res.status(404).json({ noresults: "No Categories found" }));
   }
 });
 
@@ -39,7 +40,13 @@ router.get("/search/:term", (req, res) => {
 
   Thumbnail.find({ name: sterm })
     .then(thumbs => res.json(thumbs))
-    .catch(err => res.status(404).json({ nousersfound: "No shuttle found" }));
+    .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+});
+
+router.get("/emotion/:term", (req, res) => {
+  Thumbnail.find({ emotion: req.params.term })
+    .then(thumbs => res.json(thumbs))
+    .catch(err => res.status(404).json({ noresults: "No Emotions Found" }));
 });
 
 router.get("/allthumbs", (req, res) => {

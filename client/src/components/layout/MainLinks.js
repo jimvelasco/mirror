@@ -3,8 +3,9 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-import { performThumbCategorySearch } from "../../actions/thumbnailActions";
-//import { performThumbWildcardSearch } from "../../actions/thumbnailActions";
+//import { performThumbCategorySearch } from "../../actions/thumbnailActions";
+//import { performThumbEmotionSearch } from "../../actions/thumbnailActions";
+import { performThumbnailSearch } from "../../actions/thumbnailActions";
 
 class MainLinks extends Component {
   onMainClick(e) {
@@ -15,7 +16,20 @@ class MainLinks extends Component {
     //sval = "wow";
     // console.log("main links " + sval);
     // console.log(this.props);
-    this.props.performThumbCategorySearch(sval);
+    // this.props.performThumbCategorySearch(sval);
+    this.props.performThumbnailSearch("category", sval);
+  }
+
+  onEmotionChange(e) {
+    e.preventDefault();
+    // console.log(e.target);
+    // console.log(e.target.name);
+    let sval = e.target.value;
+    //sval = "wow";
+    // console.log("select click " + sval);
+    // console.log(this.props);
+    //this.props.performThumbEmotionSearch(sval);
+    this.props.performThumbnailSearch("emotion", sval);
   }
   render() {
     return (
@@ -31,8 +45,12 @@ class MainLinks extends Component {
             href=""
             name="wow"
             onClick={this.onMainClick.bind(this)}
-            className="nav-link"
-            style={{ display: "inline" }}
+            className="xnav-link"
+            style={{
+              display: "inline",
+              // fontSize: "10pt",
+              marginRight: "10px"
+            }}
           >
             Trending...
           </a>
@@ -40,11 +58,29 @@ class MainLinks extends Component {
             href=""
             name="cool"
             onClick={this.onMainClick.bind(this)}
-            className="nav-link"
-            style={{ display: "inline" }}
+            className="xnav-link"
+            style={{
+              display: "inline",
+              //fontSize: "10pt",
+              marginRight: "10px"
+            }}
           >
             Most Popular...
           </a>
+          <div style={{ display: "inline" }}>
+            <span
+              style={{
+                color: "#007bff"
+                //fontSize: "10pt"
+              }}
+            >
+              Emotion...
+            </span>&nbsp;
+            <select onChange={this.onEmotionChange.bind(this)}>
+              <option value="happy">Happy</option>
+              <option value="serious">Serious</option>
+            </select>
+          </div>
         </div>
       </div>
     );
@@ -57,7 +93,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { performThumbCategorySearch }
+  //{ performThumbCategorySearch, performThumbEmotionSearch }
+  { performThumbnailSearch }
 )(MainLinks);
 
 // export default MainLinks;

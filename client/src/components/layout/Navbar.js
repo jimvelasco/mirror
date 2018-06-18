@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import SearchBar from "./SearchBar";
 
-import { performThumbCategorySearch } from "../../actions/thumbnailActions";
+//import { performThumbCategorySearch } from "../../actions/thumbnailActions";
 //import { performThumbWildcardSearch } from "../../actions/thumbnailActions";
+import { performThumbnailSearch } from "../../actions/thumbnailActions";
 
 import logo from "../../img/image1.jpeg";
 
@@ -25,7 +26,7 @@ class Navbar extends Component {
     // console.log(e.target.name);
     let sval = e.target.name;
     //console.log(this.props);
-    this.props.performThumbCategorySearch(sval);
+    this.props.performThumbnailSearch("category", sval);
   }
   render() {
     //const { isAuthenticated, user } = this.props.auth; // shorthand
@@ -198,5 +199,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser, performThumbCategorySearch }
+  { logoutUser, performThumbnailSearch }
 )(Navbar);

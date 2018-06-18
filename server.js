@@ -6,11 +6,14 @@ const passport = require("passport");
 const path = require("path");
 
 const users = require("./routes/api/users");
-const profile = require("./routes/api/profile");
-const posts = require("./routes/api/posts");
+// const profile = require("./routes/api/profile");
+// const posts = require("./routes/api/posts");
 
-const shuttles = require("./routes/api/shuttles");
-const trips = require("./routes/api/shuttles");
+// const shuttles = require("./routes/api/shuttles");
+// const trips = require("./routes/api/shuttles");
+
+// these are the routes that use mongoose to
+// interact with the database
 const thumbnails = require("./routes/api/thumbnails");
 
 const app = express();
@@ -39,14 +42,14 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 app.use("/api/users", users);
-app.use("/api/profile", profile);
-app.use("/api/posts", posts);
+// app.use("/api/profile", profile);
+// app.use("/api/posts", posts);
 
 // app.use("/api/shuttles", shuttles);
 // app.use("/api/shuttles/trips", trips);
 
 app.use("/api/thumbnails", thumbnails);
-app.use("/api/mythumbs", thumbnails);
+//app.use("/api/mythumbs", thumbnails);
 // app.get("/api/thumbs", thumbnails);
 // app.get("/api/thumbs/entertainment", thumbnails);
 

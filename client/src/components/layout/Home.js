@@ -16,13 +16,13 @@ import { performThumbCategorySearch } from "../../actions/thumbnailActions";
 class Home extends Component {
   constructor(props) {
     super(props);
-    console.log("home incoming props");
-    console.log(props);
+    // console.log("home incoming props");
+    // console.log(props);
     this.state = {
       draw: props.draw //"true"
     };
-    console.log("home incoming state");
-    console.log(this.state);
+    // console.log("home incoming state");
+    // console.log(this.state);
   }
   // we had this in there to direct user to dashboard if they were logged in
   // Now we hancle this by showing logon or logout button instead of redirecting

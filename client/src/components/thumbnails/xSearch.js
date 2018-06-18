@@ -39,7 +39,7 @@ class Search extends Component {
       .then(response => {
         this.setState({
           thumbs: response.data,
-          category: searchterm
+          searchterm: searchterm
         });
       })
       .catch(error => {

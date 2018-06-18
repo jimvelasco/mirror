@@ -17,6 +17,7 @@ import Footer from "./components/layout/Footer";
 // import Shuttles from "./components/shuttles/Shuttles";
 // import Trips from "./components/shuttles/Trips";
 import Dashboard from "./components/dashboard/Dashboard";
+import MagicMirror from "./components/layout/MagicMirror";
 // import TripEdit from "./components/shuttles/TripEdit";
 
 //import Thumbnails from "./components/thumbnails/Thumbnails";
@@ -64,16 +65,18 @@ class App extends Component {
               <div className="dark-overlay landing-inner text-light">
                 <div className="App">
                   <Navbar />
+                  <MainLinks />
 
                   {/* <Route exact path="/" component={Home} /> */}
                   {/* <Home draw="false" /> */}
                   <div className="container">
-                    <MainLinks />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     {/* <SearchBarResults /> */}
 
                     <Route exact path="/" component={MainResults} />
+
+                    <Route exact path="/magicmirror" component={MagicMirror} />
                     {/* <MainResults /> */}
 
                     {/* <Route
