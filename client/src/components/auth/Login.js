@@ -46,17 +46,14 @@ class Login extends Component {
       password: this.state.password
     };
 
-    // axios
-    //   .post("/api/users/login", newUser)
-    //   .then(res => console.log(res.data))
-    //   // .catch(err => console.log(err.response.data)); // to get actual errors from backend
-    //   .catch(err => this.setState({ errors: err.response.data })); // to get actual errors from backend
-
-    // console.log(newUser);
-
-    // this then goes to the auth actions
     this.props.loginUser(userData);
   }
+
+  onCancelClick(e) {
+    e.preventDefault();
+    window.location = "/";
+  }
+
   render() {
     const { errors } = this.state;
     return (
@@ -89,6 +86,9 @@ class Login extends Component {
                 </div>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
+                <a href="" onClick={this.onCancelClick.bind(this)}>
+                  Cancel
+                </a>
               </form>
             </div>
           </div>

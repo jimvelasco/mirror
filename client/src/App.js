@@ -12,14 +12,18 @@ import PrivateRoute from "./components/common/PrivateRoute";
 
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
-import Landing from "./components/layout/Landing";
+//import Landing from "./components/layout/Landing";
+//import Home from "./components/layout/Home";
 // import Shuttles from "./components/shuttles/Shuttles";
 // import Trips from "./components/shuttles/Trips";
 import Dashboard from "./components/dashboard/Dashboard";
 // import TripEdit from "./components/shuttles/TripEdit";
 
-import Thumbnails from "./components/thumbnails/Thumbnails";
-import MirrorThumbs from "./components/thumbnails/MirrorThumbs";
+//import Thumbnails from "./components/thumbnails/Thumbnails";
+//import MirrorThumbs from "./components/thumbnails/MirrorThumbs";
+//import Search from "./components/thumbnails/Search";
+import MainLinks from "./components/layout/MainLinks";
+import MainResults from "./components/layout/MainResults";
 
 // import ModalDialog from "./components/shuttles/ModalDialog";
 
@@ -49,45 +53,64 @@ if (localStorage.jwtToken) {
   }
 }
 // we need to wrap privateroutes in switch because pr has a redirect in it.
+
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router>
-          <div className="App">
-            <Navbar />
-            <Route exact path="/" component={Landing} />
-            <div className="container">
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
+          <div>
+            <div className="landing">
+              <div className="dark-overlay landing-inner text-light">
+                <div className="App">
+                  <Navbar />
 
-              <Route
-                exact
-                path="/thumbnails/allthumbs"
-                component={Thumbnails}
-              />
-              <Route
-                exact
-                path="/thumbnails/thumbs/:category"
-                component={Thumbnails}
-              />
-              <Route
-                exact
-                path="/mythumbs/thumbs/:category"
-                component={MirrorThumbs}
-              />
-              {/* <Route exact path="/mythumbs/allthumbs" component={MyThumbs} /> */}
+                  {/* <Route exact path="/" component={Home} /> */}
+                  {/* <Home draw="false" /> */}
+                  <div className="container">
+                    <MainLinks />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/login" component={Login} />
+                    {/* <SearchBarResults /> */}
 
-              {/* <Route exact path="/thumbs" component={Thumbs} /> */}
-              <Switch>
-                {/* <PrivateRoute exact path="/shuttles" component={Shuttles} /> */}
-                {/* <PrivateRoute exact path="/trips" component={Trips} /> */}
+                    <Route exact path="/" component={MainResults} />
+                    {/* <MainResults /> */}
 
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
-              {/* <Route exact path="/tripedit" component={TripEdit} /> */}
+                    {/* <Route
+                      exact
+                      path="/thumbnails/allthumbs"
+                      component={Thumbnails}
+                    />
+                    <Route
+                      exact
+                      path="/thumbnails/thumbs/:category"
+                      component={Thumbnails}
+                    /> */}
+                    {/* <Route
+                      exact
+                      path="/mythumbs/thumbs/:category"
+                      component={MirrorThumbs}
+                    /> */}
+                    {/* <Route exact path="/search" component={Search} /> */}
+
+                    {/* <Route exact path="/mythumbs/allthumbs" component={MyThumbs} /> */}
+
+                    {/* <Route exact path="/thumbs" component={Thumbs} /> */}
+                    <Switch>
+                      {/* <PrivateRoute exact path="/shuttles" component={Shuttles} /> */}
+                      {/* <PrivateRoute exact path="/trips" component={Trips} /> */}
+
+                      <PrivateRoute
+                        exact
+                        path="/dashboard"
+                        component={Dashboard}
+                      />
+                    </Switch>
+                    {/* <Route exact path="/tripedit" component={TripEdit} /> */}
+                  </div>
+                </div>
+              </div>
             </div>
-
             <Footer />
           </div>
         </Router>

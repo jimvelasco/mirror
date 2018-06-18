@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import SearchBar from "./SearchBar";
 
+import { performThumbCategorySearch } from "../../actions/thumbnailActions";
+//import { performThumbWildcardSearch } from "../../actions/thumbnailActions";
+
 import logo from "../../img/image1.jpeg";
 
 class Navbar extends Component {
@@ -14,6 +17,15 @@ class Navbar extends Component {
     this.props.logoutUser();
     window.location.href = "/";
     // this.props.history.push("/");
+  }
+
+  onNavClick(e) {
+    e.preventDefault();
+    // console.log(e.target);
+    // console.log(e.target.name);
+    let sval = e.target.name;
+    //console.log(this.props);
+    this.props.performThumbCategorySearch(sval);
   }
   render() {
     //const { isAuthenticated, user } = this.props.auth; // shorthand
@@ -103,12 +115,13 @@ class Navbar extends Component {
                     Artists
                   </Link>
                 </li> */}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/thumbnails/thumbs/all" className="nav-link">
                     All
                   </Link>
-                </li>
-                <li className="nav-item">
+                </li> */}
+
+                {/* <li className="nav-item">
                   <Link to="/thumbnails/thumbs/wow" className="nav-link">
                     Wow
                   </Link>
@@ -122,8 +135,46 @@ class Navbar extends Component {
                   <Link to="/thumbnails/thumbs/amazing" className="nav-link">
                     Amazing
                   </Link>
-                </li>
-                <li className="nav-item ">
+                </li> */}
+                <a
+                  href=""
+                  name="all"
+                  onClick={this.onNavClick.bind(this)}
+                  className="nav-link"
+                >
+                  All
+                </a>
+                <a
+                  href=""
+                  name="wow"
+                  onClick={this.onNavClick.bind(this)}
+                  className="nav-link"
+                >
+                  Wow
+                </a>
+                <a
+                  href=""
+                  name="cool"
+                  onClick={this.onNavClick.bind(this)}
+                  className="nav-link"
+                >
+                  Cool
+                </a>
+
+                <a
+                  href=""
+                  name="amazing"
+                  onClick={this.onNavClick.bind(this)}
+                  className="nav-link"
+                >
+                  Amazing
+                </a>
+                {/* <li className="nav-item">
+                  <Link to="/search" className="nav-link">
+                    Search
+                  </Link>
+                </li> */}
+                <li className="nav-item " style={{ marginTop: "10px" }}>
                   <SearchBar />
                 </li>
               </ul>
@@ -147,5 +198,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, performThumbCategorySearch }
 )(Navbar);

@@ -106,10 +106,6 @@ class Register extends Component {
                     onChange={this.onChange}
                     error={errors.email}
                   />
-                  <small className="form-text text-muted">
-                    This site uses Gravatar so if you want a profile image, use
-                    a Gravatar email
-                  </small>
                 </div>
                 <div className="form-group">
                   <TextFieldGroup

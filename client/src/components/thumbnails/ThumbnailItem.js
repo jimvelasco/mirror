@@ -31,23 +31,35 @@ class ThumbnailItem extends Component {
     let imgstr =
       "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + thumb.image;
     return (
-      <div className="xcard xcard-body mb-3">
-        {/* <div className="row">
-          <div className="col-md-12"> */}
+      <div>
         <div className="image-float">
           <img
-            className="rounded-circle d-none d-md-block"
+            className="rounded-circle xd-none xd-md-block"
             src={imgstr}
             alt=""
-            style={{ width: "200px", height: "200px" }}
+            style={{
+              width: "200px",
+              height: "200px",
+              border: "3px solid white"
+            }}
           />
-          {/* <div style={{ color: "white", fontSize: "8pt" }}>{thumb.image}</div> */}
-        </div>
-        {/* <p className="text-center">{thumb.url}</p>
+          <div
+            style={{
+              color: "white",
+              fontSize: "8pt",
+              width: "100%",
+              textAlign: "center",
+              border: "0px solid white"
+            }}
+          >
+            {thumb.name}
+          </div>
+          {/* <p className="text-center">{thumb.url}</p>
             <br />
             <p className="text-center">{thumb._id}</p> */}
-        {/* </div>
+          {/* </div>
         </div> */}
+        </div>
       </div>
     );
   }

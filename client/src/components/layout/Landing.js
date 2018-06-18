@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
+// import Search from "../thumbnails/Search";
 
 //import Thumbs from "./Thumbs";
 
@@ -48,29 +49,30 @@ class Landing extends Component {
       </div>
     );
     return (
-      <div className="landing">
-        <div className="dark-overlay landing-inner text-light">
-          <div className="container">
-            <div className="row">
-              {/* <div className="col-md-12 text-center">
+      // <div className="landing">
+      //   <div className="dark-overlay landing-inner text-light">
+      <div className="container">
+        <div className="row">
+          {/* <div className="col-md-12 text-center">
                 <SearchBar />
               </div> */}
-            </div>
-            <div className="row">
-              <div className="col-md-12 text-center">
-                <h1 className="display-3 mb-4" style={{ marginTop: "0px" }}>
-                  Mirror
-                </h1>
-                <p className="lead" style={{ marginTop: "65px" }}>
-                  Animate with Audio!
-                </p>
-                <hr />
-                {isAuthenticated ? authLinks : guestLinks}
-              </div>
-            </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12 text-center">
+            {/* <Search /> */}
+            <h1 className="display-3 mb-4" style={{ marginTop: "0px" }}>
+              Mirror
+            </h1>
+            <p className="lead" style={{ marginTop: "65px" }}>
+              Animate with Audio!
+            </p>
+            <hr />
+            {isAuthenticated ? authLinks : guestLinks}
           </div>
         </div>
       </div>
+      //   </div>
+      // </div>
     );
   }
 }

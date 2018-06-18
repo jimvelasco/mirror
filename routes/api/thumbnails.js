@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Thumbnail = require("../../models/Thumbnail");
+//const validateSearchInput = require("../../validation/search");
 
 // @route   GET api/posts/test
 // @desc    Tests posts route
@@ -20,6 +21,25 @@ router.get("/thumbs/:cat", (req, res) => {
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ nousersfound: "No shuttle found" }));
   }
+});
+
+router.get("/search/:term", (req, res) => {
+  // console.log("in api getting stuff thumbs");
+  //console.log("term passed in " + req.params.term);
+  // let asterm = req.params.term;
+  // const { errors, isValid } = validateSearchInput(asterm);
+  // //Check Validation
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+
+  let rary = null;
+  let sterm = { $regex: ".*" + req.params.term + ".*" }; //"/" + req.params.term + "/";
+  //console.log("sterm passed in " + sterm);
+
+  Thumbnail.find({ name: sterm })
+    .then(thumbs => res.json(thumbs))
+    .catch(err => res.status(404).json({ nousersfound: "No shuttle found" }));
 });
 
 router.get("/allthumbs", (req, res) => {

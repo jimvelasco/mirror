@@ -129,7 +129,7 @@ class Thumbnails extends Component {
             {category}
           </h3>
           <div className="row">
-            <div className="col-md-12 image-container">{thumbContent}</div>
+            <div className="col-md-12 ximage-container">{thumbContent}</div>
           </div>
         </div>
       </div>
