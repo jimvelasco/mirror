@@ -10,7 +10,8 @@ class MagicMirror extends Component {
     e.preventDefault();
     // console.log(e.target);
     // console.log(e.target.name);
-    this.props.history.goBack();
+    // this.props.history.goBack();
+    window.history.back();
   }
 
   render() {
