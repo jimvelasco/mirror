@@ -28,9 +28,9 @@ class MagicMirror extends Component {
         </a>
         <h4>Turn on your camera and click the magic mirror</h4>
 
-        <a href="" onClick={this.onGoBack.bind(this)} className="nav-link">
+        <button onClick={this.onGoBack.bind(this)} className="btn btn-default">
           Back
-        </a>
+        </button>
       </div>
     );
   }
