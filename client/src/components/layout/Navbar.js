@@ -73,7 +73,7 @@ class Navbar extends Component {
     );
     return (
       <div>
-        <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+        <nav className="navbar  navbar-expand-sm navbar-dark navbackground mb-4">
           <div className="container">
             <Link to="/" className="navbar-brand">
               <img
@@ -137,7 +137,27 @@ class Navbar extends Component {
                     Amazing
                   </Link>
                 </li> */}
-                <a
+                <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/all">
+                    All
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/wow">
+                    Wow
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/cool">
+                    Cool
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/amazing">
+                    Amazing
+                  </Link>
+                </li>
+                {/* <a
                   href=""
                   name="all"
                   onClick={this.onNavClick.bind(this)}
@@ -160,16 +180,16 @@ class Navbar extends Component {
                   className="nav-link"
                 >
                   Cool
-                </a>
+                </a> */}
 
-                <a
+                {/* <a
                   href=""
                   name="amazing"
                   onClick={this.onNavClick.bind(this)}
                   className="nav-link"
                 >
                   Amazing
-                </a>
+                </a> */}
                 {/* <li className="nav-item">
                   <Link to="/search" className="nav-link">
                     Search

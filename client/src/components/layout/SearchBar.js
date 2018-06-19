@@ -1,9 +1,10 @@
 //import React from 'react';
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
+// import { connect } from "react-redux";
+// import { bindActionCreators } from "redux";
 
-import { performThumbnailSearch } from "../../actions/thumbnailActions";
+// import { performThumbnailSearch } from "../../actions/thumbnailActions";
 
 import TextFieldGroup from "../common/TextFieldGroup";
 
@@ -48,13 +49,17 @@ class SearchBar extends Component {
       this.setState({ errors: { searchterm: "Search Term Required" } });
     } else {
       this.setState({ errors: {} });
-      const searchData = {
-        searchterm: this.state.searchterm
-      };
+      // const searchData = {
+      //   searchterm: this.state.searchterm
+      // };
       // console.log(searchData);
       // console.log("search term is " + searchData.searchterm);
       // this.props.performThumbWildcardSearch(searchData.searchterm);
-      this.props.performThumbnailSearch("wildcard", searchData.searchterm);
+      // his.props.performThumbnailSearch("wildcard", searchData.searchterm);
+      //dispatch(push("/mainresults/wildcard/" + this.state.searchterm));
+      let url = "/mainresults/wildcard/" + this.state.searchterm;
+
+      this.props.history.push(url);
       // this.setState({ searchterm: "" });
       // console.log("here are the props");
       // console.log(this.props);
@@ -95,11 +100,11 @@ class SearchBar extends Component {
 //   };
 // };
 
-const mapStateToProps = state => {
-  return {
-    errors: state.errors
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     errors: state.errors
+//   };
+// };
 
 // function mapStateToProps({ state,thumbnails }) {
 //   console.log("searchbar manage state to props called");
@@ -108,9 +113,9 @@ const mapStateToProps = state => {
 //   return { state.thumbnails };
 // }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ performThumbnailSearch }, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ performThumbnailSearch }, dispatch);
+// }
 
 // const mapDispatchToProps = (dispatch, ownProps) =>
 //   bindActionCreators(dispatch(performThumbSearch, dispatch));
@@ -121,9 +126,9 @@ function mapDispatchToProps(dispatch) {
 //   { performSearch }
 // )(SearchBar);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchBar);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(SearchBar);
 
-//export default SearchBar;
+export default withRouter(SearchBar);

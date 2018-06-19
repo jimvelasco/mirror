@@ -14,15 +14,9 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 //import Landing from "./components/layout/Landing";
 //import Home from "./components/layout/Home";
-// import Shuttles from "./components/shuttles/Shuttles";
-// import Trips from "./components/shuttles/Trips";
 import Dashboard from "./components/dashboard/Dashboard";
 import MagicMirror from "./components/layout/MagicMirror";
-// import TripEdit from "./components/shuttles/TripEdit";
 
-//import Thumbnails from "./components/thumbnails/Thumbnails";
-//import MirrorThumbs from "./components/thumbnails/MirrorThumbs";
-//import Search from "./components/thumbnails/Search";
 import MainLinks from "./components/layout/MainLinks";
 import MainResults from "./components/layout/MainResults";
 
@@ -75,41 +69,21 @@ class App extends Component {
                     {/* <SearchBarResults /> */}
 
                     <Route exact path="/" component={MainResults} />
-
-                    <Route exact path="/magicmirror" component={MagicMirror} />
-                    {/* <MainResults /> */}
-
-                    {/* <Route
-                      exact
-                      path="/thumbnails/allthumbs"
-                      component={Thumbnails}
-                    />
                     <Route
                       exact
-                      path="/thumbnails/thumbs/:category"
-                      component={Thumbnails}
-                    /> */}
-                    {/* <Route
-                      exact
-                      path="/mythumbs/thumbs/:category"
-                      component={MirrorThumbs}
-                    /> */}
-                    {/* <Route exact path="/search" component={Search} /> */}
+                      path="/mainresults/:which/:term"
+                      component={MainResults}
+                    />
 
-                    {/* <Route exact path="/mythumbs/allthumbs" component={MyThumbs} /> */}
+                    <Route exact path="/magicmirror" component={MagicMirror} />
 
-                    {/* <Route exact path="/thumbs" component={Thumbs} /> */}
                     <Switch>
-                      {/* <PrivateRoute exact path="/shuttles" component={Shuttles} /> */}
-                      {/* <PrivateRoute exact path="/trips" component={Trips} /> */}
-
                       <PrivateRoute
                         exact
                         path="/dashboard"
                         component={Dashboard}
                       />
                     </Switch>
-                    {/* <Route exact path="/tripedit" component={TripEdit} /> */}
                   </div>
                 </div>
               </div>

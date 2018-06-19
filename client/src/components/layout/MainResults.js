@@ -20,13 +20,14 @@ import mirror from "../../img/round-sphere-animated.gif";
 class MainResults extends Component {
   // constructor(props) {
   //   super(props);
-  //   console.log("incoming props");
-  //   console.log(props);
-  //   this.state = {
-  //     draw: "what" //props.draw
-  //   };
-  //   console.log("searchbar results incoming state");
-  //   console.log(this.state);
+  //   // console.log("incoming props");
+  //   // console.log(props);
+  //   // console.log(props.match.params.which);
+  //   // this.state = {
+  //   //   draw: "what" //props.draw
+  //   // };
+  //   // console.log("searchbar results incoming state");
+  //   // console.log(this.state);
   // }
 
   // componentDidMount() {
@@ -38,24 +39,38 @@ class MainResults extends Component {
     // this will start the screen with all of the thumbs
     // console.log("mresults cdm");
     // console.log(this.props);
-    this.props.performThumbnailSearch("category", "all");
+    let which = this.props.match.params.which;
+    let term = this.props.match.params.term;
+    if (!which) {
+      which = "category";
+      term = "all";
+    }
+    this.props.performThumbnailSearch(which, term);
   }
   componentWillReceiveProps = nextProps => {
-    if (nextProps.location.key !== this.props.location.key) {
-      window.location.reload();
+    // if (nextProps.location.key !== this.props.location.key) {
+    //   window.location.reload();
+    // }
+    let curwhich = this.props.match.params.which;
+    let curterm = this.props.match.params.term;
+    let nextwhich = nextProps.match.params.which;
+    let nextterm = nextProps.match.params.term;
+    if (curwhich !== nextwhich || curterm !== nextterm) {
+      this.props.performThumbnailSearch(nextwhich, nextterm);
     }
   };
 
   render() {
     // console.log("searchbarresults props");
     // console.log(this.props);
-    // if (this.props.thumbnails.length === 0) {
-    //   return (
-    //     <div>
-    //       <Home draw="true" />
-    //     </div>
-    //   );
-    //}
+    if (this.props.thumbnails.length === 0) {
+      return (
+        <div>
+          {/* <Home draw="true" /> */}
+          Loading...
+        </div>
+      );
+    }
 
     let thumbContent;
     // console.log("props in search bar results");
@@ -84,7 +99,6 @@ class MainResults extends Component {
               // width: "200px"
             }}
           >
-            {/* {MirrorDictionary[cat]} */}
             {cat}
           </div>
           <div style={{ clear: "left" }} />
