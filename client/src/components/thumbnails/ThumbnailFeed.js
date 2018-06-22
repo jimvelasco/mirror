@@ -9,7 +9,7 @@ class ThumbnailFeed extends Component {
     const { thumbnails } = this.props;
 
     return thumbnails.map(thumb => (
-      <ThumbnailItem key={thumb._id} thumb={thumb} />
+      <ThumbnailItem key={thumb._id} id={thumb._id} thumb={thumb} />
     ));
   }
 }

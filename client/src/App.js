@@ -15,10 +15,13 @@ import Footer from "./components/layout/Footer";
 //import Landing from "./components/layout/Landing";
 //import Home from "./components/layout/Home";
 import Dashboard from "./components/dashboard/Dashboard";
+//import Modal from "./components/dashboard/Modal";
 import MagicMirror from "./components/layout/MagicMirror";
 
-import MainLinks from "./components/layout/MainLinks";
+//import MainLinks from "./components/layout/MainLinks";
 import MainResults from "./components/layout/MainResults";
+
+import VideoDemo from "./components/layout/VideoDemo";
 
 // import ModalDialog from "./components/shuttles/ModalDialog";
 
@@ -59,7 +62,7 @@ class App extends Component {
               <div className="dark-overlay landing-inner text-light">
                 <div className="App">
                   <Navbar />
-                  <MainLinks />
+                  {/* <MainLinks /> */}
 
                   {/* <Route exact path="/" component={Home} /> */}
                   {/* <Home draw="false" /> */}
@@ -67,16 +70,14 @@ class App extends Component {
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     {/* <SearchBarResults /> */}
-
                     <Route exact path="/" component={MainResults} />
                     <Route
                       exact
                       path="/mainresults/:which/:term"
                       component={MainResults}
                     />
-
                     <Route exact path="/magicmirror" component={MagicMirror} />
-
+                    <Route exact path="/videodemo" component={VideoDemo} />
                     <Switch>
                       <PrivateRoute
                         exact

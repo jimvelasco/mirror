@@ -6,6 +6,7 @@ import {
   GET_CATEGORY_THUMBNAILS,
   GET_EMOTION_THUMBNAILS,
   GET_SEARCH_THUMBNAILS,
+  GET_INDIVIDUAL_THUMBNAIL,
 
   // GET_POST,
   // DELETE_POST,
@@ -14,8 +15,10 @@ import {
 
 const initialState = {
   thumbnails: [],
+  onethumbnail: [],
   which: "category",
   searchterm: "all",
+  clickedthumbid: "",
   loading: false
 };
 
@@ -55,6 +58,13 @@ export default function(state = initialState, action) {
         thumbnails: action.payload.data,
         which: action.which,
         searchterm: action.searchterm,
+        loading: false
+      };
+    case GET_INDIVIDUAL_THUMBNAIL:
+      return {
+        ...state,
+        onethumbnail: action.payload.data,
+        clickedthumbid: action.clickedthumbid,
         loading: false
       };
     // case GET_ALL_THUMBNAILS:

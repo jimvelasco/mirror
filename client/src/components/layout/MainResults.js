@@ -60,6 +60,16 @@ class MainResults extends Component {
     }
   };
 
+  // componentDidUpdate() {
+  //   let which = this.props.match.params.which;
+  //   let term = this.props.match.params.term;
+  //   if (!which) {
+  //     which = "category";
+  //     term = "all";
+  //   }
+  //   this.props.performThumbnailSearch(which, term);
+  // }
+
   render() {
     // console.log("searchbarresults props");
     // console.log(this.props);

@@ -9,7 +9,8 @@ import SearchBar from "./SearchBar";
 //import { performThumbWildcardSearch } from "../../actions/thumbnailActions";
 import { performThumbnailSearch } from "../../actions/thumbnailActions";
 
-import logo from "../../img/image1.jpeg";
+//import logo from "../../img/image1.jpeg";
+import logo from "../../img/Image36.JPG";
 
 class Navbar extends Component {
   onLogoutClick(e) {
@@ -121,7 +122,6 @@ class Navbar extends Component {
                     All
                   </Link>
                 </li> */}
-
                 {/* <li className="nav-item">
                   <Link to="/thumbnails/thumbs/wow" className="nav-link">
                     Wow
@@ -139,22 +139,32 @@ class Navbar extends Component {
                 </li> */}
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/all">
-                    All
+                    Home
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/wow">
-                    Wow
+                    Reactions
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/cool">
-                    Cool
+                    Sports
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/amazing">
-                    Amazing
+                    Music
+                  </Link>
+                </li>{" "}
+                <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/cool">
+                    Movies
+                  </Link>
+                </li>{" "}
+                <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/amazing">
+                    TV
                   </Link>
                 </li>
                 {/* <a
@@ -181,7 +191,6 @@ class Navbar extends Component {
                 >
                   Cool
                 </a> */}
-
                 {/* <a
                   href=""
                   name="amazing"
@@ -197,6 +206,11 @@ class Navbar extends Component {
                 </li> */}
                 <li className="nav-item " style={{ marginTop: "10px" }}>
                   <SearchBar />
+                </li>
+                <li className="nav-item" style={{ marginLeft: "50px" }}>
+                  <Link className="nav-link" to="/videodemo">
+                    video
+                  </Link>
                 </li>
               </ul>
               {isAuthenticated ? authLinks : guestLinks}{" "}

@@ -7,8 +7,73 @@ import axios from "axios";
 //import { GET_WILDCARD_THUMBNAILS } from "./types";
 //import { GET_EMOTION_THUMBNAILS } from "./types";
 import { GET_SEARCH_THUMBNAILS } from "./types";
+import { GET_INDIVIDUAL_THUMBNAIL } from "./types";
 
 import { GET_ERRORS } from "./types";
+
+export const performThumbnailSearch = (which, term) => dispatch => {
+  //const url = ROOT_URL + term; //&q=${city},us`;
+  //let rdata = {};
+  //console.log("we are in action getting data " + term);
+  let url = "";
+  if (which === "category") {
+    url = `/api/thumbnails/thumbs/${term}`;
+  }
+  if (which === "wildcard") {
+    url = `/api/thumbnails/search/${term}`;
+  }
+  if (which === "emotion") {
+    url = `/api/thumbnails/emotion/${term}`;
+  }
+  if (which === "single") {
+    url = `/api/thumbnails/single/${term}`;
+  }
+
+  axios
+    .get(url)
+    .then(res =>
+      dispatch({
+        type: GET_SEARCH_THUMBNAILS,
+        // payload: {data:res.data,category:category},
+        payload: res, //{ data: res },
+        which: which,
+        searchterm: term
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const performIndividualSearch = clickedthumbid => dispatch => {
+  //const url = ROOT_URL + term; //&q=${city},us`;
+  //let rdata = {};
+  //
+
+  let url = "";
+
+  url = `/api/thumbnails/single/${clickedthumbid}`;
+
+  axios
+    .get(url)
+    .then(res =>
+      dispatch({
+        type: GET_INDIVIDUAL_THUMBNAIL,
+        // payload: {data:res.data,category:category},
+        payload: res, //{ data: res },
+        clickedthumbid: clickedthumbid
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
 
 //import { GET_SEARCH_THUMBNAILS2 } from "./types";
 
@@ -151,37 +216,3 @@ import { GET_ERRORS } from "./types";
 //     );
 //   //console.log("------------");
 // };
-
-export const performThumbnailSearch = (which, term) => dispatch => {
-  //const url = ROOT_URL + term; //&q=${city},us`;
-  //let rdata = {};
-  //console.log("we are in action getting data " + term);
-  let url = "";
-  if (which === "category") {
-    url = `/api/thumbnails/thumbs/${term}`;
-  }
-  if (which === "wildcard") {
-    url = `/api/thumbnails/search/${term}`;
-  }
-  if (which === "emotion") {
-    url = `/api/thumbnails/emotion/${term}`;
-  }
-
-  axios
-    .get(url)
-    .then(res =>
-      dispatch({
-        type: GET_SEARCH_THUMBNAILS,
-        // payload: {data:res.data,category:category},
-        payload: res, //{ data: res },
-        which: which,
-        searchterm: term
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
-};

@@ -49,6 +49,12 @@ router.get("/emotion/:term", (req, res) => {
     .catch(err => res.status(404).json({ noresults: "No Emotions Found" }));
 });
 
+router.get("/single/:id", (req, res) => {
+  Thumbnail.find({ _id: req.params.id })
+    .then(thumbs => res.json(thumbs))
+    .catch(err => res.status(404).json({ noresults: "No Emotions Found" }));
+});
+
 router.get("/allthumbs", (req, res) => {
   console.log("in api getting stuff all thumbs");
   // console.log(req.params);
