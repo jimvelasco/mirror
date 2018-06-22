@@ -171,4 +171,21 @@ li {
   width: 300px;
   /* height: 500px; */
 }
+
+.thumbdetail2 {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding: 20px;
+  background-color: #08178c;
+  width: 340px;
+  top: 10px;
+}
+
+.videoarea2 {
+  width: 300px;
+  height: 180px;
+}
 /* #060d65 */

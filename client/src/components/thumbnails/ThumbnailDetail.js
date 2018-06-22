@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import video from "../../img/TaylorSwiftGorgeous.mp4";
 
 class ThumbnailDetail extends Component {
   constructor(props) {
@@ -35,25 +36,42 @@ class ThumbnailDetail extends Component {
     let imgstr =
       "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" +
       selectedthumb.image;
-    return (
-      <div>
-        <div className="thumbdetail">
+    let showvid = false;
+    let vid = selectedthumb._id;
+    if (vid === "5b21afdd49d1000d09fa6d88") {
+      showvid = true;
+    }
+    if (showvid) {
+      return (
+        <div className="thumbdetail2">
           <a href="" onClick={this.onClose.bind(this)}>
             close
           </a>
-          <img
-            className="xrounded-circle "
-            src={imgstr}
-            alt=""
-            style={{
-              width: "200px",
-              height: "200px",
-              border: "3px solid white"
-            }}
-          />
+          <video className="videoarea2" src={video} controls autoPlay />
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div>
+          <div className="thumbdetail">
+            <a href="" onClick={this.onClose.bind(this)}>
+              close
+            </a>
+            <img
+              className="xrounded-circle "
+              src={imgstr}
+              alt=""
+              style={{
+                width: "200px",
+                height: "200px",
+                border: "3px solid white"
+              }}
+            />
+            {/* <div>{selectedthumb._id}</div> */}
+          </div>
+        </div>
+      );
+    }
   }
 }
 
