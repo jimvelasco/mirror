@@ -3,6 +3,6 @@ export const MirrorDictionary = {
   cool: "Sports",
   amazing: "Music",
   all: "Home",
-  happy: "Happy",
-  serious: "Serious"
+  happy: "TV",
+  serious: "Movies"
 };
