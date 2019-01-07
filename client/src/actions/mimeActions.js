@@ -9,8 +9,39 @@ import {
   CHANGE_MIME_STATUS,
   SET_STATUS_MESSAGE
 } from "./types";
-export const getMimes = () => dispatch => {
-  let link = "/api/mimes/getMimes";
+export const getMimes = obj => dispatch => {
+  //console.log("obj is", obj);
+  let parm = obj.param;
+  //let link = "/api/mimes/getMimes";
+  let link = "/api/mimes/mimes/" + parm;
+  // router.get("/mimes/:cat", (req, res) => {
+  axios
+    .get(link)
+    // .then(res => console.log(res.data))
+    .then(res => {
+      dispatch({
+        type: GET_MIMES,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+export const searchMimes = obj => dispatch => {
+  //console.log("obj is", obj);
+  let parm = obj.param;
+  // search/:term
+  //let link = "/api/mimes/getMimes";
+  let link = "/api/thumbnails/search/" + parm;
+  if (parm === "*") {
+    link = "/api/mimes/mimes/all";
+  }
+  // router.get("/mimes/:cat", (req, res) => {
   axios
     .get(link)
     // .then(res => console.log(res.data))

@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import TextFieldGroup from "../common/TextFieldGroup";
 import SelectCategoryGroup from "../common/SelectCategoryGroup";
 import SelectEmotionGroup from "../common/SelectEmotionGroup";
+import FilterMimes from "../common/FilterMimes";
 
 //import app_data from "../app_data";
 import list_helper from "../app_data";
@@ -21,6 +22,7 @@ import list_helper from "../app_data";
 
 import {
   getMimes,
+  searchMimes,
   createMime,
   deleteMime,
   setCurrentMime,
@@ -74,6 +76,8 @@ class MimeRecords extends Component {
     this.deleteMime = this.deleteMime.bind(this);
     this.showModifyMime = this.showModifyMime.bind(this);
     this.onRBChange = this.onRBChange.bind(this);
+    this.doFiltering = this.doFiltering.bind(this);
+
     // this.onFileInputChange = this.onFileInputChange.bind(this);
   }
 
@@ -82,8 +86,8 @@ class MimeRecords extends Component {
     // let bizid = this.props.selectedBizid;
     // console.log(list_helper.getCats());
     // console.log(list_helper.getEmotions("cool"));
-
-    this.props.getMimes();
+    // this.props.getMimes();
+    this.props.getMimes({ param: "all" });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -194,6 +198,16 @@ class MimeRecords extends Component {
     this.props.changeMimeStatus(mimeid, status);
   };
 
+  doFiltering(fobj) {
+    //console.log("filtering object", fobj);
+    if (fobj.type == "category") {
+      this.props.getMimes(fobj);
+    }
+    if (fobj.type == "wildcard") {
+      this.props.searchMimes(fobj);
+    }
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -259,39 +273,21 @@ class MimeRecords extends Component {
   // }
 
   render() {
-    // if (
-    //   this.props.advertise.isloading &&
-    //   this.props.advertise.page === "advertisements"
-    // ) {
-    //   return <Spinner />;
-    // }
-
-    // if (this.props.advertise.advertisements.length == 0) {
-    //   return (
-    //     <h2 style={{ textAlign: "center", marginTop: "20px" }}>
-    //       No advertisements exist for: {this.props.selectedName}
-    //     </h2>
-    //   );
-    // }
-
     const { errors } = this.state;
-    // const perrors = this.props.errors;
-    // const statusmsg = this.props.statusMsg.message;
 
-    // let advertisements = this.props.advertise.advertisements;
-    // let name = this.props.selectedName;
-    // const closeAdvertisements = this.props.closeAdvertisements;
-    // const new_or_update = this.state.new_or_update;
     const mimes = this.props.mimereducer.mimes;
     //console.log(mimes);
 
-    if (mimes.length == 0) {
-      return (
-        <h2 style={{ textAlign: "center", marginTop: "20px" }}>
-          No Mimes Exist
-        </h2>
-      );
-    }
+    // if (mimes.length == 0) {
+    //   return (
+    //     <div>
+    //       {/* <h2 style={{ textAlign: "center", marginTop: "20px" }}>
+    //         No Mimes Exist
+    //       </h2> */}
+    //       <FilterMimes passedFunction={this.doFiltering} />
+    //     </div>
+    //   );
+    // }
 
     const new_or_update = this.state.new_or_update;
 
@@ -302,8 +298,9 @@ class MimeRecords extends Component {
 
     return (
       <div>
-        <h5>Mimes</h5>
-        <div className="container xshadow-lg mimerecordswrapper">
+        <FilterMimes passedFunction={this.doFiltering} />
+        <h5 style={{ textAlign: "center" }}>Mimes</h5>
+        <div className="container mimerecordswrapper">
           <table className="table table-dark table-bordered table-striped table-sm">
             <thead className="thead-dark">
               <tr>
@@ -564,13 +561,6 @@ class MimeRecords extends Component {
               </div>
             </div>
           </div>
-          {/* <div className="row">
-            <div className="col-md-4 offset-md-4">
-              <div className="form-group">
-                <input type="submit" className="btn btn-info btn-block " />
-              </div>
-            </div>
-          </div> */}
         </form>
       </div>
     );
@@ -590,6 +580,7 @@ export default connect(
   mapStateToProps,
   {
     getMimes,
+    searchMimes,
     createMime,
     deleteMime,
     setCurrentMime,
