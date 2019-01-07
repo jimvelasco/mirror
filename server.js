@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -15,12 +16,14 @@ const users = require("./routes/api/users");
 // these are the routes that use mongoose to
 // interact with the database
 const thumbnails = require("./routes/api/thumbnails");
+const mimes = require("./routes/api/mimes");
 
 const app = express();
 
 // Body Parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(fileUpload());
 
 // DB config
 
@@ -49,6 +52,8 @@ app.use("/api/users", users);
 // app.use("/api/shuttles/trips", trips);
 
 app.use("/api/thumbnails", thumbnails);
+
+app.use("/api/mimes", mimes);
 //app.use("/api/mythumbs", thumbnails);
 // app.get("/api/thumbs", thumbnails);
 // app.get("/api/thumbs/entertainment", thumbnails);

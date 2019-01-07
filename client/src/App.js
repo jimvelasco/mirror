@@ -27,6 +27,9 @@ import VideoDemo from "./components/layout/VideoDemo";
 
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+
+import MimeRecords from "./components/layout/MimeRecords";
+import MimeJsonUpload from "./components/layout/MimeJsonUpload";
 import "./App.css";
 
 // Check for token
@@ -76,13 +79,29 @@ class App extends Component {
                       path="/mainresults/:which/:term"
                       component={MainResults}
                     />
+                    {/* <Route
+                      exact
+                      path="/searchresults/:term"
+                      component={MainResults}
+                    /> */}
                     <Route exact path="/magicmirror" component={MagicMirror} />
                     <Route exact path="/videodemo" component={VideoDemo} />
+                    {/* <Route exact path="/show_mimes" component={MimeRecords} /> */}
                     <Switch>
                       <PrivateRoute
                         exact
                         path="/dashboard"
                         component={Dashboard}
+                      />
+                      <PrivateRoute
+                        exact
+                        path="/show_mimes"
+                        component={MimeRecords}
+                      />
+                      <PrivateRoute
+                        exact
+                        path="/upload_json"
+                        component={MimeJsonUpload}
                       />
                     </Switch>
                   </div>

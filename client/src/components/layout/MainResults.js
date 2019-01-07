@@ -51,6 +51,7 @@ class MainResults extends Component {
     // if (nextProps.location.key !== this.props.location.key) {
     //   window.location.reload();
     // }
+    // console.log(this.state);
     let curwhich = this.props.match.params.which;
     let curterm = this.props.match.params.term;
     let nextwhich = nextProps.match.params.which;

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Thumbnail = require("../../models/Thumbnail");
+const Mime = require("../../models/Mime");
 //const validateSearchInput = require("../../validation/search");
 
 // @route   GET api/thumbnails/thumbs
@@ -8,10 +9,7 @@ const Thumbnail = require("../../models/Thumbnail");
 // @access  Public
 // these are triggered from the thumbnailActions
 
-router.get("/thumbs/:cat", (req, res) => {
-  // console.log("in api getting stuff thumbs");
-  //console.log("cat passed in " + req.params.cat);
-
+router.get("/xxthumbs/:cat", (req, res) => {
   let rary = null;
   if (req.params.cat === "all") {
     Thumbnail.find()
@@ -24,8 +22,22 @@ router.get("/thumbs/:cat", (req, res) => {
   }
 });
 
+router.get("/thumbs/:cat", (req, res) => {
+  //console.log("in api getting category stuff mime table");
+  let rary = null;
+  if (req.params.cat === "all") {
+    Mime.find()
+      .then(thumbs => res.json(thumbs))
+      .catch(err => res.status(404).json({ noresults: "No Categories found" }));
+  } else {
+    Mime.find({ category: req.params.cat })
+      .then(thumbs => res.json(thumbs))
+      .catch(err => res.status(404).json({ noresults: "No Categories found" }));
+  }
+});
+
 router.get("/search/:term", (req, res) => {
-  // console.log("in api getting stuff thumbs");
+  //console.log("in api getting search stuff mime table");
   //console.log("term passed in " + req.params.term);
   // let asterm = req.params.term;
   // const { errors, isValid } = validateSearchInput(asterm);
@@ -38,7 +50,7 @@ router.get("/search/:term", (req, res) => {
   let sterm = { $regex: ".*" + req.params.term + ".*" }; //"/" + req.params.term + "/";
   //console.log("sterm passed in " + sterm);
 
-  Thumbnail.find({ name: sterm })
+  Mime.find({ name: sterm })
     .then(thumbs => res.json(thumbs))
     .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
 });

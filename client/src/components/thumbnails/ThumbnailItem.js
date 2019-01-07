@@ -57,21 +57,8 @@ class ThumbnailItem extends Component {
     const { id } = this.props;
     const { onethumbnail } = this.props;
     const { clickedthumbid } = this.props;
-    //console.log("cti " + clickedthumbid);
-    // console.log("in item render props are");
-    // console.log(this.props);
-    // console.log("this is the state thumbid");
-    // console.log(this.state.thumbid);
-    // let thumbid = this.state.;
-    // console.log("thumbid in state " + thumbid);
-    //console.log(id);
-    //let thumbid = this.state.thumbid;
-
-    // let divimg = renderImage(thumbnail);
-    // let tid = this.state.clickedthumbid;
-    // let onethumbnail = this.state.onethumbnail;
-    // console.log("item render one thumb");
     // console.log(onethumbnail);
+
     let imgstr =
       "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + thumb.image;
     return (
@@ -103,7 +90,6 @@ class ThumbnailItem extends Component {
           {clickedthumbid === thumb._id ? (
             <ThumbnailDetail onethumbnail={onethumbnail} />
           ) : (
-            // <ThumbnailDetail clickedthumbid={tid} />
             <div />
           )}
         </div>
@@ -131,7 +117,7 @@ ThumbnailItem.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    thumbnails: state.thumbnailreducer.thumbnails,
+    // thumbnails: state.thumbnailreducer.thumbnails,
     onethumbnail: state.thumbnailreducer.onethumbnail,
     clickedthumbid: state.thumbnailreducer.clickedthumbid,
     draw: "what"

@@ -9,6 +9,8 @@ import axios from "axios";
 import { GET_SEARCH_THUMBNAILS } from "./types";
 import { GET_INDIVIDUAL_THUMBNAIL } from "./types";
 
+import { GET_STATE_SEARCH_THUMBNAILS } from "./types";
+
 import { GET_ERRORS } from "./types";
 
 export const performThumbnailSearch = (which, term) => dispatch => {
@@ -29,50 +31,74 @@ export const performThumbnailSearch = (which, term) => dispatch => {
     url = `/api/thumbnails/single/${term}`;
   }
 
-  axios
-    .get(url)
-    .then(res =>
-      dispatch({
-        type: GET_SEARCH_THUMBNAILS,
-        // payload: {data:res.data,category:category},
-        payload: res, //{ data: res },
-        which: which,
-        searchterm: term
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+  if (which === "Xcategory" && term === "Xwow") {
+    dispatch({
+      type: GET_STATE_SEARCH_THUMBNAILS,
+      // payload: {data:res.data,category:category},
+
+      searchterm: term
+    });
+  } else {
+    axios
+      .get(url)
+      .then(res =>
+        dispatch({
+          type: GET_SEARCH_THUMBNAILS,
+          // payload: {data:res.data,category:category},
+          payload: res, //{ data: res },
+          which: which,
+          searchterm: term
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
 };
 
-export const performIndividualSearch = clickedthumbid => dispatch => {
+export const performStateThumbnailSearch = term => dispatch => {
   //const url = ROOT_URL + term; //&q=${city},us`;
   //let rdata = {};
-  //
+  //console.log("we are in action getting data " + term);
 
-  let url = "";
+  dispatch({
+    type: GET_STATE_SEARCH_THUMBNAILS,
+    // payload: {data:res.data,category:category},
 
-  url = `/api/thumbnails/single/${clickedthumbid}`;
+    searchterm: term
+  });
+};
 
-  axios
-    .get(url)
-    .then(res =>
-      dispatch({
-        type: GET_INDIVIDUAL_THUMBNAIL,
-        // payload: {data:res.data,category:category},
-        payload: res, //{ data: res },
-        clickedthumbid: clickedthumbid
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      })
-    );
+// export const performIndividualSearch = clickedthumbid => dispatch => {
+//   let url = "";
+//   url = `/api/thumbnails/single/${clickedthumbid}`;
+
+//   axios
+//     .get(url)
+//     .then(res =>
+//       dispatch({
+//         type: GET_INDIVIDUAL_THUMBNAIL,
+//         // payload: {data:res.data,category:category},
+//         payload: res, //{ data: res },
+//         clickedthumbid: clickedthumbid
+//       })
+//     )
+//     .catch(err =>
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: err.response.data
+//       })
+//     );
+// };
+
+export const performIndividualSearch = clickedthumbid => dispatch => {
+  dispatch({
+    type: GET_INDIVIDUAL_THUMBNAIL,
+    clickedthumbid: clickedthumbid
+  });
 };
 
 //import { GET_SEARCH_THUMBNAILS2 } from "./types";

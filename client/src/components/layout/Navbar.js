@@ -167,6 +167,11 @@ class Navbar extends Component {
                     TV
                   </Link>
                 </li>
+                {/* <li className="nav-item">
+                  <Link className="nav-link" to="/searchresults/wow">
+                    State
+                  </Link>
+                </li> */}
                 {/* <a
                   href=""
                   name="all"

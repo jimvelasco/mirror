@@ -77,7 +77,7 @@ class SearchBar extends Component {
           <div className="form-group">
             <TextFieldGroup
               type="text"
-              placeholder="Enter Search Term"
+              placeholder="Search Term"
               name="search"
               value={this.state.searchterm}
               onChange={this.onChange}

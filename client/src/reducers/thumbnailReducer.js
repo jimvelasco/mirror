@@ -7,6 +7,7 @@ import {
   GET_EMOTION_THUMBNAILS,
   GET_SEARCH_THUMBNAILS,
   GET_INDIVIDUAL_THUMBNAIL,
+  GET_STATE_SEARCH_THUMBNAILS,
 
   // GET_POST,
   // DELETE_POST,
@@ -44,6 +45,13 @@ export default function(state = initialState, action) {
         searchterm: action.searchterm, //state.category, //action.payload.category,
         loading: false
       };
+    case GET_STATE_SEARCH_THUMBNAILS:
+      return {
+        ...state,
+        //thumbnails: action.payload.data,
+        searchterm: action.searchterm, //state.category, //action.payload.category,
+        loading: false
+      };
     case GET_EMOTION_THUMBNAILS:
       return {
         ...state,
@@ -61,12 +69,25 @@ export default function(state = initialState, action) {
         loading: false
       };
     case GET_INDIVIDUAL_THUMBNAIL:
+      let thethumb = {};
+      let tary = [];
+      thethumb = state.thumbnails.find(k => k._id === action.clickedthumbid);
+      tary.push(thethumb);
       return {
         ...state,
-        onethumbnail: action.payload.data,
+        onethumbnail: tary,
         clickedthumbid: action.clickedthumbid,
         loading: false
       };
+
+    // case GET_INDIVIDUAL_THUMBNAIL:
+    //   return {
+    //     ...state,
+    //     onethumbnail: action.payload.data,
+    //     clickedthumbid: action.clickedthumbid,
+    //     loading: false
+    //   };
+
     // case GET_ALL_THUMBNAILS:
     //   // console.log("we have a all thumbnails payload");
     //   // console.log(action.payload);

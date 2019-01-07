@@ -44,6 +44,11 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  onCancelClick(e) {
+    e.preventDefault();
+    window.location = "/";
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -83,13 +88,12 @@ class Register extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your DevConnector account
-              </p>
+              <p className="lead text-center">Create your Mime account</p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <TextFieldGroup
                     type="text"
+                    label="Name"
                     placeholder="Name"
                     name="name"
                     value={this.state.name}
@@ -100,6 +104,7 @@ class Register extends Component {
                 <div className="form-group">
                   <TextFieldGroup
                     type="email"
+                    label="Email"
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
@@ -110,6 +115,7 @@ class Register extends Component {
                 <div className="form-group">
                   <TextFieldGroup
                     type="password"
+                    label="Password"
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
@@ -120,6 +126,7 @@ class Register extends Component {
                 <div className="form-group">
                   <TextFieldGroup
                     type="password"
+                    label="Confirm"
                     placeholder="Confirm Password"
                     name="password2"
                     value={this.state.password2}
@@ -128,6 +135,13 @@ class Register extends Component {
                   />
                 </div>
                 <input type="submit" className="btn btn-info btn-block mt-4" />
+                <a
+                  href=""
+                  className="btn btn-info btn-block mt-4"
+                  onClick={this.onCancelClick.bind(this)}
+                >
+                  Cancel
+                </a>
               </form>
             </div>
           </div>

@@ -8,8 +8,8 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
-      password: "",
+      email: "jim@lodgingdeals.com",
+      password: "123456",
       errors: {}
     };
 
@@ -58,7 +58,7 @@ class Login extends Component {
     const { errors } = this.state;
     return (
       <div className="register">
-        <div className="container">
+        <div className="container xshadow-lg">
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign In</h1>
@@ -67,6 +67,7 @@ class Login extends Component {
                 <div className="form-group">
                   <TextFieldGroup
                     type="email"
+                    label="Email"
                     placeholder="Email Address"
                     name="email"
                     value={this.state.email}
@@ -77,6 +78,7 @@ class Login extends Component {
                 <div className="form-group">
                   <TextFieldGroup
                     type="password"
+                    label="Password"
                     placeholder="Password"
                     name="password"
                     value={this.state.password}
@@ -86,7 +88,11 @@ class Login extends Component {
                 </div>
 
                 <input type="submit" className="btn btn-info btn-block mt-4" />
-                <a href="" onClick={this.onCancelClick.bind(this)}>
+                <a
+                  href=""
+                  className="btn btn-info btn-block mt-4"
+                  onClick={this.onCancelClick.bind(this)}
+                >
                   Cancel
                 </a>
               </form>
