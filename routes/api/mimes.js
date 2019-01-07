@@ -18,6 +18,22 @@ router.get("/mimes/:cat", (req, res) => {
   }
 });
 
+router.get("/search/:term", (req, res) => {
+  let rary = null;
+  let sterm = { $regex: ".*" + req.params.term + ".*" }; //"/" + req.params.term + "/";
+  //console.log("sterm passed in " + sterm);
+
+  Mime.find({ name: sterm })
+    .then(thumbs => res.json(thumbs))
+    .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+});
+
+router.get("/status/:status", (req, res) => {
+  Mime.find({ status: req.params.status })
+    .then(thumbs => res.json(thumbs))
+    .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+});
+
 router.get("/getMimes", (req, res) => {
   // console.log("in api getting stuff thumbs");
   //console.log("cat passed in " + req.params.cat);

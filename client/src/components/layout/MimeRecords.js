@@ -23,6 +23,7 @@ import list_helper from "../app_data";
 import {
   getMimes,
   searchMimes,
+  statusMimes,
   createMime,
   deleteMime,
   setCurrentMime,
@@ -205,6 +206,9 @@ class MimeRecords extends Component {
     }
     if (fobj.type == "wildcard") {
       this.props.searchMimes(fobj);
+    }
+    if (fobj.type == "status") {
+      this.props.statusMimes(fobj);
     }
   }
 
@@ -581,6 +585,7 @@ export default connect(
   {
     getMimes,
     searchMimes,
+    statusMimes,
     createMime,
     deleteMime,
     setCurrentMime,

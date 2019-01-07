@@ -15,12 +15,14 @@ class FilterMimes extends Component {
     this.state = {
       searchterm: "",
       selectValue: "",
+      selectStatusValue: "*",
       thumbnails: [],
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
+    this.onSelectStatusChange = this.onSelectStatusChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -31,6 +33,12 @@ class FilterMimes extends Component {
     let cterm = e.target.value;
     this.setState({ selectValue: cterm });
     let fobj = { type: "category", param: cterm };
+    this.props.passedFunction(fobj);
+  }
+  onSelectStatusChange(e) {
+    let cterm = e.target.value;
+    this.setState({ selectStatusValue: cterm });
+    let fobj = { type: "status", param: cterm };
     this.props.passedFunction(fobj);
   }
   onSubmit(e) {
@@ -69,7 +77,7 @@ class FilterMimes extends Component {
       >
         <form noValidate onSubmit={this.onSubmit}>
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div className="form-group">
                 <div>Wildcard Name Search (* for all)</div>
                 <input
@@ -84,7 +92,7 @@ class FilterMimes extends Component {
                 {/* <i id="filtersubmit" className="fa fa-search fa-1x " /> */}
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="col-md-4">
               <div>Category</div>
               <select
                 name="category"
@@ -96,6 +104,19 @@ class FilterMimes extends Component {
                 <option value="wow">Wow</option>
                 <option value="cool">Cool</option>
                 <option value="amazing">Amazing</option>
+              </select>
+            </div>
+            <div className="col-md-4">
+              <div>Status</div>
+              <select
+                name="status"
+                value={this.state.selectStatusValue}
+                onChange={this.onSelectStatusChange}
+              >
+                {/* <option value="">Select</option> */}
+                <option value="*">Any</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
               </select>
             </div>
           </div>
