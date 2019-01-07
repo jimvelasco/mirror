@@ -204,9 +204,9 @@ li {
 }
 
 .mimerecordswrapper {
-  height: 400px;
+  max-height: 400px;
   overflow-y: auto;
-  border: 2px solid white;
+  border: 0px solid white;
   margin-bottom: 10px;
 }
 /* #060d65 */
