@@ -115,7 +115,7 @@ class MainResults extends Component {
           <div style={{ clear: "left" }} />
           <div className="row">
             <div className="col-md-12 ximage-container">
-              <div style={{ float: "left" }}>
+              {/* <div style={{ float: "left" }}>
                 <Link className="nav-link" to="/magicmirror">
                   <img
                     src={mirror}
@@ -123,7 +123,7 @@ class MainResults extends Component {
                     alt=""
                   />
                 </Link>
-              </div>
+              </div> */}
               {thumbContent}
             </div>
           </div>

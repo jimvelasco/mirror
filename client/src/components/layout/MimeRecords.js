@@ -5,6 +5,9 @@ import Spinner from "../common/Spinner";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import TextFieldGroup from "../common/TextFieldGroup";
+import TextFieldGroupLink from "../common/TextFieldGroupLink";
+import ImageDisplay from "../common/ImageDisplay";
+import MimeDisplay from "../common/MimeDisplay";
 import SelectCategoryGroup from "../common/SelectCategoryGroup";
 import SelectEmotionGroup from "../common/SelectEmotionGroup";
 import FilterMimes from "../common/FilterMimes";
@@ -55,8 +58,9 @@ class MimeRecords extends Component {
     //console.log(app_data.cat_list);
 
     this.state = {
-      name: "",
-      description: "",
+      mimeid: "",
+      rating: "",
+      keywords: "",
       label: "",
       artist: "",
       song: "",
@@ -64,15 +68,24 @@ class MimeRecords extends Component {
       category: "",
       emotion: "",
       image: "",
+      mime: "",
+      video: "",
+      start: "",
+      end: "",
+      duration: "",
       releaseDate: today, //"2019-01-02",
       status: 0,
       errors: {},
+      selectedImage: "",
+      selectedMime: "",
       new_or_update: "NEW",
       cat_list: list_helper.getCats(), //["wow", "cool", "amazing"],
       emot_list: list_helper.getEmotions("wow") //["happy", "serious", "angry"]
     }; //shuttles: ["one", "two", "three"] };
 
     this.onChange = this.onChange.bind(this);
+    this.onMimeClick = this.onMimeClick.bind(this);
+    this.onImageClick = this.onImageClick.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.deleteMime = this.deleteMime.bind(this);
     this.showModifyMime = this.showModifyMime.bind(this);
@@ -106,8 +119,9 @@ class MimeRecords extends Component {
     if (curmime._id) {
       //console.log("we do have a npmime id", curmime);
       this.setState({
-        name: curmime.name,
-        description: curmime.description,
+        mimeid: curmime._id,
+        rating: curmime.rating,
+        keywords: curmime.keywords,
         label: curmime.label,
         artist: curmime.artist,
         song: curmime.song,
@@ -115,35 +129,20 @@ class MimeRecords extends Component {
         category: curmime.category,
         emotion: curmime.emotion,
         image: curmime.image,
+        mime: curmime.mime,
+        video: curmime.video,
+        start: curmime.start,
+        end: curmime.end,
+        duration: curmime.duration,
         releaseData: curmime.releaseData,
         status: curmime.status,
+        selectedImage: "",
+        selectedMime: "",
         emot_list: list_helper.getEmotions(curmime.category)
       });
     } else {
       //console.log("we do NOT have a npmime id");
     }
-    // if (nextProps.errors) {
-    //   this.setState({ errors: nextProps.errors });
-    // }
-    // if (this.props.selectedBizid !== nextProps.selectedBizid) {
-    //   let bizid = nextProps.selectedBizid;
-    //   this.props.getAdvertisements(bizid);
-    // } else if (
-    //   this.props.advertise.advertisement._id !==
-    //     nextProps.advertise.advertisement._id ||
-    //   this.props.advertise.advertisement.image._id !==
-    //     nextProps.advertise.advertisement.image._id
-    // ) {
-    //   let curad = nextProps.advertise.advertisement;
-    //   this.setState({
-    //     name: curad.name,
-    //     discount: curad.discount,
-    //     description: curad.description,
-    //     startdate: curad.startdate,
-    //     enddate: curad.enddate
-    //   });
-    // } else {
-    // }
   }
 
   componentDidUpdate() {}
@@ -164,6 +163,21 @@ class MimeRecords extends Component {
     }
 
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onMimeClick(e, what) {
+    e.preventDefault();
+    // console.log("on click hit", this.state.mimeid);
+    // console.log("on click hit", this.state.mime);
+    // console.log("on click hit", what);
+    this.setState({ selectedMime: this.state.mime });
+  }
+
+  onImageClick(e) {
+    e.preventDefault();
+    // console.log("on click hit", this.state.mimeid);
+    // console.log("on click hit", this.state.mime);
+    this.setState({ selectedImage: this.state.image });
   }
 
   onFileInputChange(e) {
@@ -222,8 +236,8 @@ class MimeRecords extends Component {
 
     let formdata = new FormData();
     formdata.append("mimeid", curMimeId);
-    formdata.append("name", this.state.name);
-    formdata.append("description", this.state.description);
+    formdata.append("rating", this.state.rating);
+    formdata.append("keywords", this.state.keywords);
     formdata.append("label", this.state.label);
     formdata.append("artist", this.state.artist);
     formdata.append("song", this.state.song);
@@ -231,6 +245,11 @@ class MimeRecords extends Component {
     formdata.append("category", this.state.category);
     formdata.append("emotion", this.state.emotion);
     formdata.append("image", this.state.image);
+    formdata.append("mime", this.state.mime);
+    formdata.append("video", this.state.video);
+    formdata.append("start", this.state.start);
+    formdata.append("end", this.state.end);
+    formdata.append("duration", this.state.duration);
     formdata.append("releaseDate", this.state.releaseDate);
     formdata.append("status", 0);
     // for (var pair of formdata.entries()) {
@@ -298,23 +317,31 @@ class MimeRecords extends Component {
     let imgstr =
       "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" +
       this.state.image;
-    let imgname = this.state.name;
+    let imgname = this.state.image;
+    let selid = this.state.mimeid;
+    let selectedImage = this.state.selectedImage;
+    let selectedMime = this.state.selectedMime;
 
     return (
       <div>
         <FilterMimes passedFunction={this.doFiltering} />
         <h5 style={{ textAlign: "center" }}>Mimes</h5>
-        <div className="container mimerecordswrapper">
+        <div className="xcontainer mimerecordswrapper">
           <table className="table table-dark table-bordered table-striped table-sm">
             <thead className="thead-dark">
               <tr>
-                <th>Name</th>
-                <th>Description</th>
+                <th>Rating</th>
+                <th>Keywords</th>
                 <th>Label</th>
                 <th>Artist</th>
                 <th>Song</th>
                 <th>Lyrics</th>
                 <th>Image</th>
+                <th>Mime</th>
+                <th>Video</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Dur</th>
                 <th>Category</th>
                 <th>Emotion</th>
                 <th>Status</th>
@@ -325,13 +352,18 @@ class MimeRecords extends Component {
             <tbody>
               {mimes.map((mime, index) => (
                 <tr key={mime._id}>
-                  <td>{mime.name}</td>
-                  <td>{mime.description}</td>
+                  <td>{mime.rating}</td>
+                  <td>{mime.keywords}</td>
                   <td>{mime.label}</td>
                   <td>{mime.artist}</td>
                   <td>{mime.song}</td>
                   <td>{mime.lyrics}</td>
                   <td>{mime.image}</td>
+                  <td>{mime.mime}</td>
+                  <td>{mime.video}</td>
+                  <td>{mime.start}</td>
+                  <td>{mime.end}</td>
+                  <td>{mime.duration}</td>
                   <td>{mime.category}</td>
                   <td>{mime.emotion}</td>
                   <td>
@@ -378,33 +410,21 @@ class MimeRecords extends Component {
           style={{ backgroundColor: "#333", padding: "10px" }}
         >
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-3">
               <div className="form-group">
                 <TextFieldGroup
                   type="text"
-                  label="Name"
-                  placeholder="Name"
-                  name="name"
-                  value={this.state.name}
+                  label="Rating"
+                  placeholder="Rating"
+                  name="rating"
+                  value={this.state.rating}
                   onChange={this.onChange}
-                  error={errors.name}
+                  error={errors.rating}
                 />
               </div>
             </div>
-            <div className="col-md-4">
-              <div className="form-group">
-                <TextFieldGroup
-                  type="text"
-                  label="Description"
-                  placeholder="Description"
-                  name="description"
-                  value={this.state.description}
-                  onChange={this.onChange}
-                  error={errors.description}
-                />
-              </div>
-            </div>
-            <div className="col-md-4">
+
+            <div className="col-md-3">
               <div className="form-group">
                 <TextFieldGroup
                   type="text"
@@ -417,7 +437,21 @@ class MimeRecords extends Component {
                 />
               </div>
             </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <TextFieldGroup
+                  type="text"
+                  label="Keywords"
+                  placeholder="Keywords"
+                  name="keywords"
+                  value={this.state.keywords}
+                  onChange={this.onChange}
+                  error={errors.keywords}
+                />
+              </div>
+            </div>
           </div>
+
           <div className="row">
             <div className="col-md-3">
               <div className="form-group">
@@ -502,21 +536,65 @@ class MimeRecords extends Component {
           </div>
 
           <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-3">
               <div className="form-group">
                 <TextFieldGroup
+                  type="text"
+                  label="Start"
+                  placeholder="Start"
+                  name="start"
+                  value={this.state.start}
+                  onChange={this.onChange}
+                  error={errors.start}
+                />
+              </div>
+            </div>
+            <div className="col-md-3">
+              <div className="form-group">
+                <TextFieldGroup
+                  type="text"
+                  label="End"
+                  placeholder="End"
+                  name="end"
+                  value={this.state.end}
+                  onChange={this.onChange}
+                  error={errors.end}
+                />
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <TextFieldGroup
+                  type="text"
+                  label="Duration"
+                  placeholder="Duration"
+                  name="duration"
+                  value={this.state.duration}
+                  onChange={this.onChange}
+                  error={errors.duration}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-3">
+              <div className="form-group">
+                <TextFieldGroupLink
                   type="text"
                   label="Image"
                   placeholder="image"
                   name="image"
                   value={this.state.image}
                   onChange={this.onChange}
+                  onClick={e => {
+                    this.onImageClick(e);
+                  }}
                   error={errors.image}
                 />
               </div>
-            </div>
-            <div className="col-md-4">
-              <div className="image-float">
+
+              {/* <div className="image-float">
                 <img
                   className="rounded-circle xd-none xd-md-block"
                   src={imgstr}
@@ -526,8 +604,6 @@ class MimeRecords extends Component {
                     height: "200px",
                     border: "3px solid white"
                   }}
-                  // onClick={this.onThumbClick.bind(this, id)}
-                  // onClick={this.onThumbClick(id)}
                 />
                 <div
                   style={{
@@ -540,10 +616,42 @@ class MimeRecords extends Component {
                 >
                   {imgname}
                 </div>
+              </div> */}
+            </div>
+            <div className="col-md-3">
+              <div className="form-group">
+                <TextFieldGroupLink
+                  type="text"
+                  label="Mime"
+                  placeholder="Mime"
+                  name="mime"
+                  value={this.state.mime}
+                  onChange={this.onChange}
+                  onClick={e => {
+                    this.onMimeClick(e, "which");
+                  }}
+                  error={errors.mime}
+                />
               </div>
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-6">
+              <div className="form-group">
+                <TextFieldGroup
+                  type="text"
+                  label="Video"
+                  placeholder="Video"
+                  name="video"
+                  value={this.state.video}
+                  onChange={this.onChange}
+                  error={errors.video}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">&nbsp;</div>
+            <div className="col-md-2">
               <input
                 type="radio"
                 value="NEW"
@@ -560,11 +668,24 @@ class MimeRecords extends Component {
                 onChange={this.onRBChange}
               />
               &nbsp;Update
-              <div style={{ marginTop: "10px" }}>
+            </div>
+            <div className="col-md-2">
+              <div>
                 <input type="submit" className="btn btn-info btn-block " />
               </div>
             </div>
           </div>
+
+          {selectedImage ? (
+            <ImageDisplay img={imgname} title={imgname} />
+          ) : (
+            <div />
+          )}
+          {selectedMime ? (
+            <MimeDisplay img={imgname} title={imgname} />
+          ) : (
+            <div />
+          )}
         </form>
       </div>
     );

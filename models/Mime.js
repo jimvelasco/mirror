@@ -4,14 +4,6 @@ const Schema = mongoose.Schema;
 // Create Schema
 
 const MimeSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
   label: {
     type: String
   },
@@ -24,6 +16,14 @@ const MimeSchema = new Schema({
   lyrics: {
     type: String
   },
+  rating: {
+    type: String,
+    required: true
+  },
+  keywords: {
+    type: String,
+    required: true
+  },
   category: {
     type: String,
     required: true
@@ -35,6 +35,23 @@ const MimeSchema = new Schema({
   image: {
     type: String,
     required: true
+  },
+  mime: {
+    type: String,
+    required: true
+  },
+  video: {
+    type: String,
+    required: true
+  },
+  start: {
+    type: String
+  },
+  end: {
+    type: String
+  },
+  duration: {
+    type: Number
   },
 
   releaseDate: {

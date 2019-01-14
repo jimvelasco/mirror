@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 
-const TextFieldGroup = ({
+const TextFieldGroupLink = ({
   name,
   placeholder,
   value,
@@ -11,12 +11,17 @@ const TextFieldGroup = ({
   info,
   type,
   onChange,
+  onClick,
   disabled
 }) => {
   return (
     <div className="form-group">
       <div className="row">
-        <div className="col-md-3">{label}</div>
+        <div className="col-md-3">
+          <a href="#" onClick={onClick}>
+            {label}
+          </a>
+        </div>
         <div className="col-md-9">
           <input
             type={type}
@@ -39,10 +44,10 @@ const TextFieldGroup = ({
 
 // is-invalid depends if error.name exists.  see validation code
 
-TextFieldGroup.propTypes = {
+TextFieldGroupLink.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  // value: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   info: PropTypes.string,
   error: PropTypes.string,
   type: PropTypes.string.isRequired,
@@ -50,8 +55,8 @@ TextFieldGroup.propTypes = {
   disabled: PropTypes.string
 };
 
-TextFieldGroup.defaultProps = {
+TextFieldGroupLink.defaultProps = {
   type: "text"
 };
 
-export default TextFieldGroup;
+export default TextFieldGroupLink;

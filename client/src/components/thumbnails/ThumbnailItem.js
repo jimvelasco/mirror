@@ -65,13 +65,13 @@ class ThumbnailItem extends Component {
       <div>
         <div className="image-float">
           <img
-            className="rounded-circle xd-none xd-md-block"
+            className="xrounded-circle xd-none xd-md-block"
             src={imgstr}
             alt=""
             style={{
               width: "200px",
               height: "200px",
-              border: "3px solid white"
+              border: "1px solid white"
             }}
             // onClick={this.onThumbClick.bind(this, id)}
             onClick={this.onThumbClick(id)}

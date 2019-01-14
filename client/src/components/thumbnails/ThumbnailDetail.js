@@ -38,7 +38,7 @@ class ThumbnailDetail extends Component {
       selectedthumb.image;
     let showvid = false;
     let vid = selectedthumb._id;
-    if (vid === "5b21afdd49d1000d09fa6d88") {
+    if (vid === "5c2fa82f6c318013f5463150") {
       showvid = true;
     }
     if (showvid) {

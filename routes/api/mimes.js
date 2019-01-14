@@ -23,7 +23,7 @@ router.get("/search/:term", (req, res) => {
   let sterm = { $regex: ".*" + req.params.term + ".*" }; //"/" + req.params.term + "/";
   //console.log("sterm passed in " + sterm);
 
-  Mime.find({ name: sterm })
+  Mime.find({ keywords: sterm })
     .then(thumbs => res.json(thumbs))
     .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
 });
@@ -109,8 +109,8 @@ router.post("/createMime", (req, res) => {
   //console.log("request body", req.body);
 
   const newMime = new Mime({
-    name: req.body.name,
-    description: req.body.description,
+    rating: req.body.rating,
+    keywords: req.body.keywords,
     label: req.body.label,
     artist: req.body.artist,
     song: req.body.song,
@@ -118,6 +118,11 @@ router.post("/createMime", (req, res) => {
     category: req.body.category,
     emotion: req.body.emotion,
     image: req.body.image,
+    video: req.body.video,
+    start: req.body.start,
+    end: req.body.end,
+    duration: req.body.duration,
+    mime: req.body.mime,
     releaseDate: req.body.releaseDate,
     status: 0
   });
@@ -140,8 +145,8 @@ router.post("/modifyMime", (req, res) => {
   var options = { new: true };
 
   const updateobj = {
-    name: req.body.name,
-    description: req.body.description,
+    rating: req.body.rating,
+    keywords: req.body.keywords,
     label: req.body.label,
     artist: req.body.artist,
     song: req.body.song,
@@ -149,8 +154,13 @@ router.post("/modifyMime", (req, res) => {
     category: req.body.category,
     emotion: req.body.emotion,
     image: req.body.image,
-    releaseDate: req.body.releaseDate,
-    status: 0
+    video: req.body.video,
+    start: req.body.start,
+    end: req.body.end,
+    duration: req.body.duration,
+    mime: req.body.mime,
+    releaseDate: req.body.releaseDate
+    // status: 0
   };
 
   //console.log("new newMime in api", newMime);
@@ -206,17 +216,17 @@ router.post("/uploadjson", (req, res) => {
   // console.log("jsonfile data");
   // console.log(jsonFile.data.toString());
 
-  let jstr =
-    '[{"name":"uploaded one","description":"description","label":"label","artist":"artist","song":"song","lyrics":"lyrics","category":"cool","emotion":"serious","image":"IMG_1644.JPG","releaseDate":"2019-01-30","status":0},{"name":"upload 2","description":"description1","label":"label1","artist":"artist1","song":"song1","lyrics":"lyrics1","category":"wow","emotion":"happy","image":"IMG_1602.JPG","releaseDate":"2019-01-30","status":0}]';
+  // let jstr =
+  //   '[{"rating":"uploaded one","keywords":"keywords","label":"label","artist":"artist","song":"song","lyrics":"lyrics","category":"cool","emotion":"serious","image":"IMG_1644.JPG","releaseDate":"2019-01-30","status":0},{"rating":"upload 2","keywords":"keywords1","label":"label1","artist":"artist1","song":"song1","lyrics":"lyrics1","category":"wow","emotion":"happy","image":"IMG_1602.JPG","releaseDate":"2019-01-30","status":0}]';
 
-  jstr = jsonFile.data.toString();
+  let jstr = jsonFile.data.toString();
   let jobja = JSON.parse(jstr);
 
   //let jobj = jobja[0];
 
   // const anewMime = new Mime({
-  //   name: jobj.name,
-  //   description: jobj.description,
+  //   rating: jobj.rating,
+  //   keywords: jobj.keywords,
   //   label: jobj.label,
   //   artist: jobj.artist,
   //   song: jobj.song,

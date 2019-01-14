@@ -50,7 +50,7 @@ router.get("/search/:term", (req, res) => {
   let sterm = { $regex: ".*" + req.params.term + ".*" }; //"/" + req.params.term + "/";
   //console.log("sterm passed in " + sterm);
 
-  Mime.find({ name: sterm })
+  Mime.find({ keywords: sterm })
     .then(thumbs => res.json(thumbs))
     .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
 });

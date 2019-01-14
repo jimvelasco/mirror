@@ -65,20 +65,17 @@ class App extends Component {
               <div className="dark-overlay landing-inner text-light">
                 <div className="App">
                   <Navbar />
-                  {/* <MainLinks /> */}
 
-                  {/* <Route exact path="/" component={Home} /> */}
-                  {/* <Home draw="false" /> */}
-                  <div className="container">
+                  <div className="xcontainer" style={{ margin: "20px" }}>
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
-                    {/* <SearchBarResults /> */}
-                    <Route exact path="/" component={MainResults} />
-                    <Route
+
+                    {/* <Route exact path="/" component={MainResults} /> */}
+                    {/* <Route
                       exact
                       path="/mainresults/:which/:term"
                       component={MainResults}
-                    />
+                    /> */}
                     {/* <Route
                       exact
                       path="/searchresults/:term"
@@ -88,6 +85,12 @@ class App extends Component {
                     <Route exact path="/videodemo" component={VideoDemo} />
                     {/* <Route exact path="/show_mimes" component={MimeRecords} /> */}
                     <Switch>
+                      <PrivateRoute
+                        exact
+                        path="/mainresults/:which/:term"
+                        component={MainResults}
+                      />
+                      <PrivateRoute exact path="/" component={MainResults} />
                       <PrivateRoute
                         exact
                         path="/dashboard"

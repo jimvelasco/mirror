@@ -28,7 +28,6 @@ export default function(state = initialState, action) {
 
     case CREATE_MIME:
       let curmimes = state.mimes;
-      let stateimages = state.images;
       curmimes.push(action.payload);
       return {
         ...state,
