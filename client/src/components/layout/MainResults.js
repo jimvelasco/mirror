@@ -11,9 +11,12 @@ import ThumbnailFeed from "../thumbnails/ThumbnailFeed";
 //import Home from "./Home";
 import { MirrorDictionary } from "../../utils/mirrordictionary";
 
+import FilterMimesBar from "../common/FilterMimesBar";
+
 //import { performThumbCategorySearch } from "../../actions/thumbnailActions";
 //import { performThumbEmotionSearch } from "../../actions/thumbnailActions";
 import { performThumbnailSearch } from "../../actions/thumbnailActions";
+import { getMimes } from "../../actions/mimeActions";
 
 import mirror from "../../img/round-sphere-animated.gif";
 
@@ -45,7 +48,8 @@ class MainResults extends Component {
       which = "category";
       term = "all";
     }
-    this.props.performThumbnailSearch(which, term);
+    // this.props.performThumbnailSearch(which, term);
+    //this.props.getMimes({ param: "all" });
   }
   componentWillReceiveProps = nextProps => {
     // if (nextProps.location.key !== this.props.location.key) {
@@ -57,7 +61,7 @@ class MainResults extends Component {
     let nextwhich = nextProps.match.params.which;
     let nextterm = nextProps.match.params.term;
     if (curwhich !== nextwhich || curterm !== nextterm) {
-      this.props.performThumbnailSearch(nextwhich, nextterm);
+      //  this.props.performThumbnailSearch(nextwhich, nextterm);
     }
   };
 
@@ -74,27 +78,41 @@ class MainResults extends Component {
   render() {
     // console.log("searchbarresults props");
     // console.log(this.props);
-    if (this.props.thumbnails.length === 0) {
-      return (
-        <div>
-          {/* <Home draw="true" /> */}
-          Loading...
-        </div>
-      );
-    }
+    // if (this.props.thumbnails.length === 0) {
+    //   return (
+    //     <div>
+    //       {/* <Home draw="true" /> */}
+    //       {/* Loading... */}
+
+    //     </div>
+    //   );
+    // }
 
     let thumbContent;
     // console.log("props in search bar results");
     //console.log(this.props);
+    const mimes = this.props.mimereducer.workmimes;
     let thumbnails = this.props.thumbnails;
     let cat = this.props.searchterm;
     if (MirrorDictionary[cat]) {
       cat = MirrorDictionary[cat];
     }
+    if (mimes.length == 0) {
+      return (
+        <div>
+          <FilterMimesBar />
+          <h2 style={{ textAlign: "center", marginTop: "40px" }}>
+            Please select from the categories above
+          </h2>
+        </div>
+      );
+    }
 
-    thumbContent = <ThumbnailFeed thumbnails={thumbnails} />;
+    // thumbContent = <ThumbnailFeed thumbnails={thumbnails} />;
+    thumbContent = <ThumbnailFeed thumbnails={mimes} />;
     return (
       <div className="feed">
+        <FilterMimesBar />
         <div className="container mirrorborder">
           <div
             className="xbg-light"
@@ -143,9 +161,10 @@ class MainResults extends Component {
 
 const mapStateToProps = state => {
   return {
-    thumbnails: state.thumbnailreducer.thumbnails,
+    // thumbnails: state.thumbnailreducer.thumbnails,
     which: state.thumbnailreducer.which,
-    searchterm: state.thumbnailreducer.searchterm
+    searchterm: state.thumbnailreducer.searchterm,
+    mimereducer: state.mimereducer
     //draw: state.draw
   };
 };
@@ -153,7 +172,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     // { performThumbCategorySearch, performThumbEmotionSearch },
-    { performThumbnailSearch },
+    { performThumbnailSearch, getMimes },
     dispatch
   );
 }

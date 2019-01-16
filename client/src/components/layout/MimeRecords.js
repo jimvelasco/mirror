@@ -11,6 +11,7 @@ import MimeDisplay from "../common/MimeDisplay";
 import SelectCategoryGroup from "../common/SelectCategoryGroup";
 import SelectEmotionGroup from "../common/SelectEmotionGroup";
 import FilterMimes from "../common/FilterMimes";
+import FilterMimesBar from "../common/FilterMimesBar";
 
 //import app_data from "../app_data";
 import list_helper from "../app_data";
@@ -80,7 +81,7 @@ class MimeRecords extends Component {
       selectedMime: "",
       new_or_update: "NEW",
       cat_list: list_helper.getCats(), //["wow", "cool", "amazing"],
-      emot_list: list_helper.getEmotions("wow") //["happy", "serious", "angry"]
+      emot_list: list_helper.getEmotions("Relationships") //["happy", "serious", "angry"]
     }; //shuttles: ["one", "two", "three"] };
 
     this.onChange = this.onChange.bind(this);
@@ -214,7 +215,7 @@ class MimeRecords extends Component {
   };
 
   doFiltering(fobj) {
-    //console.log("filtering object", fobj);
+    console.log("filtering object", fobj);
     if (fobj.type == "category") {
       this.props.getMimes(fobj);
     }
@@ -298,7 +299,7 @@ class MimeRecords extends Component {
   render() {
     const { errors } = this.state;
 
-    const mimes = this.props.mimereducer.mimes;
+    const mimes = this.props.mimereducer.workmimes;
     //console.log(mimes);
 
     // if (mimes.length == 0) {
@@ -324,6 +325,7 @@ class MimeRecords extends Component {
 
     return (
       <div>
+        <FilterMimesBar />
         <FilterMimes passedFunction={this.doFiltering} />
         <h5 style={{ textAlign: "center" }}>Mimes</h5>
         <div className="xcontainer mimerecordswrapper">

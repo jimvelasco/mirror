@@ -6,13 +6,15 @@ import {
   DELETE_MIME,
   SET_CURRENT_MIME,
   MODIFY_MIME,
-  CHANGE_MIME_STATUS
+  CHANGE_MIME_STATUS,
+  FILTER_MIMES
 } from "../actions/types";
 
 // import { TEST_DISPATCH } from "../actions/types";
 
 const initialState = {
   mimes: [],
+  workmimes: [],
   mime: {}
 };
 
@@ -23,7 +25,8 @@ export default function(state = initialState, action) {
       // console.log("getting mimes payload is ", action.payload);
       return {
         ...state,
-        mimes: action.payload
+        mimes: action.payload,
+        workmimes: action.payload
       };
 
     case CREATE_MIME:
@@ -72,12 +75,28 @@ export default function(state = initialState, action) {
           mimeary[index] = modobj;
         }
       });
+
+    case FILTER_MIMES:
+      // console.log("MODIFY_MIME incoming payload", action.payload);
+      let allmimeary = state.mimes;
+      let str = action.payload;
+      let fary = [];
+
+      // console.log("we have image is ", wehaveimage);
+      // console.log("workarybefore", workary);
+
+      allmimeary.map((mime, index) => {
+        if (mime.keywords.indexOf(str) > -1) {
+          fary.push(mime);
+        }
+      });
+
       // console.log("workaryafter", workary);
 
       return {
         ...state,
-        mimes: mimeary,
-        mime: modobj
+        workmimes: fary
+
         // images: imgary
       };
 

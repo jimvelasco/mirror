@@ -24,15 +24,19 @@ class Login extends Component {
   }
   // this will make the user go to shuttles if they use localhost:3000/login or real url
   componentDidMount() {
+    // console.log("login component did mount");
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      //this.props.history.push("/dashboard");
+      this.props.history.push("/");
     }
   }
   // so after successful login we go to shuttles
   componentWillReceiveProps(nextProps) {
-    //console.log("login component will receive props");
+    // console.log("login component will receive props");
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
+      // login success takes them to home page
+      //this.props.history.push("/dashboard");
+      this.props.history.push("/");
     }
 
     if (nextProps.errors) {

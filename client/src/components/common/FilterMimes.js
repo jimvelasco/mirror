@@ -92,20 +92,20 @@ class FilterMimes extends Component {
                 {/* <i id="filtersubmit" className="fa fa-search fa-1x " /> */}
               </div>
             </div>
-            <div className="col-md-4">
+            {/* <div className="col-md-4">
               <div>Category</div>
               <select
                 name="category"
                 value={this.state.selectValue}
                 onChange={this.onSelectChange}
               >
-                {/* <option value="">Select</option> */}
+                
                 <option value="all">All</option>
                 <option value="wow">Wow</option>
                 <option value="cool">Cool</option>
                 <option value="amazing">Amazing</option>
               </select>
-            </div>
+            </div> */}
             <div className="col-md-4">
               <div>Status</div>
               <select

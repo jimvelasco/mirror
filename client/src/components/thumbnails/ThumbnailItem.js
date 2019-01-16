@@ -76,6 +76,7 @@ class ThumbnailItem extends Component {
             // onClick={this.onThumbClick.bind(this, id)}
             onClick={this.onThumbClick(id)}
           />
+          {thumb.keywords}
           <div
             style={{
               color: "white",

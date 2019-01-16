@@ -73,8 +73,8 @@ class Navbar extends Component {
       </ul>
     );
     return (
-      <div>
-        <nav className="navbar  navbar-expand-sm navbar-dark navbackground mb-4">
+      <div className="bordertest">
+        <nav className="navbar  navbar-expand-sm navbar-dark navbackground xmb-4">
           <div className="container">
             <Link to="/" className="navbar-brand">
               <img
@@ -94,55 +94,17 @@ class Navbar extends Component {
 
             <div className="collapse navbar-collapse" id="mobile-nav">
               <ul className="navbar-nav mr-auto">
-                {/* <li className="nav-item">
-                  <Link to="/mythumbs/thumbs/all" className="nav-link">
-                    Reactions
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/mythumbs/thumbs/entertainment"
-                    className="nav-link"
-                  >
-                    Entertainment
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/mythumbs/thumbs/sports" className="nav-link">
-                    Sports
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/mythumbs/thumbs/artists" className="nav-link">
-                    Artists
-                  </Link>
-                </li> */}
-                {/* <li className="nav-item">
-                  <Link to="/thumbnails/thumbs/all" className="nav-link">
-                    All
-                  </Link>
-                </li> */}
-                {/* <li className="nav-item">
-                  <Link to="/thumbnails/thumbs/wow" className="nav-link">
-                    Wow
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/thumbnails/thumbs/cool" className="nav-link">
-                    Cool
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/thumbnails/thumbs/amazing" className="nav-link">
-                    Amazing
-                  </Link>
-                </li> */}
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/all">
                     Home
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/all">
+                    Trending
+                  </Link>
+                </li>
+                {/* <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/wow">
                     Reactions
                   </Link>
@@ -166,57 +128,15 @@ class Navbar extends Component {
                   <Link className="nav-link" to="/mainresults/emotion/happy">
                     TV
                   </Link>
-                </li>
-                {/* <li className="nav-item">
-                  <Link className="nav-link" to="/searchresults/wow">
-                    State
-                  </Link>
                 </li> */}
-                {/* <a
-                  href=""
-                  name="all"
-                  onClick={this.onNavClick.bind(this)}
-                  className="nav-link"
-                >
-                  All
-                </a>
-                <a
-                  href=""
-                  name="wow"
-                  onClick={this.onNavClick.bind(this)}
-                  className="nav-link"
-                >
-                  Wow
-                </a>
-                <a
-                  href=""
-                  name="cool"
-                  onClick={this.onNavClick.bind(this)}
-                  className="nav-link"
-                >
-                  Cool
-                </a> */}
-                {/* <a
-                  href=""
-                  name="amazing"
-                  onClick={this.onNavClick.bind(this)}
-                  className="nav-link"
-                >
-                  Amazing
-                </a> */}
-                {/* <li className="nav-item">
-                  <Link to="/search" className="nav-link">
-                    Search
-                  </Link>
-                </li> */}
-                <li className="nav-item " style={{ marginTop: "10px" }}>
+                {/* <li className="nav-item " style={{ marginTop: "10px" }}>
                   <SearchBar />
                 </li>
                 <li className="nav-item" style={{ marginLeft: "50px" }}>
                   <Link className="nav-link" to="/videodemo">
                     video
                   </Link>
-                </li>
+                </li> */}
               </ul>
               {isAuthenticated ? authLinks : guestLinks}{" "}
             </div>

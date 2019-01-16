@@ -66,11 +66,12 @@ class App extends Component {
                 <div className="App">
                   <Navbar />
 
-                  <div className="xcontainer" style={{ margin: "20px" }}>
+                  <div className="main_container">
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
 
                     {/* <Route exact path="/" component={MainResults} /> */}
+
                     {/* <Route
                       exact
                       path="/mainresults/:which/:term"

@@ -82,7 +82,7 @@ search-bar {
   /* margin: 50px auto; */
   /* left: 0;
   right: 0; */
-  margin: auto;
+  margin: 20px auto;
   /* top: 100px;
   left: 100px; */
   padding-bottom: 20px;
@@ -219,5 +219,14 @@ li {
   overflow-y: auto;
   border: 0px solid white;
   margin-bottom: 10px;
+}
+
+.bordertest {
+  border: 0px solid white;
+}
+
+.main_container {
+  border-top: 1px solid white;
+  margin-top: 0px;
 }
 /* #060d65 */

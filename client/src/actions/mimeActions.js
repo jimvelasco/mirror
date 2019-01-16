@@ -7,10 +7,11 @@ import {
   SET_CURRENT_MIME,
   MODIFY_MIME,
   CHANGE_MIME_STATUS,
-  SET_STATUS_MESSAGE
+  SET_STATUS_MESSAGE,
+  FILTER_MIMES
 } from "./types";
 export const getMimes = obj => dispatch => {
-  //console.log("obj is", obj);
+  // console.log("obj is", obj);
   let parm = obj.param;
   //let link = "/api/mimes/getMimes";
   let link = "/api/mimes/mimes/" + parm;
@@ -137,6 +138,16 @@ export const setCurrentMime = mimeid => dispatch => {
   //dispatch({ type: CLEAR_ERRORS });
 
   dispatch({ type: SET_CURRENT_MIME, payload: mimeid });
+};
+
+export const filterMimes = str => dispatch => {
+  //console.log("setCurrentAdvertisement advertisement in actions ", adid);
+  //let link = `/api/advertise/change-advertisement-status/${adid}/${status}`;
+  //console.log("adveractions changebusinesssttus", link);
+
+  //dispatch({ type: CLEAR_ERRORS });
+
+  dispatch({ type: FILTER_MIMES, payload: str });
 };
 
 export const changeMimeStatus = (mimeid, status) => dispatch => {
