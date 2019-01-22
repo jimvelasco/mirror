@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+
+import S3 from "aws-sdk/clients/s3";
+//import AWS, { LexRuntime } from "aws-sdk";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../common/Spinner";
@@ -38,6 +42,7 @@ import {
 class MimeRecords extends Component {
   constructor(props) {
     super(props);
+    //AWS.config.loadFromPath("./config.json");
     let today = new Date();
     let dd = today.getDate();
     let mm = today.getMonth() + 1; //January is 0!
@@ -102,6 +107,7 @@ class MimeRecords extends Component {
     // console.log(list_helper.getCats());
     // console.log(list_helper.getEmotions("cool"));
     // this.props.getMimes();
+
     this.props.getMimes({ param: "all" });
   }
 
@@ -202,11 +208,54 @@ class MimeRecords extends Component {
     this.setState({ new_or_update: "UPDATE" });
   }
 
-  deleteMime(e, adid) {
+  deleteMime(e, recid, mimeid, imageid) {
     // if (window.confirm("Are you sure you want to delete this Mime?")) {
-    this.props.deleteMime(adid);
+    //this.props.deleteMime(recid);
+    this.deleteFromS3(recid, mimeid, imageid);
     // } else {
     // }
+  }
+
+  deleteFromS3(recid, mimeid, imageid) {
+    console.log("delete this mime", recid, mimeid, imageid);
+    let JJV_AWS_KEY = "AKIAJOYX53BKEDPKJD5A";
+    let JJV_AWS_SECRET = "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";
+    let JJV_REGION = "us-west-2";
+
+    let KEVIN_AWS_KEY = "AKIAIZOMM4ZUE2L32FMQ";
+    let KEVIN_AWS_SECRET = "P74WHpehLvFeqw3Cn6BsoYnH4m3SoFpvY";
+    let KEVIN_REGION = "us-east-2";
+
+    //var s3 = new AWS.S3({
+    var s3 = new S3({
+      apiVersion: "2006-03-01",
+      accessKeyId: JJV_AWS_KEY,
+      secretAccessKey: JJV_AWS_SECRET,
+      region: JJV_REGION
+    });
+
+    var params = {
+      // Bucket: "ldphotos",
+      Bucket: "mirror-thumbnails",
+      MaxKeys: 12
+    };
+    s3.listObjects(params, function(err, data) {
+      if (err) console.log(err, err.stack);
+      // an error occurred
+      else console.log(data);
+    });
+
+    /* The following example deletes an object from an S3 bucket. */
+
+    params = {
+      Bucket: "mirror-thumbnails",
+      Key: imageid
+    };
+    s3.deleteObject(params, function(err, data) {
+      if (err) console.log(err, err.stack);
+      // an error occurred
+      else console.log(data); // successful response
+    });
   }
 
   changeMimeStatus = (e, mimeid, status) => {
@@ -329,7 +378,7 @@ class MimeRecords extends Component {
         <FilterMimes passedFunction={this.doFiltering} />
         <h5 style={{ textAlign: "center" }}>Mimes</h5>
         <div className="xcontainer mimerecordswrapper">
-          <table className="table table-dark table-bordered table-striped table-sm">
+          <table className="table table-light table-bordered table-striped table-sm">
             <thead className="thead-dark">
               <tr>
                 <th>Rating</th>
@@ -351,7 +400,7 @@ class MimeRecords extends Component {
               </tr>
             </thead>
 
-            <tbody>
+            <tbody style={{ color: "black" }}>
               {mimes.map((mime, index) => (
                 <tr key={mime._id}>
                   <td>{mime.rating}</td>
@@ -393,7 +442,7 @@ class MimeRecords extends Component {
                       href="#"
                       className="xbtn xbtn-sm xbtn-secondary xbtn-block"
                       onClick={e => {
-                        this.deleteMime(e, mime._id);
+                        this.deleteMime(e, mime._id, mime.mime, mime.image);
                       }}
                     >
                       delete
@@ -409,7 +458,12 @@ class MimeRecords extends Component {
           id="mimeform"
           noValidate
           onSubmit={this.onSubmit}
-          style={{ backgroundColor: "#333", padding: "10px" }}
+          style={{
+            backgroundColor: "#fff",
+            padding: "10px",
+            fontSize: "10pt",
+            color: "black"
+          }}
         >
           <div className="row">
             <div className="col-md-3">
@@ -684,7 +738,7 @@ class MimeRecords extends Component {
             <div />
           )}
           {selectedMime ? (
-            <MimeDisplay img={imgname} title={imgname} />
+            <MimeDisplay mime={selectedMime} title={selectedMime} />
           ) : (
             <div />
           )}

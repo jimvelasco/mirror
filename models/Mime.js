@@ -29,8 +29,7 @@ const MimeSchema = new Schema({
     required: true
   },
   emotion: {
-    type: String,
-    required: true
+    type: String
   },
   image: {
     type: String,
@@ -51,7 +50,23 @@ const MimeSchema = new Schema({
     type: String
   },
   duration: {
+    type: String
+  },
+
+  width: {
     type: Number
+  },
+
+  height: {
+    type: Number
+  },
+
+  fps: {
+    type: String
+  },
+
+  video_url: {
+    type: String
   },
 
   releaseDate: {

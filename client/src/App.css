@@ -219,6 +219,8 @@ li {
   overflow-y: auto;
   border: 0px solid white;
   margin-bottom: 10px;
+  font-size: 8pt;
+  font-weight: normal;
 }
 
 .bordertest {

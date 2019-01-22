@@ -71,8 +71,9 @@ class FilterMimes extends Component {
       <div
         style={{
           color: "black",
-          backgroundColor: "#e0e0e0",
-          marginBottom: "10px"
+          backgroundColor: "#fff",
+          marginBottom: "10px",
+          margin: "10px"
         }}
       >
         <form noValidate onSubmit={this.onSubmit}>

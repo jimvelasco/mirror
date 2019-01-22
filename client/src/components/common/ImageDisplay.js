@@ -3,7 +3,11 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 
 const ImageDisplay = ({ img, title }) => {
-  let imgstr = "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + img;
+  // jjv awslet imgstr = "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + img;
+  // let imgstr = "https://s3-us-east-2.amazonaws.com/mimesthumbnails/" + img;
+  let imgstr = "https://mimesthumbnails.s3.amazonaws.com/" + img;
+  //console.log(imgstr);
+
   let imgname = title;
   return (
     <div className="image-float" style={{ backgroundColor: "#000" }}>
