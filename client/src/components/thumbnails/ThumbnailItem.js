@@ -59,8 +59,9 @@ class ThumbnailItem extends Component {
     const { clickedthumbid } = this.props;
     // console.log(onethumbnail);
 
-    let imgstr =
-      "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + thumb.image;
+    // let imgstr =
+    //   "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + thumb.image;
+    let imgstr = "https://mimesthumbnails.s3.amazonaws.com/" + thumb.image;
     return (
       <div>
         <div className="image-float">
