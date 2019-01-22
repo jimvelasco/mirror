@@ -217,37 +217,20 @@ class MimeRecords extends Component {
   }
 
   deleteFromS3(recid, mimeid, imageid) {
-    console.log("delete this mime", recid, mimeid, imageid);
-    let JJV_AWS_KEY = "AKIAJOYX53BKEDPKJD5A";
-    let JJV_AWS_SECRET = "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";
-    let JJV_REGION = "us-west-2";
-
-    let KEVIN_AWS_KEY = "AKIAIZOMM4ZUE2L32FMQ";
-    let KEVIN_AWS_SECRET = "P74WHpehLvFeqw3Cn6BsoYnH4m3SoFpvY";
-    let KEVIN_REGION = "us-east-2";
-
-    //var s3 = new AWS.S3({
-    var s3 = new S3({
-      apiVersion: "2006-03-01",
-      accessKeyId: JJV_AWS_KEY,
-      secretAccessKey: JJV_AWS_SECRET,
-      region: JJV_REGION
-    });
-
-    var params = {
-      // Bucket: "ldphotos",
-      Bucket: "mirror-thumbnails",
-      MaxKeys: 12
-    };
-    s3.listObjects(params, function(err, data) {
-      if (err) console.log(err, err.stack);
-      // an error occurred
-      else console.log(data);
-    });
+    // var params = {
+    //   // Bucket: "ldphotos",
+    //   Bucket: "mirror-thumbnails",
+    //   MaxKeys: 12
+    // };
+    // s3.listObjects(params, function(err, data) {
+    //   if (err) console.log(err, err.stack);
+    //   // an error occurred
+    //   else console.log(data);
+    // });
 
     /* The following example deletes an object from an S3 bucket. */
 
-    params = {
+    let params = {
       Bucket: "mirror-thumbnails",
       Key: imageid
     };
