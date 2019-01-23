@@ -96,19 +96,19 @@ router.get("/xxxgetMimes", (req, res) => {
 //router.get("/deleteMime/:id", (req, res) => {
 router.post("/deleteMime", (req, res) => {
   // console.log("in api getting stuff thumbs");
-  console.log("delete record passed in " + req.body.recid);
-  console.log("delete mime passed in " + req.body.mimeid);
-  console.log("delete image passed in " + req.body.imageid);
+  // console.log("delete record passed in " + req.body.recid);
+  // console.log("delete mime passed in " + req.body.mimeid);
+  // console.log("delete image passed in " + req.body.imageid);
   //let id = req.params.id;
   let id = req.body.recid;
   let query = { _id: id };
 
   let imageid = req.body.imageid;
   let mimeid = req.body.mimeid;
-  console.log(query);
-  console.log("awskey", aws_key);
-  console.log("awssecret", aws_secret);
-  console.log("awsregion", aws_region);
+  // console.log(query);
+  // console.log("awskey", aws_key);
+  // console.log("awssecret", aws_secret);
+  // console.log("awsregion", aws_region);
 
   let s3 = new S3({
     apiVersion: api_version,
@@ -128,41 +128,31 @@ router.post("/deleteMime", (req, res) => {
   //   else console.log(data);
   // });
 
-  let params = {
-    Bucket: "mimesthumbnails",
-    Key: imageid
-  };
-
-  console.log(params);
-  s3.deleteObject(params, function(err, data) {
-    if (err) {
-      console.log("we have an error deleting image");
-      console.log(err, err.stack);
-      // res.status(404).json({ errormsg: "Problem Deleteing Image" });
-    } else {
-      console.log("we did a successfull delete from images s3"); // successful response
-    }
-  });
-
-  let params2 = {
-    Bucket: "mimesvideos",
-    Key: mimeid
-  };
-
-  console.log(params2);
-  s3.deleteObject(params2, function(err, data) {
-    if (err) {
-      console.log("we have an error deleting video");
-      console.log(err, err.stack);
-      //res.status(404).json({ errormsg: "Problem Deleteing Mime" });
-    } else {
-      console.log("we did a successfull delete from video s3"); // successful response
-    }
-  });
-
   Mime.deleteOne(query)
     .then(thumbs => {
-      res.json(thumbs);
+      let params = {
+        Bucket: "mimesthumbnails",
+        Key: imageid
+      };
+      s3.deleteObject(params, function(err, data) {
+        if (err) {
+          res.status(404).json({ errormsg: "Problem Deleteing Image" });
+        } else {
+          let params2 = {
+            Bucket: "mimesvideos",
+            Key: mimeid
+          };
+          s3.deleteObject(params2, function(err, data) {
+            if (err) {
+              //console.log("we have an error deleting video");
+              //console.log(err, err.stack);
+              res.status(404).json({ errormsg: "Problem Deleteing Mime" });
+            } else {
+              res.json(thumbs);
+            }
+          });
+        }
+      });
     })
     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
 });
