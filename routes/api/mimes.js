@@ -136,8 +136,9 @@ router.post("/deleteMime", (req, res) => {
   console.log(params);
   s3.deleteObject(params, function(err, data) {
     if (err) {
+      console.log("we have an error deleting image");
       console.log(err, err.stack);
-      res.status(404).json({ errormsg: "Problem Deleteing Image" });
+      // res.status(404).json({ errormsg: "Problem Deleteing Image" });
     } else {
       console.log("we did a successfull delete from images s3"); // successful response
     }
@@ -151,8 +152,9 @@ router.post("/deleteMime", (req, res) => {
   console.log(params2);
   s3.deleteObject(params2, function(err, data) {
     if (err) {
+      console.log("we have an error deleting video");
       console.log(err, err.stack);
-      res.status(404).json({ errormsg: "Problem Deleteing Mime" });
+      //res.status(404).json({ errormsg: "Problem Deleteing Mime" });
     } else {
       console.log("we did a successfull delete from video s3"); // successful response
     }
