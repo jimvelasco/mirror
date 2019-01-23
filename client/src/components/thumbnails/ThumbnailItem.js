@@ -91,7 +91,7 @@ class ThumbnailItem extends Component {
               border: "0px solid white"
             }}
           >
-            {thumb.image}
+            {/* {thumb.image} */}
           </div>
           {/* {clickedthumbid === thumb._id ? (
             <ThumbnailDetail onethumbnail={onethumbnail} />
