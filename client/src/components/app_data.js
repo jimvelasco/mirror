@@ -9,6 +9,7 @@ const xlists = {
   amazing: ["all", "one3", "happy", "angry"]
 };
 const lists = {
+  Select: [],
   Music: ["all", "Rock", "Country", "Jazz", "Rap", "HipHop", "Classical"],
   Relationships: [
     "all",
@@ -256,12 +257,12 @@ const list_helper = {
   getCat0: function() {
     let rlist = ["Select"];
     let cary = Object.keys(lists);
-    cary.forEach(function(el) {
-      rlist.push(el);
-    });
+    // cary.forEach(function(el) {
+    //   rlist.push(el);
+    // });
 
     // rlist.append(Object.keys(lists));
-    return rlist;
+    return cary;
     //return Object.keys(lists);
   },
   getCat1: function(which) {

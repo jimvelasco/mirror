@@ -48,10 +48,10 @@ class FilterMimesBar extends Component {
     let fobj = {};
     fobj = { cat0: this.state.cat0, cat1: cat1 };
     let catlist2 = list_helper.getCat2(cat1);
-    if (catlist2) {
+    if (catlist2.length > 0) {
       this.setState({ cat1: cat1, cat2_list: catlist2 });
     } else {
-      // console.log("we have no cat2 list so we run ", fobj);
+      console.log("we have no cat2 list so we run ", fobj);
       this.props.getMimes(fobj);
     }
     //console.log(typelist2);
