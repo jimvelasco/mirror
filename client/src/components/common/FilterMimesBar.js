@@ -18,6 +18,7 @@ class FilterMimesBar extends Component {
     this.state = {
       searchterm: "",
       category: "",
+      emotion: "",
       typelist: [],
       typelist2: [],
       errors: {}
@@ -37,7 +38,7 @@ class FilterMimesBar extends Component {
     e.preventDefault();
     let typelist = list_helper.getEmotions(cat);
     this.setState({ category: cat, typelist: typelist, typelist2: [] });
-    console.log(cat);
+    // console.log(cat);
   }
 
   onTypeSelect(e, type) {
@@ -45,16 +46,22 @@ class FilterMimesBar extends Component {
     // let typelist = list_helper.getEmotions(cat);
     // this.setState({ typelist: typelist });
     //let link = "";
-    if (type == "all") {
-      // link = "/mainresults/category/" + this.state.category;
-      let fobj = { type: "category", param: this.state.category };
-      this.props.getMimes(fobj);
-    }
+    let fobj = {};
+    // if (type == "all") {
+    //   // link = "/mainresults/category/" + this.state.category;
+    //   fobj = { type: "category", param: this.state.category };
+    // } else {
+    //   fobj = { type: "emotion", param: type };
+    // }
 
-    let typelist2 = list_helper.getEmotions2(type);
-    if (typelist2) {
-      this.setState({ typelist2: typelist2 });
-    }
+    fobj = { cat0: this.state.category, cat1: type };
+
+    this.props.getMimes(fobj);
+
+    // let typelist2 = list_helper.getEmotions2(type);
+    // if (typelist2) {
+    //   this.setState({ typelist2: typelist2 });
+    // }
 
     //console.log(typelist2);
   }

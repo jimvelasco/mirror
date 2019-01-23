@@ -15,7 +15,7 @@ class FilterMimes extends Component {
     this.state = {
       searchterm: "",
       selectValue: "",
-      selectStatusValue: "*",
+      selectStatusValue: "",
       thumbnails: [],
       errors: {}
     };
@@ -37,9 +37,12 @@ class FilterMimes extends Component {
   }
   onSelectStatusChange(e) {
     let cterm = e.target.value;
-    this.setState({ selectStatusValue: cterm });
-    let fobj = { type: "status", param: cterm };
-    this.props.passedFunction(fobj);
+    if (cterm == "") {
+    } else {
+      this.setState({ selectStatusValue: cterm });
+      let fobj = { type: "status", param: cterm };
+      this.props.passedFunction(fobj);
+    }
   }
   onSubmit(e) {
     e.preventDefault();
@@ -79,6 +82,9 @@ class FilterMimes extends Component {
         <form noValidate onSubmit={this.onSubmit}>
           <div className="row">
             <div className="col-md-4">
+              <h5>Select something to get started</h5>
+            </div>
+            <div className="col-md-4">
               <div className="form-group">
                 <div>Wildcard Name Search (* for all)</div>
                 <input
@@ -115,6 +121,7 @@ class FilterMimes extends Component {
                 onChange={this.onSelectStatusChange}
               >
                 {/* <option value="">Select</option> */}
+                <option value="">Select</option>
                 <option value="*">Any</option>
                 <option value="0">0</option>
                 <option value="1">1</option>

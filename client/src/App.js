@@ -62,7 +62,7 @@ class App extends Component {
         <Router>
           <div>
             <div className="landing">
-              <div className="dark-overlay landing-inner text-light">
+              <div className="xdark-overlay xlanding-inner xtext-light">
                 <div className="App">
                   <Navbar />
 

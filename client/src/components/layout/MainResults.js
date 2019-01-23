@@ -11,6 +11,8 @@ import ThumbnailFeed from "../thumbnails/ThumbnailFeed";
 //import Home from "./Home";
 import { MirrorDictionary } from "../../utils/mirrordictionary";
 
+import ImageDisplay from "../common/ImageDisplay";
+
 import FilterMimesBar from "../common/FilterMimesBar";
 
 //import { performThumbCategorySearch } from "../../actions/thumbnailActions";
@@ -101,7 +103,7 @@ class MainResults extends Component {
       return (
         <div>
           <FilterMimesBar />
-          <h2 style={{ textAlign: "center", marginTop: "40px" }}>
+          <h2 style={{ textAlign: "center", marginTop: "40px", color: "#fff" }}>
             Please select from the categories above
           </h2>
         </div>
@@ -142,7 +144,12 @@ class MainResults extends Component {
                   />
                 </Link>
               </div> */}
-              {thumbContent}
+              {mimes.map(thumb => (
+                <div key={thumb._id}>
+                  <ImageDisplay img={thumb.image} title={thumb.image} />
+                </div>
+              ))}
+              {/* ;{thumbContent} */}
             </div>
           </div>
         </div>

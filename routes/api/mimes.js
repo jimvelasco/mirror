@@ -1,42 +1,73 @@
+const S3 = require("aws-sdk/clients/s3");
+
 const express = require("express");
 const router = express.Router();
 const Mime = require("../../models/Mime");
 
-router.get("/mimes/:cat", (req, res) => {
+const aws_key = require("../../config/aws").aws_key;
+const aws_secret = require("../../config/aws").aws_secret;
+const aws_region = require("../../config/aws").aws_region;
+const api_version = require("../../config/aws").api_version;
+
+router.get("/mimes/:cat0/:cat1", (req, res) => {
   // console.log("in api getting stuff thumbs");
   //console.log("cat passed in " + req.params.cat);
+  //let s3 = new S3();
+  let cat0 = req.params.cat0; // category or emotion
+  let cat1 = req.params.cat1;
 
   let rary = null;
-  if (req.params.cat === "all") {
+  let query = {};
+
+  if (cat0 === "ALL") {
     Mime.find()
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Categories found" }));
+  } else if (cat1 === "all") {
+    Mime.find({ category: cat0 })
+      .then(thumbs => res.json(thumbs))
+      .catch(err => res.status(404).json({ noresults: "No Categories found" }));
   } else {
-    Mime.find({ category: req.params.cat })
+    Mime.find({ $and: [{ category: cat0 }, { emotion: cat1 }] })
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Categories found" }));
   }
 });
 
+// db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } )
+
 router.get("/search/:term", (req, res) => {
   let rary = null;
+  let wc = req.params.term;
   let sterm = { $regex: ".*" + req.params.term + ".*" }; //"/" + req.params.term + "/";
   //console.log("sterm passed in " + sterm);
-
-  Mime.find({ keywords: sterm })
-    .then(thumbs => res.json(thumbs))
-    .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+  if (wc == "*") {
+    Mime.find({ status: 0 })
+      .then(thumbs => res.json(thumbs))
+      .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+  } else {
+    Mime.find({ keywords: sterm })
+      .then(thumbs => res.json(thumbs))
+      .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+  }
 });
 
 router.get("/status/:status", (req, res) => {
-  Mime.find({ status: req.params.status })
-    .then(thumbs => res.json(thumbs))
-    .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+  if (req.params.status == "*") {
+    Mime.find()
+      .then(thumbs => res.json(thumbs))
+      .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+  } else {
+    Mime.find({ status: req.params.status })
+      .then(thumbs => res.json(thumbs))
+      .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
+  }
 });
 
-router.get("/getMimes", (req, res) => {
+router.get("/xxxgetMimes", (req, res) => {
   // console.log("in api getting stuff thumbs");
   //console.log("cat passed in " + req.params.cat);
+
   Mime.find()
     .then(thumbs => res.json(thumbs))
     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
@@ -62,13 +93,72 @@ router.get("/getMimes", (req, res) => {
 //     );
 // });
 
-router.get("/deleteMime/:id", (req, res) => {
+//router.get("/deleteMime/:id", (req, res) => {
+router.post("/deleteMime", (req, res) => {
   // console.log("in api getting stuff thumbs");
-  console.log("delete mime passed in " + req.params.id);
-  let id = req.params.id;
+  console.log("delete record passed in " + req.body.recid);
+  console.log("delete mime passed in " + req.body.mimeid);
+  console.log("delete image passed in " + req.body.imageid);
+  //let id = req.params.id;
+  let id = req.body.recid;
   let query = { _id: id };
+
+  let imageid = req.body.imageid;
+  let mimeid = req.body.mimeid;
+  // console.log(query);
+  // console.log("awskey", aws_key);
+  // console.log("awssecret", aws_secret);
+  // console.log("awsregion", aws_region);
+
+  let s3 = new S3({
+    apiVersion: api_version,
+    accessKeyId: aws_key,
+    secretAccessKey: aws_secret,
+    region: aws_region
+  });
+
+  // let params = {
+  //   // Bucket: "ldphotos",
+  //   Bucket: "mimesthumbnails",
+  //   MaxKeys: 12
+  // };
+  // s3.listObjects(params, function(err, data) {
+  //   if (err) console.log(err, err.stack);
+  //   // an error occurred
+  //   else console.log(data);
+  // });
+
   Mime.deleteOne(query)
-    .then(thumbs => res.json(thumbs))
+    .then(thumbs => {
+      let params = {
+        Bucket: "mimesthumbnails",
+        Key: imageid
+      };
+
+      console.log(params);
+      s3.deleteObject(params, function(err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          res.status(404).json({ errormsg: "Problem Deleteing Image" });
+        }
+        //else console.log(data); // successful response
+      });
+
+      let params2 = {
+        Bucket: "mimesvideos",
+        Key: mimeid
+      };
+
+      console.log(params2);
+      s3.deleteObject(params2, function(err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          res.status(404).json({ errormsg: "Problem Deleteing Mime" });
+        }
+        // else console.log(data); // successful response
+      });
+      res.json(thumbs);
+    })
     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
 });
 

@@ -41,7 +41,7 @@ export default function(state = initialState, action) {
       let workid = action.payload;
       return {
         ...state,
-        mimes: state.mimes.filter(item => item._id !== workid)
+        workmimes: state.workmimes.filter(item => item._id !== workid)
       };
 
     case SET_CURRENT_MIME:
@@ -62,7 +62,8 @@ export default function(state = initialState, action) {
 
     case MODIFY_MIME:
       // console.log("MODIFY_MIME incoming payload", action.payload);
-      let mimeary = state.mimes;
+      //let mimeary = state.mimes;
+      let mimeary = state.workmimes;
       let modobj = action.payload;
 
       let mimeid = modobj._id;
@@ -75,6 +76,12 @@ export default function(state = initialState, action) {
           mimeary[index] = modobj;
         }
       });
+      return {
+        ...state,
+        workmimes: mimeary
+
+        // images: imgary
+      };
 
     case FILTER_MIMES:
       // console.log("MODIFY_MIME incoming payload", action.payload);

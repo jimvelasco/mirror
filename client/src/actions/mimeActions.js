@@ -10,11 +10,20 @@ import {
   SET_STATUS_MESSAGE,
   FILTER_MIMES
 } from "./types";
+
+const aws_key = require("../utils/aws").aws_key;
+const aws_secret = require("../utils/aws").aws_secret;
+const aws_region = require("../utils/aws").aws_region;
+
 export const getMimes = obj => dispatch => {
-  // console.log("obj is", obj);
-  let parm = obj.param;
+  // console.log("getMimes obj is", obj);
+  let link = "";
+  let cat0 = obj.cat0;
+  let cat1 = obj.cat1;
+
   //let link = "/api/mimes/getMimes";
-  let link = "/api/mimes/mimes/" + parm;
+
+  link = "/api/mimes/mimes/" + cat0 + "/" + cat1;
   // router.get("/mimes/:cat", (req, res) => {
   axios
     .get(link)
@@ -40,9 +49,9 @@ export const searchMimes = obj => dispatch => {
   //let link = "/api/mimes/getMimes";
   //let link = "/api/thumbnails/search/" + parm;
   let link = "/api/mimes/search/" + parm;
-  if (parm === "*") {
-    link = "/api/mimes/mimes/all";
-  }
+  // if (parm === "*") {
+  //   link = "/api/mimes/mimes/all";
+  // }
   // router.get("/mimes/:cat", (req, res) => {
   axios
     .get(link)
@@ -68,9 +77,9 @@ export const statusMimes = obj => dispatch => {
   //let link = "/api/mimes/getMimes";
   //let link = "/api/thumbnails/search/" + parm;
   let link = "/api/mimes/status/" + parm;
-  if (parm === "*") {
-    link = "/api/mimes/mimes/all";
-  }
+  // if (parm === "*") {
+  //   link = "/api/mimes/mimes/all";
+  // }
   // router.get("/mimes/:cat", (req, res) => {
   axios
     .get(link)
@@ -96,7 +105,9 @@ export const modifyMime = mimeData => dispatch => {
     .then(res => {
       //console.log("action createAdvertisement", res.data);
       // dispatch({ type: CLEAR_ERRORS });
+      console.log(res.data);
       dispatch({ type: MODIFY_MIME, payload: res.data });
+      // dispatch({ type: MODIFY_MIME, payload: mimeData });
       // history.push("/dashboard");
     })
     // thunk lets us do a dispatch
@@ -109,15 +120,14 @@ export const modifyMime = mimeData => dispatch => {
     );
 };
 
-export const deleteMime = mimeid => dispatch => {
-  // console.log(mimeData);
-  let link = "/api/mimes/deleteMime/" + mimeid;
+export const deleteMime = mimeData => dispatch => {
   axios
-    .get(link)
+    // .get(link)
+    .post("/api/mimes/deleteMime", mimeData)
     .then(res => {
       //console.log("action createAdvertisement", res.data);
       // dispatch({ type: CLEAR_ERRORS });
-      dispatch({ type: DELETE_MIME, payload: mimeid });
+      dispatch({ type: DELETE_MIME, payload: mimeData.recid });
       // history.push("/dashboard");
     })
     // thunk lets us do a dispatch

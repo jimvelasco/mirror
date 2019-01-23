@@ -30,7 +30,7 @@ const ImageDisplay = ({ img, title }) => {
           border: "0px solid white"
         }}
       >
-        {imgname}
+        {/* {imgname} */}
       </div>
     </div>
   );
