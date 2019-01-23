@@ -24,10 +24,12 @@ img {
   height: 100vh;
   margin-top: -24px;
   margin-bottom: -50px; */
+  padding-bottom: 1px;
 }
 
 .landing-inner {
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .dark-overlay {

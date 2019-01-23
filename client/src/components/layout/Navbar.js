@@ -94,31 +94,32 @@ class Navbar extends Component {
 
             <div className="collapse navbar-collapse" id="mobile-nav">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
+                {/*<li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/all">
                     Home
                   </Link>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/all">
-                    Trending
+                    Categories
                   </Link>
                 </li>
-                {/* <li className="nav-item">
+                <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/wow">
-                    Reactions
+                    Emotions
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/cool">
-                    Sports
+                    Reacctions
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/amazing">
-                    Music
+                    Status
                   </Link>
                 </li>{" "}
+                {/* 
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/emotion/serious">
                     Movies

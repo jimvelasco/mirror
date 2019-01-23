@@ -116,7 +116,7 @@ class MimeRecords extends Component {
 
     let fobj = { type: "status", param: 1 };
 
-    // this.props.statusMimes(fobj);
+    this.props.statusMimes(fobj);
 
     //this.props.getMimes(fobj);
 
