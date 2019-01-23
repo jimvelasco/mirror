@@ -11,10 +11,6 @@ import {
   FILTER_MIMES
 } from "./types";
 
-const aws_key = require("../utils/aws").aws_key;
-const aws_secret = require("../utils/aws").aws_secret;
-const aws_region = require("../utils/aws").aws_region;
-
 export const getMimes = obj => dispatch => {
   // console.log("getMimes obj is", obj);
   let link = "";
