@@ -84,7 +84,7 @@ router.get("/search/:term", (req, res) => {
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
   } else {
-    Mime.find({ keywords: sterm })
+    Mime.find({ search_data: sterm })
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
   }
@@ -169,29 +169,29 @@ router.post("/deleteMime", (req, res) => {
 
   Mime.deleteOne(query)
     .then(thumbs => {
-      // let params = {
-      //   Bucket: "mimesthumbnails",
-      //   Key: imageid
-      // };
-      // s3.deleteObject(params, function(err, data) {
-      //   if (err) {
-      //     res.status(404).json({ errormsg: "Problem Deleteing Image" });
-      //   } else {
-      //     let params2 = {
-      //       Bucket: "mimesvideos",
-      //       Key: mimeid
-      //     };
-      //     s3.deleteObject(params2, function(err, data) {
-      //       if (err) {
-      //         //console.log("we have an error deleting video");
-      //         //console.log(err, err.stack);
-      //         res.status(404).json({ errormsg: "Problem Deleteing Mime" });
-      //       } else {
-      res.json(thumbs);
-      //       }
-      //     });
-      //   }
-      // });
+      let params = {
+        Bucket: "mimesthumbnails",
+        Key: imageid
+      };
+      s3.deleteObject(params, function(err, data) {
+        if (err) {
+          res.status(404).json({ errormsg: "Problem Deleteing Image" });
+        } else {
+          let params2 = {
+            Bucket: "mimesvideos",
+            Key: mimeid
+          };
+          s3.deleteObject(params2, function(err, data) {
+            if (err) {
+              //console.log("we have an error deleting video");
+              //console.log(err, err.stack);
+              res.status(404).json({ errormsg: "Problem Deleteing Mime" });
+            } else {
+              res.json(thumbs);
+            }
+          });
+        }
+      });
     })
     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
 });

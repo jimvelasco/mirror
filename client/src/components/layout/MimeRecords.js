@@ -353,12 +353,12 @@ class MimeRecords extends Component {
                   <thead className="thead-dark">
                     <tr>
                       <th>Rating</th>
-                      <th>Keywords</th>
+                      {/* <th>Keywords</th> */}
                       {/* <th>Label</th> */}
                       <th>Artist</th>
                       <th>Song</th>
                       <th>Lyrics</th>
-                      <th>Image</th>
+                      {/* <th>Image</th> */}
                       {/* <th>Mime</th>
                 <th>Video</th>
                 <th>Start</th>
@@ -377,12 +377,12 @@ class MimeRecords extends Component {
                     {mimes.map((mime, index) => (
                       <tr key={mime._id}>
                         <td>{mime.rating}</td>
-                        <td>{mime.keywords}</td>
+                        {/* <td>{mime.keywords}</td> */}
                         {/* <td>{mime.label}</td> */}
                         <td>{mime.artist}</td>
                         <td>{mime.song}</td>
                         <td>{mime.lyrics}</td>
-                        <td>{mime.image}</td>
+                        {/* <td>{mime.image}</td> */}
                         {/* <td>{mime.mime}</td>
                   <td>{mime.video}</td>
                   <td>{mime.start}</td>
