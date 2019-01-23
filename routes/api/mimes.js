@@ -9,29 +9,67 @@ const aws_secret = require("../../config/aws").aws_secret;
 const aws_region = require("../../config/aws").aws_region;
 const api_version = require("../../config/aws").api_version;
 
-router.get("/mimes/:cat0/:cat1", (req, res) => {
+router.get("/mimes/:cat0/:cat1/:cat2", (req, res) => {
   // console.log("in api getting stuff thumbs");
   //console.log("cat passed in " + req.params.cat);
   //let s3 = new S3();
   let cat0 = req.params.cat0; // category or emotion
   let cat1 = req.params.cat1;
+  let cat2 = req.params.cat2;
+
+  //console.log(cat0 + " " + cat1 + " " + cat2);
 
   let rary = null;
   let query = {};
+  let query0 = { cat0: cat0 };
+  let query1 = { $and: [{ cat0: cat0 }, { cat1: cat1 }] };
+  let query2 = { $and: [{ cat0: cat0 }, { cat1: cat1 }, { cat2: cat2 }] };
+
+  // if (cat2 === "undefined") {
+  //   console.log("cat2 is undefined");
+  // } else {
+  //   console.log("cat2 is defined");
+  // }
+
+  if (cat2 !== "undefined") {
+    if (cat2 === "all") {
+      query = query1;
+    } else {
+      query = query2;
+    }
+  } else {
+    if (cat1 === "all") {
+      query = query0;
+    } else {
+      query = query1;
+    }
+  }
+
+  //console.log("mimes api ", query);
 
   if (cat0 === "ALL") {
     Mime.find()
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Categories found" }));
-  } else if (cat1 === "all") {
-    Mime.find({ category: cat0 })
-      .then(thumbs => res.json(thumbs))
-      .catch(err => res.status(404).json({ noresults: "No Categories found" }));
   } else {
-    Mime.find({ $and: [{ category: cat0 }, { emotion: cat1 }] })
+    Mime.find(query)
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Categories found" }));
   }
+
+  // if (cat0 === "ALL") {
+  //   Mime.find()
+  //     .then(thumbs => res.json(thumbs))
+  //     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
+  // } else if (cat1 === "all") {
+  //   Mime.find(query0)
+  //     .then(thumbs => res.json(thumbs))
+  //     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
+  // } else {
+  //   Mime.find(query1)
+  //     .then(thumbs => res.json(thumbs))
+  //     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
+  // }
 });
 
 // db.inventory.find( { $and: [ { price: { $ne: 1.99 } }, { price: { $exists: true } } ] } )
@@ -55,6 +93,7 @@ router.get("/search/:term", (req, res) => {
 router.get("/status/:status", (req, res) => {
   if (req.params.status == "*") {
     Mime.find()
+      .sort({ image: 1 })
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
   } else {
@@ -130,29 +169,29 @@ router.post("/deleteMime", (req, res) => {
 
   Mime.deleteOne(query)
     .then(thumbs => {
-      let params = {
-        Bucket: "mimesthumbnails",
-        Key: imageid
-      };
-      s3.deleteObject(params, function(err, data) {
-        if (err) {
-          res.status(404).json({ errormsg: "Problem Deleteing Image" });
-        } else {
-          let params2 = {
-            Bucket: "mimesvideos",
-            Key: mimeid
-          };
-          s3.deleteObject(params2, function(err, data) {
-            if (err) {
-              //console.log("we have an error deleting video");
-              //console.log(err, err.stack);
-              res.status(404).json({ errormsg: "Problem Deleteing Mime" });
-            } else {
-              res.json(thumbs);
-            }
-          });
-        }
-      });
+      // let params = {
+      //   Bucket: "mimesthumbnails",
+      //   Key: imageid
+      // };
+      // s3.deleteObject(params, function(err, data) {
+      //   if (err) {
+      //     res.status(404).json({ errormsg: "Problem Deleteing Image" });
+      //   } else {
+      //     let params2 = {
+      //       Bucket: "mimesvideos",
+      //       Key: mimeid
+      //     };
+      //     s3.deleteObject(params2, function(err, data) {
+      //       if (err) {
+      //         //console.log("we have an error deleting video");
+      //         //console.log(err, err.stack);
+      //         res.status(404).json({ errormsg: "Problem Deleteing Mime" });
+      //       } else {
+      res.json(thumbs);
+      //       }
+      //     });
+      //   }
+      // });
     })
     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
 });
@@ -200,8 +239,11 @@ router.post("/createMime", (req, res) => {
     artist: req.body.artist,
     song: req.body.song,
     lyrics: req.body.lyrics,
-    category: req.body.category,
-    emotion: req.body.emotion,
+    cat0: req.body.cat0,
+    cat1: req.body.cat1,
+    cat2: req.body.cat2,
+    cat3: req.body.cat3,
+    search_data: req.body.search_data,
     image: req.body.image,
     video: req.body.video,
     start: req.body.start,
@@ -240,8 +282,11 @@ router.post("/modifyMime", (req, res) => {
     artist: req.body.artist,
     song: req.body.song,
     lyrics: req.body.lyrics,
-    category: req.body.category,
-    emotion: req.body.emotion,
+    cat0: req.body.cat0,
+    cat1: req.body.cat1,
+    cat2: req.body.cat2,
+    cat3: req.body.cat3,
+    search_data: req.body.search_data,
     image: req.body.image,
     video: req.body.video,
     start: req.body.start,
@@ -364,12 +409,26 @@ router.post("/uploadjson", (req, res) => {
     tobj["lyrics"] = rec["lyrics"];
     tobj["rating"] = rec["utube_rating"];
     tobj["keywords"] = rec["keywords"];
-    tobj["category"] = rec["utube_categories"];
-    tobj["emotion"] = "";
+    // tobj["category"] = rec["utube_categories"];
+    // tobj["emotion"] = "";
+    tobj["cat0"] = rec["utube_categories"];
+    tobj["cat1"] = "";
+    tobj["cat2"] = "";
+    tobj["cat3"] = "";
+    tobj["search_data"] =
+      rec["keywords"] +
+      " " +
+      rec["song"] +
+      " " +
+      rec["category"] +
+      " " +
+      rec["lyrics"];
     tobj["image"] = rec["image"];
     tobj["mime"] = rec["mime"];
     tobj["video"] = rec["video"];
     tobj["video_url"] = rec["utube_webpage_url"];
+    tobj["height"] = rec["utube_height"];
+    tobj["width"] = rec["utube_width"];
     tobj["fps"] = rec["utube_fps"];
     tobj["start"] = rec["start"];
     tobj["end"] = rec["end"];

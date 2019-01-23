@@ -16,10 +16,11 @@ export const getMimes = obj => dispatch => {
   let link = "";
   let cat0 = obj.cat0;
   let cat1 = obj.cat1;
+  let cat2 = obj.cat2;
 
   //let link = "/api/mimes/getMimes";
 
-  link = "/api/mimes/mimes/" + cat0 + "/" + cat1;
+  link = "/api/mimes/mimes/" + cat0 + "/" + cat1 + "/" + cat2;
   // router.get("/mimes/:cat", (req, res) => {
   axios
     .get(link)

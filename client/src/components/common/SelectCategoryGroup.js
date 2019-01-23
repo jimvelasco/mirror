@@ -6,11 +6,18 @@ const SelectCategoryGroup = ({ name, list, value, label, error, onChange }) => {
   //console.log("here is the list", list);
   //value = "amazing";
   const sel = "selected";
-  let optionTemplate = list.map(v => (
-    <option key={v} value={v}>
-      {v}
-    </option>
-  ));
+
+  let optionTemplate = null;
+  if (list) {
+    optionTemplate = list.map(v => (
+      <option key={v} value={v}>
+        {v}
+      </option>
+    ));
+  } else {
+    optionTemplate = <option value="">Select</option>;
+  }
+
   return (
     <div className="form-group">
       <div className="row">

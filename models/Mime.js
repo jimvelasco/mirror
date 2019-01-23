@@ -24,11 +24,25 @@ const MimeSchema = new Schema({
     type: String,
     required: true
   },
-  category: {
-    type: String,
-    required: true
+  // category: {
+  //   type: String
+  // },
+  // emotion: {
+  //   type: String
+  // },
+  cat0: {
+    type: String
   },
-  emotion: {
+  cat1: {
+    type: String
+  },
+  cat2: {
+    type: String
+  },
+  cat3: {
+    type: String
+  },
+  search_data: {
     type: String
   },
   image: {

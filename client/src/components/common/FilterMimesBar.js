@@ -17,53 +17,53 @@ class FilterMimesBar extends Component {
     //console.log("passed in props", props);
     this.state = {
       searchterm: "",
-      category: "",
-      emotion: "",
-      typelist: [],
-      typelist2: [],
+      cat0: "",
+      cat1: "",
+      cat2: "",
+      cat1_list: [],
+      cat2_list: [],
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
-    this.onCatSelect = this.onCatSelect.bind(this);
-    this.onTypeSelect = this.onTypeSelect.bind(this);
+    this.onCat0Select = this.onCat0Select.bind(this);
+    this.onCat1Select = this.onCat1Select.bind(this);
+    this.onCat2Select = this.onCat2Select.bind(this);
   }
 
   onChange(e) {
     this.setState({ searchterm: e.target.value });
   }
-  onCatSelect(e, cat) {
+  onCat0Select(e, cat) {
     e.preventDefault();
-    let typelist = list_helper.getEmotions(cat);
-    this.setState({ category: cat, typelist: typelist, typelist2: [] });
-    // console.log(cat);
+    let cat1list = list_helper.getCat1(cat);
+    this.setState({ cat0: cat, cat1_list: cat1list, cat2_list: [] });
+    console.log(this.state);
   }
 
-  onTypeSelect(e, type) {
+  onCat1Select(e, cat1) {
     e.preventDefault();
-    // let typelist = list_helper.getEmotions(cat);
-    // this.setState({ typelist: typelist });
-    //let link = "";
     let fobj = {};
-    // if (type == "all") {
-    //   // link = "/mainresults/category/" + this.state.category;
-    //   fobj = { type: "category", param: this.state.category };
-    // } else {
-    //   fobj = { type: "emotion", param: type };
-    // }
+    fobj = { cat0: this.state.cat0, cat1: cat1 };
+    let catlist2 = list_helper.getCat2(cat1);
+    if (catlist2) {
+      this.setState({ cat1: cat1, cat2_list: catlist2 });
+    } else {
+      // console.log("we have no cat2 list so we run ", fobj);
+      this.props.getMimes(fobj);
+    }
+    //console.log(typelist2);
+  }
 
-    fobj = { cat0: this.state.category, cat1: type };
+  onCat2Select(e, cat2) {
+    e.preventDefault();
+    let fobj = {};
+    fobj = { cat0: this.state.cat0, cat1: this.state.cat1, cat2: cat2 };
+    // console.log("select cat2", fobj);
 
     this.props.getMimes(fobj);
-
-    // let typelist2 = list_helper.getEmotions2(type);
-    // if (typelist2) {
-    //   this.setState({ typelist2: typelist2 });
-    // }
-
-    //console.log(typelist2);
   }
 
   onSubmit(e) {
@@ -95,7 +95,7 @@ class FilterMimesBar extends Component {
     //this.props.history.push(url);
     let st = this.state.searchterm;
     if (st == "*") {
-      let fobj = { type: "category", param: "all" };
+      let fobj = { cat0: "ALL" };
       this.props.getMimes(fobj);
     } else {
       this.props.filterMimes(st);
@@ -105,7 +105,7 @@ class FilterMimesBar extends Component {
   //let link = `/api/business/find-business/${bizid}`;
   render() {
     const { errors } = this.state;
-    const catlist = list_helper.getCats();
+    const catlist = list_helper.getCat0();
 
     let catTemplate = catlist.map((v, i) => (
       <div key={i} style={{ marginLeft: "5px", float: "left" }}>
@@ -113,7 +113,7 @@ class FilterMimesBar extends Component {
           href="#"
           className="xbtn xbtn-sm xbtn-secondary xbtn-block"
           onClick={e => {
-            this.onCatSelect(e, v);
+            this.onCat0Select(e, v);
           }}
         >
           {v}
@@ -121,7 +121,7 @@ class FilterMimesBar extends Component {
       </div>
     ));
 
-    let typelist = this.state.typelist;
+    let typelist = this.state.cat1_list;
 
     let typesTemplate = typelist.map((v, i) => (
       <a
@@ -129,14 +129,14 @@ class FilterMimesBar extends Component {
         href="#"
         className="btn btn-sm btn-primary ml-2 mb-1 xbtn-block"
         onClick={e => {
-          this.onTypeSelect(e, v);
+          this.onCat1Select(e, v);
         }}
       >
         {v}
       </a>
     ));
 
-    let typelist2 = this.state.typelist2;
+    let typelist2 = this.state.cat2_list;
 
     let types2Template = typelist2.map((v, i) => (
       <a
@@ -144,7 +144,7 @@ class FilterMimesBar extends Component {
         href="#"
         className="btn btn-sm btn-primary ml-2 mb-1 xbtn-block"
         onClick={e => {
-          this.onTypeSelect(e, v);
+          this.onCat2Select(e, v);
         }}
       >
         {v}

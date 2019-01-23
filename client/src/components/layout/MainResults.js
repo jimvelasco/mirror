@@ -73,11 +73,13 @@ class MainResults extends Component {
   };
 
   onThumbClick = (e, val) => {
-    console.log(e);
-    console.log(e.clientX);
-    console.log(e.clientY);
+    // console.log(e);
+    // console.log(e.clientX);
+    // console.log(e.clientY);
     console.log("pon thumb click", val);
-    this.setState({ selectedMime: val, posx: e.clientX, posy: e.clientY });
+    let xpos = e.clientX;
+    let ypos = e.clientY + window.scrollY;
+    this.setState({ selectedMime: val.mime, posx: xpos, posy: ypos });
     let m = document.getElementById("mimemain");
   };
 

@@ -253,14 +253,26 @@ const lists2 = {
 //                                          Rejoicing
 
 const list_helper = {
-  getCats: function() {
-    return Object.keys(lists);
+  getCat0: function() {
+    let rlist = ["Select"];
+    let cary = Object.keys(lists);
+    cary.forEach(function(el) {
+      rlist.push(el);
+    });
+
+    // rlist.append(Object.keys(lists));
+    return rlist;
+    //return Object.keys(lists);
   },
-  getEmotions: function(which) {
+  getCat1: function(which) {
     return lists[which];
   },
-  getEmotions2: function(which) {
-    return lists2[which];
+  getCat2: function(which) {
+    let rlist = [];
+    if (lists2[which]) {
+      rlist = lists2[which];
+    }
+    return rlist;
   }
 };
 

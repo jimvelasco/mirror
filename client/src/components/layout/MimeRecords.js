@@ -13,7 +13,8 @@ import TextFieldGroupLink from "../common/TextFieldGroupLink";
 import ImageDisplay from "../common/ImageDisplay";
 import MimeDisplay from "../common/MimeDisplay";
 import SelectCategoryGroup from "../common/SelectCategoryGroup";
-import SelectEmotionGroup from "../common/SelectEmotionGroup";
+//import SelectCategory2Group from "../common/SelectCategory2Group";
+// import SelectEmotionGroup from "../common/SelectEmotionGroup";
 import FilterMimes from "../common/FilterMimes";
 import FilterMimesBar from "../common/FilterMimesBar";
 
@@ -76,8 +77,11 @@ class MimeRecords extends Component {
       artist: "",
       song: "",
       lyrics: "",
-      category: "",
-      emotion: "",
+      cat0: "",
+      cat1: "",
+      cat2: "",
+      cat3: "",
+      search_data: "",
       image: "",
       mime: "",
       video: "",
@@ -90,8 +94,9 @@ class MimeRecords extends Component {
       selectedImage: "",
       selectedMime: "",
       new_or_update: "NEW",
-      cat_list: list_helper.getCats(), //["wow", "cool", "amazing"],
-      emot_list: list_helper.getEmotions("Relationships") //["happy", "serious", "angry"]
+      cat0_list: [], //list_helper.getCat0(),
+      cat1_list: [], //list_helper.getCat1("Music"),
+      cat2_list: [] //list_helper.getCat2("Anger")
     }; //shuttles: ["one", "two", "three"] };
 
     this.onChange = this.onChange.bind(this);
@@ -136,7 +141,8 @@ class MimeRecords extends Component {
     // }
     let curmime = npmime.mime;
     if (curmime._id) {
-      //console.log("we do have a npmime id", curmime);
+      // console.log("we do have a npmime id", curmime);
+      // console.log(curmime.cat0 + " " + curmime.cat1);
       this.setState({
         mimeid: curmime._id,
         rating: curmime.rating,
@@ -145,8 +151,12 @@ class MimeRecords extends Component {
         artist: curmime.artist,
         song: curmime.song,
         lyrics: curmime.lyrics,
-        category: curmime.category,
-        emotion: curmime.emotion,
+        cat0: curmime.cat0,
+        cat1: curmime.cat1,
+        cat2: curmime.cat2,
+        cat3: curmime.cat3,
+        search_data: curmime.search_data,
+
         image: curmime.image,
         mime: curmime.mime,
         video: curmime.video,
@@ -157,7 +167,9 @@ class MimeRecords extends Component {
         status: curmime.status,
         selectedImage: "",
         selectedMime: "",
-        emot_list: list_helper.getEmotions(curmime.category)
+        cat0_list: list_helper.getCat0(),
+        cat1_list: list_helper.getCat1(curmime.cat0),
+        cat2_list: list_helper.getCat2(curmime.cat1)
       });
     } else {
       //console.log("we do NOT have a npmime id");
@@ -167,7 +179,7 @@ class MimeRecords extends Component {
   componentDidUpdate() {}
 
   onChange(e) {
-    //console.log(e.target.name);
+    //console.log(e.target.name + " " + e.target.value);
     //let emotlist = ["happy", "serious", "angry"];
     //let emotlist2 = ["happy", "serious", "angry", "pissed"];
     // if (e.target.name === "category" && e.target.value == "cool") {
@@ -175,10 +187,12 @@ class MimeRecords extends Component {
     // } else {
     //   this.setState({ emot_list: emotlist });
     // }
-
-    if (e.target.name === "category") {
-      let cval = e.target.value;
-      this.setState({ emot_list: list_helper.getEmotions(cval) });
+    let cval = e.target.value;
+    if (e.target.name === "cat0") {
+      this.setState({ cat1_list: list_helper.getCat1(cval) });
+    }
+    if (e.target.name === "cat1") {
+      this.setState({ cat2_list: list_helper.getCat2(cval) });
     }
 
     this.setState({ [e.target.name]: e.target.value });
@@ -261,8 +275,13 @@ class MimeRecords extends Component {
     formdata.append("artist", this.state.artist);
     formdata.append("song", this.state.song);
     formdata.append("lyrics", this.state.lyrics);
-    formdata.append("category", this.state.category);
-    formdata.append("emotion", this.state.emotion);
+    // formdata.append("category", this.state.category);
+    // formdata.append("emotion", this.state.emotion);
+    formdata.append("cat0", this.state.cat0);
+    formdata.append("cat1", this.state.cat1);
+    formdata.append("cat2", this.state.cat2);
+    formdata.append("cat3", this.state.cat3);
+    formdata.append("search_data", this.state.search_data);
     formdata.append("image", this.state.image);
     formdata.append("mime", this.state.mime);
     formdata.append("video", this.state.video);
@@ -271,29 +290,9 @@ class MimeRecords extends Component {
     formdata.append("duration", this.state.duration);
     formdata.append("releaseDate", this.state.releaseDate);
     formdata.append("status", 0);
-    // for (var pair of formdata.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
-    // console.log("the form data");
-    // console.log(formdata);
-    // this.props.createMime(formdata);
-
-    // const aMime = {
-    //   name: this.state.name,
-    //   artist: this.state.artist,
-    //   song: this.state.song,
-    //   lyrics: this.state.lyrics,
-    //   category: this.state.category,
-    //   emotion: this.state.emotion,
-    //   image: this.state.image,
-    //   releaseDate: this.state.releaseDate,
-    //   status: this.state.status
-    // };
-
-    // console.log("the mime is");
-    // console.log(aMime);
-
-    // this.props.createMime(formdata);
+    for (var pair of formdata.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
     if (this.state.new_or_update === "NEW") {
       this.props.createMime(formdata);
@@ -365,8 +364,10 @@ class MimeRecords extends Component {
                 <th>Start</th>
                 <th>End</th>
                 <th>Dur</th> */}
-                      <th>Category</th>
-                      <th>Emotion</th>
+                      <th>Cat1</th>
+                      <th>Cat2</th>
+                      <th>Cat3</th>
+                      <th>Search</th>
                       <th>Status</th>
                       <th>&nbsp;</th>
                     </tr>
@@ -387,8 +388,10 @@ class MimeRecords extends Component {
                   <td>{mime.start}</td>
                   <td>{mime.end}</td>
                   <td>{mime.duration}</td> */}
-                        <td>{mime.category}</td>
-                        <td>{mime.emotion}</td>
+                        <td>{mime.cat0}</td>
+                        <td>{mime.cat1}</td>
+                        <td>{mime.cat2}</td>
+                        <td>{mime.search_data}</td>
                         <td>
                           <a
                             href="#"
@@ -511,23 +514,44 @@ class MimeRecords extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <SelectCategoryGroup
-                    label="Category"
-                    name="category"
-                    list={this.state.cat_list}
-                    value={this.state.category}
+                  <TextFieldGroup
+                    type="text"
+                    label="Search"
+                    placeholder="search_data"
+                    name="search_data"
+                    value={this.state.search_data}
                     onChange={this.onChange}
-                    error={errors.category}
+                    error={errors.search_data}
                   />
                 </div>
                 <div className="form-group">
-                  <SelectEmotionGroup
-                    label="Emotion"
-                    name="emotion"
-                    list={this.state.emot_list}
-                    value={this.state.emotion}
+                  <SelectCategoryGroup
+                    label="Category 0"
+                    name="cat0"
+                    list={this.state.cat0_list}
+                    value={this.state.cat0}
                     onChange={this.onChange}
-                    error={errors.emotion}
+                    error={errors.cat0}
+                  />
+                </div>
+                <div className="form-group">
+                  <SelectCategoryGroup
+                    label="Category 1"
+                    name="cat1"
+                    list={this.state.cat1_list}
+                    value={this.state.cat1}
+                    onChange={this.onChange}
+                    error={errors.cat1}
+                  />
+                </div>
+                <div className="form-group">
+                  <SelectCategoryGroup
+                    label="Category 2"
+                    name="cat2"
+                    list={this.state.cat2_list}
+                    value={this.state.cat2}
+                    onChange={this.onChange}
+                    error={errors.cat2}
                   />
                 </div>
                 <div className="form-group">
@@ -541,6 +565,7 @@ class MimeRecords extends Component {
                     error={errors.releaseDate}
                   />
                 </div>
+
                 <div className="form-group">
                   <TextFieldGroup
                     type="text"
