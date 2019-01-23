@@ -78,7 +78,7 @@ class ThumbnailItem extends Component {
             }}
             // onClick={this.onThumbClick.bind(this, mime)}
             onClick={e => {
-              this.onThumbClick(e, mime);
+              this.onThumbClick(e, thumb);
             }}
           />
           {/* {thumb.keywords} */}
