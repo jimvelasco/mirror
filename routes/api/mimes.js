@@ -128,37 +128,38 @@ router.post("/deleteMime", (req, res) => {
   //   else console.log(data);
   // });
 
+  let params = {
+    Bucket: "mimesthumbnails",
+    Key: imageid
+  };
+
+  console.log(params);
+  s3.deleteObject(params, function(err, data) {
+    if (err) {
+      console.log(err, err.stack);
+      res.status(404).json({ errormsg: "Problem Deleteing Image" });
+    } else {
+      console.log("we did a successfull delete from images s3"); // successful response
+    }
+  });
+
+  let params2 = {
+    Bucket: "mimesvideos",
+    Key: mimeid
+  };
+
+  console.log(params2);
+  s3.deleteObject(params2, function(err, data) {
+    if (err) {
+      console.log(err, err.stack);
+      res.status(404).json({ errormsg: "Problem Deleteing Mime" });
+    } else {
+      console.log("we did a successfull delete from video s3"); // successful response
+    }
+  });
+
   Mime.deleteOne(query)
     .then(thumbs => {
-      let params = {
-        Bucket: "mimesthumbnails",
-        Key: imageid
-      };
-
-      console.log(params);
-      s3.deleteObject(params, function(err, data) {
-        if (err) {
-          console.log(err, err.stack);
-          res.status(404).json({ errormsg: "Problem Deleteing Image" });
-        } else {
-          console.log("we did a successfull delete from images s3"); // successful response
-        }
-      });
-
-      let params2 = {
-        Bucket: "mimesvideos",
-        Key: mimeid
-      };
-
-      console.log(params2);
-      s3.deleteObject(params2, function(err, data) {
-        if (err) {
-          console.log(err, err.stack);
-          res.status(404).json({ errormsg: "Problem Deleteing Mime" });
-        } else {
-          console.log("we did a successfull delete from video s3"); // successful response
-        }
-      });
       res.json(thumbs);
     })
     .catch(err => res.status(404).json({ noresults: "No Categories found" }));
