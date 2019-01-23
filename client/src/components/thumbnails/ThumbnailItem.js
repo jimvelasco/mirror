@@ -38,30 +38,32 @@ class ThumbnailItem extends Component {
       onethumbnail: []
     };
 
-    this.onThumbClick = this.onThumbClick.bind(this);
+    //this.onThumbClick = this.onThumbClick.bind(this);
     // this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onThumbClick = val => e => {
+  onThumbClick = (e, val) => {
     e.preventDefault();
-    // console.log("clicked thumbitem id " + val);
+    // console.log("clicked thumbitem id " + e);
 
     //this.setState({ clickedthumbid: val });
-    this.props.performIndividualSearch(val);
+    this.props.onThumbClick(e, val);
+
     // console.log("props after performIndividual");
     // console.log(this.props);
   };
 
   render() {
     const { thumb } = this.props;
-    const { id } = this.props;
-    const { onethumbnail } = this.props;
-    const { clickedthumbid } = this.props;
+    // const { id } = this.props;
+    // const { onethumbnail } = this.props;
+    // const { clickedthumbid } = this.props;
     // console.log(onethumbnail);
 
     // let imgstr =
     //   "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + thumb.image;
     let imgstr = "https://mimesthumbnails.s3.amazonaws.com/" + thumb.image;
+    let mime = thumb.mime;
     return (
       <div>
         <div className="image-float">
@@ -74,10 +76,12 @@ class ThumbnailItem extends Component {
               height: "200px",
               border: "1px solid white"
             }}
-            // onClick={this.onThumbClick.bind(this, id)}
-            onClick={this.onThumbClick(id)}
+            // onClick={this.onThumbClick.bind(this, mime)}
+            onClick={e => {
+              this.onThumbClick(e, mime);
+            }}
           />
-          {thumb.keywords}
+          {/* {thumb.keywords} */}
           <div
             style={{
               color: "white",
@@ -87,57 +91,57 @@ class ThumbnailItem extends Component {
               border: "0px solid white"
             }}
           >
-            {thumb.name}
+            {thumb.image}
           </div>
-          {clickedthumbid === thumb._id ? (
+          {/* {clickedthumbid === thumb._id ? (
             <ThumbnailDetail onethumbnail={onethumbnail} />
           ) : (
             <div />
-          )}
+          )} */}
         </div>
       </div>
     );
   }
 }
 
-ThumbnailItem.defaultProps = {
-  showActions: true
-};
+// ThumbnailItem.defaultProps = {
+//   showActions: true
+// };
 
-ThumbnailItem.propTypes = {
-  // deletePost: PropTypes.func.isRequired,
-  // addLike: PropTypes.func.isRequired,
-  // removeLike: PropTypes.func.isRequired,
-  thumb: PropTypes.object.isRequired
-  // auth: PropTypes.object.isRequired
-};
+// ThumbnailItem.propTypes = {
+//   // deletePost: PropTypes.func.isRequired,
+//   // addLike: PropTypes.func.isRequired,
+//   // removeLike: PropTypes.func.isRequired,
+//   thumb: PropTypes.object.isRequired
+//   // auth: PropTypes.object.isRequired
+// };
 
 // const mapStateToProps = state => ({
 //   auth: state.auth,
 //   clickedthumbid: state.clickedthumbid
 // });
 
-const mapStateToProps = state => {
-  return {
-    // thumbnails: state.thumbnailreducer.thumbnails,
-    onethumbnail: state.thumbnailreducer.onethumbnail,
-    clickedthumbid: state.thumbnailreducer.clickedthumbid,
-    draw: "what"
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     // thumbnails: state.thumbnailreducer.thumbnails,
+//     onethumbnail: state.thumbnailreducer.onethumbnail,
+//     clickedthumbid: state.thumbnailreducer.clickedthumbid,
+//     draw: "what"
+//   };
+// };
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    // { performThumbCategorySearch, performThumbEmotionSearch },
-    { performIndividualSearch },
-    dispatch
-  );
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators(
+//     // { performThumbCategorySearch, performThumbEmotionSearch },
+//     { performIndividualSearch },
+//     dispatch
+//   );
+// }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ThumbnailItem);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(ThumbnailItem);
 
 //export default connect(mapStateToProps)(ThumbnailItem);
-//export default ThumbnailItem;
+export default ThumbnailItem;

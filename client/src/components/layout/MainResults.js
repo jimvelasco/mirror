@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 //import {Sparklines} from 'react-sparklines';
 //import GoogleMap from "../components/google_map";
 import ThumbnailFeed from "../thumbnails/ThumbnailFeed";
+import ThumbnailItem from "../thumbnails/ThumbnailItem";
 //import Home from "./Home";
 import { MirrorDictionary } from "../../utils/mirrordictionary";
 
 import ImageDisplay from "../common/ImageDisplay";
+import MimeDisplay from "../common/MimeDisplay";
 
 import FilterMimesBar from "../common/FilterMimesBar";
 
@@ -23,17 +25,20 @@ import { getMimes } from "../../actions/mimeActions";
 import mirror from "../../img/round-sphere-animated.gif";
 
 class MainResults extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   // console.log("incoming props");
-  //   // console.log(props);
-  //   // console.log(props.match.params.which);
-  //   // this.state = {
-  //   //   draw: "what" //props.draw
-  //   // };
-  //   // console.log("searchbar results incoming state");
-  //   // console.log(this.state);
-  // }
+  constructor(props) {
+    super(props);
+    // console.log("incoming props");
+    // console.log(props);
+    // console.log(props.match.params.which);
+    this.state = {
+      selectedMime: "",
+      posx: 0,
+      posy: 0
+    };
+    // console.log("searchbar results incoming state");
+    // console.log(this.state);
+    this.onThumbClick = this.onThumbClick.bind(this);
+  }
 
   // componentDidMount() {
   //   console.log("sbr cdm props");
@@ -58,13 +63,27 @@ class MainResults extends Component {
     //   window.location.reload();
     // }
     // console.log(this.state);
-    let curwhich = this.props.match.params.which;
-    let curterm = this.props.match.params.term;
-    let nextwhich = nextProps.match.params.which;
-    let nextterm = nextProps.match.params.term;
-    if (curwhich !== nextwhich || curterm !== nextterm) {
-      //  this.props.performThumbnailSearch(nextwhich, nextterm);
-    }
+    // let curwhich = this.props.match.params.which;
+    // let curterm = this.props.match.params.term;
+    // let nextwhich = nextProps.match.params.which;
+    // let nextterm = nextProps.match.params.term;
+    // if (curwhich !== nextwhich || curterm !== nextterm) {
+    //    this.props.performThumbnailSearch(nextwhich, nextterm);
+    // }
+  };
+
+  onThumbClick = (e, val) => {
+    console.log(e);
+    console.log(e.clientX);
+    console.log(e.clientY);
+    console.log("pon thumb click", val);
+    this.setState({ selectedMime: val, posx: e.clientX, posy: e.clientY });
+    let m = document.getElementById("mimemain");
+  };
+
+  hideMime = val => {
+    //console.log(val);
+    this.setState({ selectedMime: "" });
   };
 
   // componentDidUpdate() {
@@ -110,8 +129,12 @@ class MainResults extends Component {
       );
     }
 
+    let selectedMime = this.state.selectedMime;
+    let posx = this.state.posx + "px";
+    let posy = this.state.posy + "px";
+
     // thumbContent = <ThumbnailFeed thumbnails={thumbnails} />;
-    thumbContent = <ThumbnailFeed thumbnails={mimes} />;
+    // thumbContent = <ThumbnailFeed thumbnails={mimes} />;
     return (
       <div className="feed">
         <FilterMimesBar />
@@ -119,20 +142,17 @@ class MainResults extends Component {
           <div
             className="xbg-light"
             style={{
-              //textAlign: "center",
-              // margin: "0px auto",
-              // float: "right",
               color: "white",
               marginRight: "40px",
               textAlignLast: "right",
               fontSize: "10pt"
-              //backgroundColor: "black",
-              // width: "200px"
             }}
           >
             {cat}
           </div>
+
           <div style={{ clear: "left" }} />
+
           <div className="row">
             <div className="col-md-12 ximage-container">
               {/* <div style={{ float: "left" }}>
@@ -146,12 +166,38 @@ class MainResults extends Component {
               </div> */}
               {mimes.map(thumb => (
                 <div key={thumb._id}>
-                  <ImageDisplay img={thumb.image} title={thumb.image} />
+                  {/* <ImageDisplay img={thumb.image} title={thumb.image} /> */}
+                  <ThumbnailItem
+                    key={thumb._id}
+                    id={thumb._id}
+                    thumb={thumb}
+                    onThumbClick={this.onThumbClick}
+                  />
                 </div>
               ))}
               {/* ;{thumbContent} */}
             </div>
           </div>
+          {selectedMime ? (
+            <div
+              className="mimemain"
+              id="mimemain"
+              style={{ top: posy, left: posx }}
+            >
+              <a
+                href="#"
+                className="btn btn-sm btn-primary btn-block"
+                onClick={e => {
+                  this.hideMime(e, selectedMime);
+                }}
+              >
+                close
+              </a>
+              <MimeDisplay mime={selectedMime} title={selectedMime} />
+            </div>
+          ) : (
+            <div />
+          )}
         </div>
       </div>
     );
@@ -169,8 +215,8 @@ class MainResults extends Component {
 const mapStateToProps = state => {
   return {
     // thumbnails: state.thumbnailreducer.thumbnails,
-    which: state.thumbnailreducer.which,
-    searchterm: state.thumbnailreducer.searchterm,
+    // which: state.thumbnailreducer.which,
+    // searchterm: state.thumbnailreducer.searchterm,
     mimereducer: state.mimereducer
     //draw: state.draw
   };
@@ -179,7 +225,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     // { performThumbCategorySearch, performThumbEmotionSearch },
-    { performThumbnailSearch, getMimes },
+    { getMimes },
     dispatch
   );
 }
