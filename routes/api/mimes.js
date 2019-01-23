@@ -105,10 +105,10 @@ router.post("/deleteMime", (req, res) => {
 
   let imageid = req.body.imageid;
   let mimeid = req.body.mimeid;
-  // console.log(query);
-  // console.log("awskey", aws_key);
-  // console.log("awssecret", aws_secret);
-  // console.log("awsregion", aws_region);
+  console.log(query);
+  console.log("awskey", aws_key);
+  console.log("awssecret", aws_secret);
+  console.log("awsregion", aws_region);
 
   let s3 = new S3({
     apiVersion: api_version,
@@ -140,8 +140,9 @@ router.post("/deleteMime", (req, res) => {
         if (err) {
           console.log(err, err.stack);
           res.status(404).json({ errormsg: "Problem Deleteing Image" });
+        } else {
+          console.log("we did a successfull delete from images s3"); // successful response
         }
-        //else console.log(data); // successful response
       });
 
       let params2 = {
@@ -154,8 +155,9 @@ router.post("/deleteMime", (req, res) => {
         if (err) {
           console.log(err, err.stack);
           res.status(404).json({ errormsg: "Problem Deleteing Mime" });
+        } else {
+          console.log("we did a successfull delete from video s3"); // successful response
         }
-        // else console.log(data); // successful response
       });
       res.json(thumbs);
     })
