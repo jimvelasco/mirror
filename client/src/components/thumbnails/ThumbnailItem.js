@@ -82,22 +82,9 @@ class ThumbnailItem extends Component {
             }}
           />
           {/* {thumb.keywords} */}
-          <div
-            style={{
-              color: "white",
-              fontSize: "8pt",
-              width: "100%",
-              textAlign: "center",
-              border: "0px solid white"
-            }}
-          >
-            {/* {thumb.image} */}
-          </div>
-          {/* {clickedthumbid === thumb._id ? (
-            <ThumbnailDetail onethumbnail={onethumbnail} />
-          ) : (
-            <div />
-          )} */}
+          {/* <div className="timagetest">
+            <span style={{ fontSize: "8pt" }}> {thumb.search_data}</span>
+          </div> */}
         </div>
       </div>
     );

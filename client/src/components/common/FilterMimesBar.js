@@ -86,7 +86,7 @@ class FilterMimesBar extends Component {
 
   handleKeyUp(e) {
     e.preventDefault();
-    console.log("on key up", this.state.searchterm);
+    //console.log("on key up", this.state.searchterm);
 
     //let fobj = { type: "wildcard", param: this.state.searchterm };
     //this.props.searchMimes(fobj);
@@ -107,6 +107,47 @@ class FilterMimesBar extends Component {
     const { errors } = this.state;
     const catlist = list_helper.getCat0();
 
+    const mimes = this.props.mimereducer.mimes;
+    let mimecat0list = [];
+    let mimecat1list = [];
+    let mimecat2list = [];
+    mimes.forEach(function(m) {
+      let tc0 = m.cat0;
+      if (mimecat0list.indexOf(tc0) < 0) {
+        mimecat0list.push(tc0);
+      }
+      let tc1 = m.cat1;
+
+      if (tc1.length > 0 && mimecat1list.indexOf(tc1) < 0) {
+        mimecat1list.push(tc1);
+      }
+      let tc2 = m.cat2;
+      if (tc2.length > 0 && mimecat2list.indexOf(tc2) < 0) {
+        mimecat2list.push(tc2);
+      }
+    });
+    // console.log(mimecat0list);
+    // console.log(mimecat1list);
+    // console.log(mimecat2list);
+
+    // let catTemplate = catlist.map((v, i) => (
+    //   <div key={i} style={{ marginLeft: "5px", float: "left" }}>
+    //     {mimecat0list.indexOf(v) > -1 || v == "all" ? (
+    //       <a
+    //         href="#"
+    //         className="xbtn xbtn-sm xbtn-secondary xbtn-block"
+    //         onClick={e => {
+    //           this.onCat0Select(e, v);
+    //         }}
+    //       >
+    //         {v}
+    //       </a>
+    //     ) : (
+    //       <span style={{ color: "white" }}>{v}</span>
+    //     )}
+    //   </div>
+    // ));
+
     let catTemplate = catlist.map((v, i) => (
       <div key={i} style={{ marginLeft: "5px", float: "left" }}>
         <a
@@ -123,6 +164,23 @@ class FilterMimesBar extends Component {
 
     let typelist = this.state.cat1_list;
 
+    // let typesTemplate = typelist.map((v, i) =>
+    //   mimecat1list.indexOf(v) > -1 || v == "all" ? (
+    //     <a
+    //       href="#"
+    //       className="btn btn-sm btn-primary ml-2 xbtn-block"
+    //       onClick={e => {
+    //         this.onCat1Select(e, v);
+    //       }}
+    //     >
+    //       {v}
+    //     </a>
+    //   ) : (
+    //     <span className="ml-2" style={{ color: "white" }}>
+    //       {v}
+    //     </span>
+    //   )
+    // );
     let typesTemplate = typelist.map((v, i) => (
       <a
         key={i}
@@ -137,6 +195,24 @@ class FilterMimesBar extends Component {
     ));
 
     let typelist2 = this.state.cat2_list;
+
+    // let types2Template = typelist2.map((v, i) =>
+    //   mimecat2list.indexOf(v) > -1 || v == "all" ? (
+    //     <a
+    //       href="#"
+    //       className="btn btn-sm btn-primary ml-2 xbtn-block"
+    //       onClick={e => {
+    //         this.onCat2Select(e, v);
+    //       }}
+    //     >
+    //       {v}
+    //     </a>
+    //   ) : (
+    //     <span className="ml-2" style={{ color: "white" }}>
+    //       {v}
+    //     </span>
+    //   )
+    // );
 
     let types2Template = typelist2.map((v, i) => (
       <a

@@ -78,7 +78,7 @@ class MainResults extends Component {
     // console.log(e);
     // console.log(e.clientX);
     // console.log(e.clientY);
-    console.log("pon thumb click", val);
+    //console.log("pon thumb click", val);
     let xpos = e.clientX;
     let ypos = e.clientY + window.scrollY;
     let mwid = val.width;

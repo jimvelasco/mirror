@@ -68,9 +68,9 @@ search-bar {
 
 .image-float {
   width: 200px;
-  height: 220px;
+  height: 200px;
   float: left;
-  margin: 5px;
+  margin: 2px;
   border: 0px solid white;
 }
 
@@ -267,4 +267,13 @@ li {
   left: 300px; */
   border: 2px solid white;
 }
+
+.timagetest {
+  background-color: white;
+  color: "black";
+  position: relative;
+  margin-top: -75px;
+  font-weight: "normal";
+}
+
 /* #060d65 */

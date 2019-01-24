@@ -93,9 +93,14 @@ export default function(state = initialState, action) {
       // console.log("workarybefore", workary);
 
       allmimeary.map((mime, index) => {
-        if (mime.keywords.indexOf(str) > -1) {
+        let mkeywords = mime.search_data.toLowerCase();
+        let tstr = str.toLowerCase();
+        if (mkeywords.indexOf(tstr) > -1) {
           fary.push(mime);
         }
+        // if (mime.keywords.indexOf(str) > -1) {
+        //   fary.push(mime);
+        // }
       });
 
       // console.log("workaryafter", workary);
