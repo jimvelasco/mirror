@@ -33,7 +33,9 @@ class MainResults extends Component {
     this.state = {
       selectedMime: "",
       posx: 0,
-      posy: 0
+      posy: 0,
+      width: 0,
+      height: 0
     };
     // console.log("searchbar results incoming state");
     // console.log(this.state);
@@ -79,8 +81,21 @@ class MainResults extends Component {
     console.log("pon thumb click", val);
     let xpos = e.clientX;
     let ypos = e.clientY + window.scrollY;
-    this.setState({ selectedMime: val.mime, posx: xpos, posy: ypos });
-    let m = document.getElementById("mimemain");
+    let mwid = val.width;
+    let mhgt = val.height;
+    let wwid = window.innerWidth;
+    if (xpos + mwid > wwid) {
+      xpos = xpos - (xpos + mwid - wwid) - 40;
+    }
+
+    this.setState({
+      selectedMime: val.mime,
+      width: val.width,
+      height: mhgt,
+      posx: xpos,
+      posy: ypos
+    });
+    //let m = document.getElementById("mimemain");
   };
 
   hideMime = val => {
@@ -134,6 +149,8 @@ class MainResults extends Component {
     let selectedMime = this.state.selectedMime;
     let posx = this.state.posx + "px";
     let posy = this.state.posy + "px";
+    let width = this.state.width + 4;
+    let height = this.state.height + 34;
 
     // thumbContent = <ThumbnailFeed thumbnails={thumbnails} />;
     // thumbContent = <ThumbnailFeed thumbnails={mimes} />;
@@ -184,7 +201,7 @@ class MainResults extends Component {
             <div
               className="mimemain"
               id="mimemain"
-              style={{ top: posy, left: posx }}
+              style={{ top: posy, left: posx, width: width, height: height }}
             >
               <a
                 href="#"
@@ -195,7 +212,12 @@ class MainResults extends Component {
               >
                 close
               </a>
-              <MimeDisplay mime={selectedMime} title={selectedMime} />
+              <MimeDisplay
+                mime={selectedMime}
+                width={width}
+                height={height}
+                title={selectedMime}
+              />
             </div>
           ) : (
             <div />

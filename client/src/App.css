@@ -217,15 +217,18 @@ li {
   left: 0;
   right: 0;
   margin: auto;
-  padding: 20px;
+  border: 2px solid yellow;
+  /* padding: 20px;
   background-color: #08178c;
   width: 340px;
-  top: 10px;
+  top: 10px; */
 }
 
 .videoarea2 {
-  width: 300px;
-  height: 180px;
+  /* width: 300px;
+  height: 180px; */
+  margin-top: 0px;
+  padding: 0px;
 }
 
 .mimerecordstablewrapper {
@@ -258,10 +261,10 @@ li {
 
 .mimemain {
   position: absolute;
-  width: 360px;
+  /* width: 360px;
   height: 270x;
   top: 100px;
-  left: 300px;
+  left: 300px; */
   border: 2px solid white;
 }
 /* #060d65 */
