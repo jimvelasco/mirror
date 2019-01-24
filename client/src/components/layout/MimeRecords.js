@@ -433,6 +433,16 @@ class MimeRecords extends Component {
                   </tbody>
                 </table>
               </div>
+              {selectedImage ? (
+                <ImageDisplay img={imgname} title={imgname} />
+              ) : (
+                <div />
+              )}
+              {selectedMime ? (
+                <MimeDisplay mime={selectedMime} title={selectedMime} />
+              ) : (
+                <div />
+              )}
             </div>
             <div className="col-md-3 mimerecordsformwrapper">
               <h5 style={{ textAlign: "center" }}>Record</h5>
@@ -671,17 +681,6 @@ class MimeRecords extends Component {
                   <input type="submit" className="btn btn-info btn-block " />
                 </div>
               </form>
-
-              {selectedImage ? (
-                <ImageDisplay img={imgname} title={imgname} />
-              ) : (
-                <div />
-              )}
-              {selectedMime ? (
-                <MimeDisplay mime={selectedMime} title={selectedMime} />
-              ) : (
-                <div />
-              )}
             </div>
           </div>
         </div>
