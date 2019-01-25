@@ -57,6 +57,9 @@ class MainResults extends Component {
       which = "category";
       term = "all";
     }
+
+    // let fobj = { cat0: "ALL" };
+    // this.props.getMimes(fobj);
     // this.props.performThumbnailSearch(which, term);
     //this.props.getMimes({ param: "all" });
   }

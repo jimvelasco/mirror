@@ -8,7 +8,8 @@ import {
   MODIFY_MIME,
   CHANGE_MIME_STATUS,
   SET_STATUS_MESSAGE,
-  FILTER_MIMES
+  FILTER_MIMES,
+  FILTER_CATEGORY_MIMES
 } from "./types";
 
 export const getMimes = obj => dispatch => {
@@ -37,6 +38,18 @@ export const getMimes = obj => dispatch => {
         payload: err.response.data
       });
     });
+};
+
+export const getCategoryMimes = obj => dispatch => {
+  // console.log("getMimes obj is", obj);
+  let link = "";
+  let cat0 = obj.cat0;
+  let cat1 = obj.cat1;
+  let cat2 = obj.cat2;
+
+  //let link = "/api/mimes/getMimes";
+
+  dispatch({ type: FILTER_CATEGORY_MIMES, payload: obj });
 };
 
 export const searchMimes = obj => dispatch => {

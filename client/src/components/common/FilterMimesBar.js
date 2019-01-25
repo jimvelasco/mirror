@@ -9,7 +9,11 @@ import { connect } from "react-redux";
 
 import TextFieldGroup from "./TextFieldGroup";
 import list_helper from "../app_data";
-import { getMimes, filterMimes } from "../../actions/mimeActions";
+import {
+  getMimes,
+  filterMimes,
+  getCategoryMimes
+} from "../../actions/mimeActions";
 
 class FilterMimesBar extends Component {
   constructor(props) {
@@ -40,6 +44,8 @@ class FilterMimesBar extends Component {
     e.preventDefault();
     let cat1list = list_helper.getCat1(cat);
     this.setState({ cat0: cat, cat1_list: cat1list, cat2_list: [] });
+    let fobj = { cat0: cat, cat1: "all" };
+    this.props.getMimes(fobj);
     console.log(this.state);
   }
 
@@ -47,13 +53,13 @@ class FilterMimesBar extends Component {
     e.preventDefault();
     let fobj = {};
     fobj = { cat0: this.state.cat0, cat1: cat1 };
-    let catlist2 = list_helper.getCat2(cat1);
-    if (catlist2.length > 0) {
-      this.setState({ cat1: cat1, cat2_list: catlist2 });
-    } else {
-      console.log("we have no cat2 list so we run ", fobj);
-      this.props.getMimes(fobj);
-    }
+    // let catlist2 = list_helper.getCat2(cat1);
+    // if (catlist2.length > 0) {
+    //   this.setState({ cat1: cat1, cat2_list: catlist2 });
+    // } else {
+    console.log("we have no cat2 list so we run ", fobj);
+    this.props.getCategoryMimes(fobj);
+    // }
     //console.log(typelist2);
   }
 
@@ -164,35 +170,35 @@ class FilterMimesBar extends Component {
 
     let typelist = this.state.cat1_list;
 
-    // let typesTemplate = typelist.map((v, i) =>
-    //   mimecat1list.indexOf(v) > -1 || v == "all" ? (
-    //     <a
-    //       href="#"
-    //       className="btn btn-sm btn-primary ml-2 xbtn-block"
-    //       onClick={e => {
-    //         this.onCat1Select(e, v);
-    //       }}
-    //     >
-    //       {v}
-    //     </a>
-    //   ) : (
-    //     <span className="ml-2" style={{ color: "white" }}>
-    //       {v}
-    //     </span>
-    //   )
-    // );
-    let typesTemplate = typelist.map((v, i) => (
-      <a
-        key={i}
-        href="#"
-        className="btn btn-sm btn-primary ml-2 mb-1 xbtn-block"
-        onClick={e => {
-          this.onCat1Select(e, v);
-        }}
-      >
-        {v}
-      </a>
-    ));
+    let typesTemplate = typelist.map(
+      (v, i) =>
+        mimecat1list.indexOf(v) > -1 || v == "All" ? (
+          <a
+            href="#"
+            className="btn btn-sm btn-primary ml-2 xbtn-block"
+            onClick={e => {
+              this.onCat1Select(e, v);
+            }}
+          >
+            {v}
+          </a>
+        ) : null
+      // <span className="ml-2" style={{ color: "white" }}>
+      //   {v}
+      // </span>
+    );
+    // let typesTemplate = typelist.map((v, i) => (
+    //   <a
+    //     key={i}
+    //     href="#"
+    //     className="btn btn-sm btn-primary ml-2 mb-1 xbtn-block"
+    //     onClick={e => {
+    //       this.onCat1Select(e, v);
+    //     }}
+    //   >
+    //     {v}
+    //   </a>
+    // ));
 
     let typelist2 = this.state.cat2_list;
 
@@ -253,7 +259,9 @@ class FilterMimesBar extends Component {
                   onKeyUp={this.handleKeyUp}
                   error={errors.searchterm}
                 />
-                <span style={{ fontSize: "8pt", marginLeft: "5px" }}>
+                <span
+                  style={{ fontSize: "8pt", marginLeft: "5px", color: "white" }}
+                >
                   {" "}
                   Keywords Search (* for all)
                 </span>
@@ -324,6 +332,7 @@ export default connect(
   mapStateToProps,
   {
     getMimes,
-    filterMimes
+    filterMimes,
+    getCategoryMimes
   }
 )(withRouter(FilterMimesBar));

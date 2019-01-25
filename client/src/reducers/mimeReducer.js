@@ -7,7 +7,8 @@ import {
   SET_CURRENT_MIME,
   MODIFY_MIME,
   CHANGE_MIME_STATUS,
-  FILTER_MIMES
+  FILTER_MIMES,
+  FILTER_CATEGORY_MIMES
 } from "../actions/types";
 
 // import { TEST_DISPATCH } from "../actions/types";
@@ -108,7 +109,28 @@ export default function(state = initialState, action) {
       return {
         ...state,
         workmimes: fary
+        // images: imgary
+      };
 
+    case FILTER_CATEGORY_MIMES:
+      // console.log("MODIFY_MIME incoming payload", action.payload);
+      let allary = state.mimes;
+      let obj = action.payload;
+      let cat1 = obj.cat1;
+      let cfary = [];
+      if (cat1 === "All") {
+        cfary = allary;
+      } else {
+        allary.map((mime, index) => {
+          let cm1 = mime.cat1;
+          if (cm1 == cat1) {
+            cfary.push(mime);
+          }
+        });
+      }
+      return {
+        ...state,
+        workmimes: cfary
         // images: imgary
       };
 

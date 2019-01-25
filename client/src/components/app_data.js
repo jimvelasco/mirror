@@ -8,39 +8,49 @@ const xlists = {
   cool: ["all", "one2", "serious", "three2"],
   amazing: ["all", "one3", "happy", "angry"]
 };
+
+// Communications	Emotions	Greetings	  Holidays	  Phrases
+// Insults	        Anger 	  Happy Bday	Xmas	      lol
+// Apologies	      Sadness	  I love you	Valentines	wth
+// Hype/swagger	  Joy	      I miss you	New Years	  nbd
+// Comebacks	      Surprise	Wedding	    Mothers Day	omg
+// Compliments	    Fear	    Anniversary	Halloween	  yolo
+
 const lists = {
-  Select: [],
-  Music: ["all", "Rock", "Country", "Jazz", "Rap", "HipHop", "Classical"],
-  Relationships: [
-    "all",
-    "Kissing",
-    "Friends",
-    "Reminiscing",
-    "Family",
-    "Desire",
-    "Flirting",
-    "Back together",
-    "Hooking up",
-    "Make out",
-    "Scorn",
-    "Breaking Up",
-    "It’s over"
-  ],
+  // Select: [],
+  // Music: ["All", "Rock", "Country", "Jazz", "Rap", "HipHop", "Classical"],
+  // Relationships: [
+  //   "All",
+  //   "Kissing",
+  //   "Friends",
+  //   "Reminiscing",
+  //   "Family",
+  //   "Desire",
+  //   "Flirting",
+  //   "Back together",
+  //   "Hooking up",
+  //   "Make out",
+  //   "Scorn",
+  //   "Breaking Up",
+  //   "It’s over"
+  // ],
   Communication: [
-    "all",
+    "All",
+    "Insults",
+    "Apologies",
+    "Hype/Swagger",
+    "Comebacks",
+    "Compliments",
+
     "Major Categories",
     "Communication",
     "Advice",
-    "Apologies",
     "Bragging",
     "Commands",
-    "Compliments",
     "Excuses",
     "Gratitude",
-    "Hype/Swagger",
     "Inspiration",
     "Instructions ",
-    "Insults",
     "Invites",
     "Opinions",
     "Requests",
@@ -53,127 +63,149 @@ const lists = {
     "Warnings",
     "Predictions"
   ],
-  Status: [
-    "all",
-    "Money",
-    "Cities",
-    "Transportation",
-    "Nature",
-    "Planets",
-    "Location/Places",
-    "Weather",
-    "Jobs",
-    "Planning",
-    "Countries",
-    "Health",
-    "Nature/parks",
-    "School/Jobs",
-    "Home",
-    "Time",
-    "Colleges",
-    "High Schools"
+  Emotions: [
+    "All",
+    "Anger",
+    "Sadness",
+    "Joy",
+    "Surprise",
+    "Fear",
+
+    "Disgust",
+    "Contempt"
+  ],
+
+  Greetings: [
+    "All",
+    "Happy Birthday",
+    "I love you",
+    "I miss you",
+    "Wedding",
+    "Anniversary",
+
+    "Sympathy",
+    "Get well soon",
+    "Its a Boy/Girl",
+    "Baby shower",
+    "Graduation",
+    "Congratulations",
+    "Engagement",
+    "Bar Mitzvah"
+  ],
+  Holidays: [
+    "All",
+    "Christmas",
+    "Valentines",
+    "New Years Day",
+    "Mothers Day",
+    "Halloween",
+
+    "4th Of July",
+    "Fathers Day",
+    "MLK Day",
+    "4/20",
+    "Memorial Day",
+    "Easter",
+    "New Years Eve",
+    "Labor Day",
+    "Hanukkah",
+    "Thanksgiving"
   ],
   Phrases: [
-    "all",
-    "lol",
+    "All",
+    "LOL",
+    "WTF",
+    "WTH",
+    "NBD",
+    "OMG",
+    "YOLO",
+
     "BFF",
     "Lmao",
     "Busted",
     "BFD",
-    "WTF",
     "idk",
     "Busted!",
-    "nbd",
     "TBH",
     "Own you",
     "See ya",
     "smh",
     "Karma",
     "Bye",
-    "WTH",
-    "yolo",
     "What’s up?",
-    "idc",
-    "OMG"
-  ],
-  Greetings: [
-    "all",
-    "Sympathy",
-    "Anniversary",
-    "Get well soon",
-    "Its a Boy/Girl",
-    "Baby shower",
-    "Wedding",
-    "Graduation",
-    "I miss you",
-    "Happy Birthday",
-    "I love you",
-    "Congratulations",
-    "Engagement",
-    "Bar Mitzvah"
-  ],
-  Holidays: [
-    "all",
-    "4th Of July",
-    "Mothers Day",
-    "Fathers Day",
-    "Halloween",
-    "MLK Day",
-    "4/20",
-    "Memorial Day",
-    "New Years Day",
-    "Easter",
-    "Christmas",
-    "New Years Eve",
-    "Valentines",
-    "Labor Day",
-    "Hanukkah",
-    "Thanksgiving"
-  ],
-  Entertainment: [
-    "all",
-    "Sports",
-    "Internet",
-    "Partying",
-    "Humor",
-    "Food",
-    "Movies/Celebrities",
-    "Anthems",
-    "V",
-    "Animals",
-    "Decades",
-    "Nightlife",
-    "Video Games"
-  ],
-  // from column in sheet
-  Emotions: [
-    "all",
-    "Anger",
-    "Sadness",
-    "Disgust",
-    "Joy",
-    "Surprise",
-    "Fear",
-    "Contempt"
-  ],
-  // from column in sheet
-  Reactions: [
-    "all",
-    "Confused",
-    "No",
-    "Yes",
-    "Angry",
-    "Indifferent",
-    "Sad",
-    "Happy",
-    "Love/Cute",
-    "Wow/Disbelief"
+    "idc"
   ]
+
+  // Status: [
+  //   "All",
+  //   "Money",
+  //   "Cities",
+  //   "Transportation",
+  //   "Nature",
+  //   "Planets",
+  //   "Location/Places",
+  //   "Weather",
+  //   "Jobs",
+  //   "Planning",
+  //   "Countries",
+  //   "Health",
+  //   "Nature/parks",
+  //   "School/Jobs",
+  //   "Home",
+  //   "Time",
+  //   "Colleges",
+  //   "High Schools"
+  // ],
+
+  // Communications	Emotions	Greetings	  Holidays	  Phrases
+  // Insults	        Anger 	  Happy Bday	Xmas	      lol
+  // Apologies	      Sadness	  I love you	Valentines	wth
+  // Hype/swagger	  Joy	      I miss you	New Years	  nbd
+  // Comebacks	      Surprise	Wedding	    Mothers Day	omg
+  // Compliments	    Fear	    Anniversary	Halloween	  yolo
+
+  // Entertainment: [
+  //   "All",
+  //   "Sports",
+  //   "Internet",
+  //   "Partying",
+  //   "Humor",
+  //   "Food",
+  //   "Movies/Celebrities",
+  //   "Anthems",
+  //   "V",
+  //   "Animals",
+  //   "Decades",
+  //   "Nightlife",
+  //   "Video Games"
+  // ],
+  // from column in sheet
+
+  // Communications	Emotions	Greetings	  Holidays	  Phrases
+  // Insults	        Anger 	  Happy Bday	Xmas	      lol
+  // Apologies	      Sadness	  I love you	Valentines	wth
+  // Hype/swagger	  Joy	      I miss you	New Years	  nbd
+  // Comebacks	      Surprise	Wedding	    Mothers Day	omg
+  // Compliments	    Fear	    Anniversary	Halloween	  yolo
+
+  // from column in sheet
+  // Reactions: [
+  //   "All",
+  //   "Confused",
+  //   "No",
+  //   "Yes",
+  //   "Angry",
+  //   "Indifferent",
+  //   "Sad",
+  //   "Happy",
+  //   "Love/Cute",
+  //   "Wow/Disbelief"
+  // ]
 };
 
 const lists2 = {
   Anger: [
-    "all",
+    "All",
     "Fury",
     "Vengefulness",
     "Bitterness",
@@ -183,7 +215,7 @@ const lists2 = {
     "Annoyance"
   ],
   Sadness: [
-    "all",
+    "All",
     "Anguish",
     "Sorrow",
     "Grief",
@@ -197,7 +229,7 @@ const lists2 = {
     "Disappointed"
   ],
   Disgust: [
-    "all",
+    "All",
     "Loathe",
     "Abhorrent",
     "Revulsion",
@@ -207,7 +239,7 @@ const lists2 = {
     "Dislike"
   ],
   Joy: [
-    "all",
+    "All",
     "Enjoyment",
     "Ecstasy",
     "Excitement",
@@ -222,9 +254,9 @@ const lists2 = {
     "Compassion/Joy",
     "Rejoicing"
   ],
-  Surprise: ["all", "Amazement", "Astonishment"],
+  Surprise: ["All", "Amazement", "Astonishment"],
   Fear: [
-    "all",
+    "All",
     "Terror",
     "Horror",
     "Panic",

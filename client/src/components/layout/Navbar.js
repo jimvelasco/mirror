@@ -101,10 +101,15 @@ class Navbar extends Component {
                 </li> */}
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/all">
-                    Categories
+                    About
                   </Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/mainresults/category/all">
+                    Contact
+                  </Link>
+                </li>
+                {/* <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/category/wow">
                     Emotions
                   </Link>
@@ -118,7 +123,7 @@ class Navbar extends Component {
                   <Link className="nav-link" to="/mainresults/category/amazing">
                     Status
                   </Link>
-                </li>{" "}
+                </li>{" "} */}
                 {/* 
                 <li className="nav-item">
                   <Link className="nav-link" to="/mainresults/emotion/serious">
