@@ -20,6 +20,8 @@ const MimeDisplay = ({ mime, title, width, height }) => {
   //   </div>
   // );
 
+  //  loop
+
   return (
     <div className="player-wrapper">
       <ReactPlayer
@@ -28,7 +30,6 @@ const MimeDisplay = ({ mime, title, width, height }) => {
         playing
         width="100%"
         height="100%"
-        loop
         controls
       />
     </div>
