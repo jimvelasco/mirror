@@ -66,7 +66,7 @@ class Login extends Component {
       <div className="register">
         <div className="container xshadow-lg">
           <div className="row">
-            <div className="col-md-6 m-auto">
+            <div className="col-md-8 m-auto">
               <h1 className="display-5 text-center">Sign In</h1>
 
               <form noValidate onSubmit={this.onSubmit}>

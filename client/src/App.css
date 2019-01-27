@@ -107,6 +107,7 @@ search-bar {
   /* top: 100px;
   left: 100px; */
   padding-bottom: 20px;
+  max-width: 600px;
   /*position: absolute;*/
   z-index: 100;
 }
