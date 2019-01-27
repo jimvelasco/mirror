@@ -152,15 +152,30 @@ class MainResults extends Component {
     let selectedMime = this.state.selectedMime;
     let posx = this.state.posx + "px";
     let posy = this.state.posy + "px";
-    let width = this.state.width + 4;
-    let height = this.state.height + 34;
+    let width = this.state.width / 2 + 4;
+    let height = this.state.height / 2 + 34;
+
+    let sposy = window.scrollY;
+    // posx = "10px";
+    // posy = sposy + 200 + "px";
 
     // thumbContent = <ThumbnailFeed thumbnails={thumbnails} />;
     // thumbContent = <ThumbnailFeed thumbnails={mimes} />;
+    // <div key={thumb._id}>
+    // </div>
+
+    let template = mimes.map(thumb => (
+      <ThumbnailItem
+        key={thumb._id}
+        id={thumb._id}
+        thumb={thumb}
+        onThumbClick={this.onThumbClick}
+      />
+    ));
     return (
       <div className="feed">
         <FilterMimesBar />
-        <div className="container mirrorborder">
+        <div className="container xmirrorborder">
           <div
             className="xbg-light"
             style={{
@@ -177,6 +192,7 @@ class MainResults extends Component {
 
           <div className="row">
             <div className="col-md-12 ximage-container">
+              {template}
               {/* <div style={{ float: "left" }}>
                 <Link className="nav-link" to="/magicmirror">
                   <img
@@ -186,9 +202,8 @@ class MainResults extends Component {
                   />
                 </Link>
               </div> */}
-              {mimes.map(thumb => (
+              {/* {mimes.map(thumb => (
                 <div key={thumb._id}>
-                  {/* <ImageDisplay img={thumb.image} title={thumb.image} /> */}
                   <ThumbnailItem
                     key={thumb._id}
                     id={thumb._id}
@@ -196,8 +211,7 @@ class MainResults extends Component {
                     onThumbClick={this.onThumbClick}
                   />
                 </div>
-              ))}
-              {/* ;{thumbContent} */}
+              ))} */}
             </div>
           </div>
           {selectedMime ? (

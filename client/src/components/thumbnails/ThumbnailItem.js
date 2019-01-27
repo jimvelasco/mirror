@@ -64,29 +64,57 @@ class ThumbnailItem extends Component {
     //   "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + thumb.image;
     let imgstr = "https://mimesthumbnails.s3.amazonaws.com/" + thumb.image;
     let mime = thumb.mime;
+    let width = thumb.width / 2; // + "px";
+    let height = thumb.height / 2; // + "px";
+    let widthpx = width + "px";
+    let heightpx = height + "px";
+    console.log("width height", widthpx, heightpx);
+    // <div
+    //   className="image-float"
+    //   style={{
+    //     width: { widthpx },
+    //     height: { heightpx },
+    //     border: "1px solid white"
+    //   }}
+    // >
+    // </div>
+    let size = "contain";
+
+    let important = {
+      backgroundImage: `url("${imgstr}")`,
+      backgroundSize: size,
+      backgroundPosition: "center center",
+      backgroundRepeat: "no-repeat"
+    };
+
+    let defaults = {
+      height: height || 100,
+      width: width || 100,
+      backgroundColor: "gray",
+      float: "left",
+      margin: "5px"
+    };
+    // return (
+    //   <div className="image-float">
+    //     <img
+    //       className="xrounded-circle xd-none d-md-block img-thumbnail rounded ximage-float img-fluid"
+    //       src={imgstr}
+    //       alt=""
+    //       onClick={e => {
+    //         this.onThumbClick(e, thumb);
+    //       }}
+    //     />
+    //   </div>
+    // );
+
     return (
-      <div>
-        <div className="image-float">
-          <img
-            className="xrounded-circle xd-none xd-md-block"
-            src={imgstr}
-            alt=""
-            style={{
-              width: "200px",
-              height: "200px",
-              border: "1px solid white"
-            }}
-            // onClick={this.onThumbClick.bind(this, mime)}
-            onClick={e => {
-              this.onThumbClick(e, thumb);
-            }}
-          />
-          {/* {thumb.keywords} */}
-          {/* <div className="timagetest">
-            <span style={{ fontSize: "8pt" }}> {thumb.search_data}</span>
-          </div> */}
-        </div>
-      </div>
+      <div
+        className="image-float rounded"
+        style={{ ...defaults, ...important }}
+        onClick={e => {
+          this.onThumbClick(e, thumb);
+        }}
+      />
     );
   }
 }

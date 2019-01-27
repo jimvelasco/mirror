@@ -67,11 +67,15 @@ search-bar {
 }
 
 .image-float {
-  width: 200px;
-  height: 200px;
+  width: 320px;
+  height: 180px;
+
   float: left;
-  margin: 2px;
-  border: 0px solid white;
+
+  /* margin: 2px; */
+  /* margin: 0px auto; */
+  margin: 10px;
+  border: 0px solid yellow;
 }
 
 .image-container {

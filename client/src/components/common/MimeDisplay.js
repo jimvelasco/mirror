@@ -1,20 +1,33 @@
 import React from "react";
-import classnames from "classnames";
-import PropTypes from "prop-types";
-import video from "../../img/TaylorSwiftGorgeous.mp4";
+import ReactPlayer from "react-player";
+// import classnames from "classnames";
+// import PropTypes from "prop-types";
+// import video from "../../img/TaylorSwiftGorgeous.mp4";
 
 const MimeDisplay = ({ mime, title, width, height }) => {
   let vstr = "https://mimesvideos.s3.amazonaws.com/" + mime;
   // console.log(vstr);
   // console.log("wh", width, height);
+  // return (
+  //   <div className="xthumbdetail3">
+  //     <video
+  //       style={{ border: "0px solid white", width: width, height: height }}
+  //       className="xvideoarea2"
+  //       src={vstr}
+  //       controls
+  //       autoPlay
+  //     />
+  //   </div>
+  // );
+
   return (
-    <div className="xthumbdetail3">
-      <video
-        style={{ border: "0px solid white" }}
-        className="xvideoarea2"
-        src={vstr}
-        controls
-        autoPlay
+    <div className="player-wrapper">
+      <ReactPlayer
+        url={vstr}
+        className="react-player"
+        playing
+        width="100%"
+        height="100%"
       />
     </div>
   );

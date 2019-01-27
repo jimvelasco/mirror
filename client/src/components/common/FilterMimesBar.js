@@ -57,7 +57,7 @@ class FilterMimesBar extends Component {
     // if (catlist2.length > 0) {
     //   this.setState({ cat1: cat1, cat2_list: catlist2 });
     // } else {
-    console.log("we have no cat2 list so we run ", fobj);
+    //console.log("we have no cat2 list so we run ", fobj);
     this.props.getCategoryMimes(fobj);
     // }
     //console.log(typelist2);
@@ -174,8 +174,9 @@ class FilterMimesBar extends Component {
       (v, i) =>
         mimecat1list.indexOf(v) > -1 || v == "All" ? (
           <a
+            key={i}
             href="#"
-            className="btn btn-sm btn-primary ml-2 xbtn-block"
+            className="btn btn-sm btn-primary ml-2 mb-2 xbtn-block"
             onClick={e => {
               this.onCat1Select(e, v);
             }}
@@ -273,10 +274,12 @@ class FilterMimesBar extends Component {
 
           {/* <div style={{ clear: "left" }} /> */}
         </div>
+        {/* <div className="collapse navbar-collapse" id="mobile-nav"> */}
         <div className="xnavbar navbar-dark navbackground">{typesTemplate}</div>
-        <div className="xnavbar navbar-dark navbackground">
+        {/* </div> */}
+        {/* <div className="xnavbar navbar-dark navbackground">
           {types2Template}
-        </div>
+        </div> */}
       </div>
     );
   }
