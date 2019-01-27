@@ -46,7 +46,7 @@ class FilterMimesBar extends Component {
     this.setState({ cat0: cat, cat1_list: cat1list, cat2_list: [] });
     let fobj = { cat0: cat, cat1: "all" };
     this.props.getMimes(fobj);
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   onCat1Select(e, cat1) {
@@ -237,7 +237,7 @@ class FilterMimesBar extends Component {
     return (
       <div className="bordertest">
         <div
-          className="navbar navbar-dark navbackground"
+          className="navbar navbar-dark xnavbackground"
           style={{
             // color: "black",
             // backgroundColor: "#e0e0e0",
@@ -275,7 +275,9 @@ class FilterMimesBar extends Component {
           {/* <div style={{ clear: "left" }} /> */}
         </div>
         {/* <div className="collapse navbar-collapse" id="mobile-nav"> */}
-        <div className="xnavbar navbar-dark navbackground">{typesTemplate}</div>
+        <div className="xnavbar navbar-dark xnavbackground">
+          {typesTemplate}
+        </div>
         {/* </div> */}
         {/* <div className="xnavbar navbar-dark navbackground">
           {types2Template}

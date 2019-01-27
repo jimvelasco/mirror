@@ -10,7 +10,12 @@ import SearchBar from "./SearchBar";
 import { performThumbnailSearch } from "../../actions/thumbnailActions";
 
 //import logo from "../../img/image1.jpeg";
-import logo from "../../img/Image36.JPG";
+//import logo from "../../img/Image36.JPG";
+import logo from "../../img/MimeLogo.jpeg";
+
+// 426 × 224  .5258
+
+// 130 x 68
 
 class Navbar extends Component {
   onLogoutClick(e) {
@@ -74,12 +79,12 @@ class Navbar extends Component {
     );
     return (
       <div className="bordertest">
-        <nav className="navbar  navbar-expand-sm navbar-dark navbackground xmb-4">
+        <nav className="navbar  navbar-expand-sm navbar-dark xnavbackground xmb-4">
           <div className="container">
             <Link to="/" className="navbar-brand">
               <img
                 src={logo}
-                style={{ width: "100px", height: "40px" }}
+                style={{ width: "130px", height: "68px" }}
                 alt=""
               />
             </Link>
@@ -109,40 +114,6 @@ class Navbar extends Component {
                     Contact
                   </Link>
                 </li>
-                {/* <li className="nav-item">
-                  <Link className="nav-link" to="/mainresults/category/wow">
-                    Emotions
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/mainresults/category/cool">
-                    Reacctions
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/mainresults/category/amazing">
-                    Status
-                  </Link>
-                </li>{" "} */}
-                {/* 
-                <li className="nav-item">
-                  <Link className="nav-link" to="/mainresults/emotion/serious">
-                    Movies
-                  </Link>
-                </li>{" "}
-                <li className="nav-item">
-                  <Link className="nav-link" to="/mainresults/emotion/happy">
-                    TV
-                  </Link>
-                </li> */}
-                {/* <li className="nav-item " style={{ marginTop: "10px" }}>
-                  <SearchBar />
-                </li>
-                <li className="nav-item" style={{ marginLeft: "50px" }}>
-                  <Link className="nav-link" to="/videodemo">
-                    video
-                  </Link>
-                </li> */}
               </ul>
               {isAuthenticated ? authLinks : guestLinks}{" "}
             </div>

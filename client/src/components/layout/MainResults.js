@@ -142,9 +142,9 @@ class MainResults extends Component {
       return (
         <div>
           <FilterMimesBar />
-          <h2 style={{ textAlign: "center", marginTop: "40px", color: "#fff" }}>
+          <h5 style={{ textAlign: "center", margin: "40px", color: "#fff" }}>
             Please select from the categories above
-          </h2>
+          </h5>
         </div>
       );
     }
@@ -154,6 +154,9 @@ class MainResults extends Component {
     let posy = this.state.posy + "px";
     let width = this.state.width / 2 + 4;
     let height = this.state.height / 2 + 34;
+
+    let widthpx = width + "px";
+    let heightpx = height + "px";
 
     let sposy = window.scrollY;
     posx = "10px";
@@ -218,7 +221,12 @@ class MainResults extends Component {
             <div
               className="mimemain"
               id="mimemain"
-              style={{ top: posy, left: posx, width: width, height: height }}
+              style={{
+                top: posy,
+                left: posx,
+                width: widthpx,
+                height: heightpx
+              }}
             >
               <a
                 href="#"

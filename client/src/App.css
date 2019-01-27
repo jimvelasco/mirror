@@ -17,7 +17,10 @@ img {
   /* position: relative; */
   /* background: url("./img/showcase.jpg") no-repeat; */
   /* background: url("./img/steamboat-ski-resort.jpg") no-repeat; */
-  background-color: #08178c;
+
+  /* background-color: #08178c; */
+
+  background-color: #000;
   /* background: url("./img/IMG_1611.JPG") no-repeat;
   background-size: cover;
   background-position: center;
@@ -278,6 +281,17 @@ li {
   position: relative;
   margin-top: -75px;
   font-weight: "normal";
+}
+
+.xplayer-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+}
+
+.xreact-player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 /* #060d65 */
