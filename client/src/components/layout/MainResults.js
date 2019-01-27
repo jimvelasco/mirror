@@ -156,8 +156,8 @@ class MainResults extends Component {
     let height = this.state.height / 2 + 34;
 
     let sposy = window.scrollY;
-    // posx = "10px";
-    // posy = sposy + 200 + "px";
+    posx = "10px";
+    posy = sposy + 200 + "px";
 
     // thumbContent = <ThumbnailFeed thumbnails={thumbnails} />;
     // thumbContent = <ThumbnailFeed thumbnails={mimes} />;

@@ -68,7 +68,7 @@ class ThumbnailItem extends Component {
     let height = thumb.height / 2; // + "px";
     let widthpx = width + "px";
     let heightpx = height + "px";
-    console.log("width height", widthpx, heightpx);
+    //console.log("width height", widthpx, heightpx);
     // <div
     //   className="image-float"
     //   style={{
