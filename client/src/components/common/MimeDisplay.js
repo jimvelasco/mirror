@@ -25,9 +25,11 @@ const MimeDisplay = ({ mime, title, width, height }) => {
       <ReactPlayer
         url={vstr}
         className="react-player"
-        playing
+        playing="true"
         width="100%"
         height="100%"
+        loop="true"
+        controls="true"
       />
     </div>
   );
