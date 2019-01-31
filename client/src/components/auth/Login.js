@@ -11,7 +11,7 @@ class Login extends Component {
       // email: "jim@lodgingdeals.com",
       // password: "123456",
       email: "kevin@mime.com",
-      password: "m1rr0r",
+      password: "",
       errors: {}
     };
 
