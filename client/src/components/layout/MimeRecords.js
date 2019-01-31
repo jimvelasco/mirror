@@ -82,6 +82,8 @@ class MimeRecords extends Component {
       cat2: "",
       cat3: "",
       search_data: "",
+      width: "640",
+      height: "360",
       image: "",
       mime: "",
       video: "",
@@ -156,7 +158,8 @@ class MimeRecords extends Component {
         cat2: curmime.cat2,
         cat3: curmime.cat3,
         search_data: curmime.search_data,
-
+        width: curmime.width,
+        height: curmime.height,
         image: curmime.image,
         mime: curmime.mime,
         video: curmime.video,
@@ -282,6 +285,8 @@ class MimeRecords extends Component {
     formdata.append("cat2", this.state.cat2);
     formdata.append("cat3", this.state.cat3);
     formdata.append("search_data", this.state.search_data);
+    formdata.append("width", this.state.width);
+    formdata.append("height", this.state.height);
     formdata.append("image", this.state.image);
     formdata.append("mime", this.state.mime);
     formdata.append("video", this.state.video);
@@ -590,17 +595,6 @@ class MimeRecords extends Component {
                 <div className="form-group">
                   <TextFieldGroup
                     type="text"
-                    label="Start"
-                    placeholder="Start"
-                    name="start"
-                    value={this.state.start}
-                    onChange={this.onChange}
-                    error={errors.start}
-                  />
-                </div>
-                <div className="form-group">
-                  <TextFieldGroup
-                    type="text"
                     label="End"
                     placeholder="End"
                     name="end"
@@ -618,6 +612,28 @@ class MimeRecords extends Component {
                     value={this.state.duration}
                     onChange={this.onChange}
                     error={errors.duration}
+                  />
+                </div>
+                <div className="form-group">
+                  <TextFieldGroup
+                    type="text"
+                    label="Width"
+                    placeholder="Width"
+                    name="width"
+                    value={this.state.width}
+                    onChange={this.onChange}
+                    error={errors.width}
+                  />
+                </div>
+                <div className="form-group">
+                  <TextFieldGroup
+                    type="text"
+                    label="Height"
+                    placeholder="Height"
+                    name="height"
+                    value={this.state.height}
+                    onChange={this.onChange}
+                    error={errors.height}
                   />
                 </div>
                 <div className="form-group">

@@ -295,4 +295,20 @@ li {
   left: 0;
 }
 
+.media_icon {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+}
+
+.staticpage {
+  background-color: white;
+  font-size: 10pt;
+  color: black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  max-width: 800px;
+}
+
 /* #060d65 */

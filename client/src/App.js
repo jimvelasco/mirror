@@ -30,6 +30,10 @@ import Login from "./components/auth/Login";
 
 import MimeRecords from "./components/layout/MimeRecords";
 import MimeJsonUpload from "./components/layout/MimeJsonUpload";
+
+import About from "./components/static/about";
+import Contact from "./components/static/contact";
+
 import "./App.css";
 
 // Check for token
@@ -69,6 +73,8 @@ class App extends Component {
                   <div className="main_container">
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
+                    <Route exact path="/about" component={About} />
+                    <Route exact path="/contact" component={Contact} />
 
                     {/* <Route exact path="/" component={MainResults} /> */}
 

@@ -111,7 +111,7 @@ class FilterMimesBar extends Component {
   //let link = `/api/business/find-business/${bizid}`;
   render() {
     const { errors } = this.state;
-    const catlist = list_helper.getCat0();
+    const cat0list = list_helper.getCat0();
 
     const mimes = this.props.mimereducer.mimes;
     let mimecat0list = [];
@@ -136,25 +136,7 @@ class FilterMimesBar extends Component {
     // console.log(mimecat1list);
     // console.log(mimecat2list);
 
-    // let catTemplate = catlist.map((v, i) => (
-    //   <div key={i} style={{ marginLeft: "5px", float: "left" }}>
-    //     {mimecat0list.indexOf(v) > -1 || v == "all" ? (
-    //       <a
-    //         href="#"
-    //         className="xbtn xbtn-sm xbtn-secondary xbtn-block"
-    //         onClick={e => {
-    //           this.onCat0Select(e, v);
-    //         }}
-    //       >
-    //         {v}
-    //       </a>
-    //     ) : (
-    //       <span style={{ color: "white" }}>{v}</span>
-    //     )}
-    //   </div>
-    // ));
-
-    let catTemplate = catlist.map((v, i) => (
+    let cat0Template = cat0list.map((v, i) => (
       <div key={i} style={{ marginLeft: "5px", float: "left" }}>
         <a
           href="#"
@@ -168,9 +150,9 @@ class FilterMimesBar extends Component {
       </div>
     ));
 
-    let typelist = this.state.cat1_list;
+    let cat1list = this.state.cat1_list;
 
-    let typesTemplate = typelist.map(
+    let cat1Template = cat1list.map(
       (v, i) =>
         mimecat1list.indexOf(v) > -1 || v == "All" ? (
           <a
@@ -188,51 +170,20 @@ class FilterMimesBar extends Component {
       //   {v}
       // </span>
     );
-    // let typesTemplate = typelist.map((v, i) => (
+
+    // let cat2list = this.state.cat2_list;
+    // let cat2Template = cat2list.map((v, i) => (
     //   <a
     //     key={i}
     //     href="#"
     //     className="btn btn-sm btn-primary ml-2 mb-1 xbtn-block"
     //     onClick={e => {
-    //       this.onCat1Select(e, v);
+    //       this.onCat2Select(e, v);
     //     }}
     //   >
     //     {v}
     //   </a>
     // ));
-
-    let typelist2 = this.state.cat2_list;
-
-    // let types2Template = typelist2.map((v, i) =>
-    //   mimecat2list.indexOf(v) > -1 || v == "all" ? (
-    //     <a
-    //       href="#"
-    //       className="btn btn-sm btn-primary ml-2 xbtn-block"
-    //       onClick={e => {
-    //         this.onCat2Select(e, v);
-    //       }}
-    //     >
-    //       {v}
-    //     </a>
-    //   ) : (
-    //     <span className="ml-2" style={{ color: "white" }}>
-    //       {v}
-    //     </span>
-    //   )
-    // );
-
-    let types2Template = typelist2.map((v, i) => (
-      <a
-        key={i}
-        href="#"
-        className="btn btn-sm btn-primary ml-2 mb-1 xbtn-block"
-        onClick={e => {
-          this.onCat2Select(e, v);
-        }}
-      >
-        {v}
-      </a>
-    ));
 
     return (
       <div className="bordertest">
@@ -246,7 +197,7 @@ class FilterMimesBar extends Component {
             marginTop: "0px"
           }}
         >
-          {catTemplate}
+          {cat0Template}
 
           <div style={{ marginLeft: "5px", float: "left" }}>
             <form style={{ margin: "5px" }} noValidate onSubmit={this.onSubmit}>
@@ -261,24 +212,16 @@ class FilterMimesBar extends Component {
                   error={errors.searchterm}
                 />
                 <span
-                  style={{ fontSize: "8pt", marginLeft: "5px", color: "white" }}
+                  style={{ fontSize: "9pt", marginLeft: "5px", color: "white" }}
                 >
                   {" "}
-                  Keywords Search (* for all)
+                  (* for all)
                 </span>
               </div>
             </form>
           </div>
-          {/* <div style={{ clear: "left" }}>123</div>
-          <br /> */}
-
-          {/* <div style={{ clear: "left" }} /> */}
         </div>
-        {/* <div className="collapse navbar-collapse" id="mobile-nav"> */}
-        <div className="xnavbar navbar-dark xnavbackground">
-          {typesTemplate}
-        </div>
-        {/* </div> */}
+        <div className="xnavbar navbar-dark xnavbackground">{cat1Template}</div>
         {/* <div className="xnavbar navbar-dark navbackground">
           {types2Template}
         </div> */}

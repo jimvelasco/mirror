@@ -27,9 +27,13 @@ export const getMimes = obj => dispatch => {
     .get(link)
     // .then(res => console.log(res.data))
     .then(res => {
+      let dobj = {};
+      dobj.category = cat0;
+      dobj.results = res.data;
       dispatch({
         type: GET_MIMES,
-        payload: res.data
+        //payload: res.data
+        payload: dobj
       });
     })
     .catch(err => {

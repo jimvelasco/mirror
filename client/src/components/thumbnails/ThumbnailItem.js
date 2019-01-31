@@ -6,6 +6,10 @@ import { connect } from "react-redux";
 import ThumbnailDetail from "./ThumbnailDetail";
 import { performIndividualSearch } from "../../actions/thumbnailActions";
 
+import { UrlConfig } from "../../config/url_config";
+
+import share from "../../img/icons/share-48.png";
+
 //import classnames from "classnames";
 //import { Link } from "react-router-dom";
 //import axios from "axios";
@@ -53,6 +57,25 @@ class ThumbnailItem extends Component {
     // console.log(this.props);
   };
 
+  onMouseOver = (e, mime) => {
+    e.preventDefault();
+    //console.log(val._id);
+    let divid = mime._id;
+    let lyrics = mime.lyrics;
+    //let str = '<img className="media_icon" src={share} alt="" />' + lyrics;
+    let modiv = document.getElementById(divid);
+    modiv.style.visibility = "visible";
+    //modiv.innerHTML = lyrics;
+  };
+  onMouseOut = (e, val) => {
+    e.preventDefault();
+    //console.log(val._id);
+    let divid = val._id;
+    let modiv = document.getElementById(divid);
+    modiv.style.visibility = "hidden";
+    //modiv.innerHTML = "";
+  };
+
   render() {
     const { thumb } = this.props;
     // const { id } = this.props;
@@ -62,7 +85,10 @@ class ThumbnailItem extends Component {
 
     // let imgstr =
     //   "https://s3-us-west-2.amazonaws.com/mirror-thumbnails/" + thumb.image;
-    let imgstr = "https://mimesthumbnails.s3.amazonaws.com/" + thumb.image;
+
+    let url = UrlConfig.url_image;
+    // let imgstr = "https://mimesthumbnails.s3.amazonaws.com/" + thumb.image;
+    let imgstr = url + thumb.image;
     let mime = thumb.mime;
     let width = thumb.width / 2; // + "px";
     let height = thumb.height / 2; // + "px";
@@ -87,13 +113,33 @@ class ThumbnailItem extends Component {
       backgroundRepeat: "no-repeat"
     };
 
+    // height: height || 180,
+    //   width: width || 320,
+
     let defaults = {
-      height: height || 100,
-      width: width || 100,
+      // height: height || 120,
+      // width: width || 220,
+      height: height || 180,
+      width: width || 320,
       backgroundColor: "gray",
       float: "left",
       margin: "5px"
     };
+
+    let hodiv = {
+      // height: height || 120,
+      // width: width || 220,
+
+      backgroundColor: "black",
+      position: "relative",
+      //backgroundColor: "#000",
+      //maxWidth: width,
+      padding: "3px",
+      fontSize: "10pt",
+      color: "#fff",
+      visibility: "hidden"
+    };
+
     // return (
     //   <div className="image-float">
     //     <img
@@ -114,7 +160,23 @@ class ThumbnailItem extends Component {
         onClick={e => {
           this.onThumbClick(e, thumb);
         }}
-      />
+        onMouseOver={e => {
+          this.onMouseOver(e, thumb);
+        }}
+        onMouseOut={e => {
+          this.onMouseOut(e, thumb);
+        }}
+      >
+        <div
+          id={thumb._id}
+          style={{
+            ...hodiv
+          }}
+        >
+          <img className="media_icon" src={share} alt="" />
+          {thumb.lyrics}
+        </div>
+      </div>
     );
   }
 }

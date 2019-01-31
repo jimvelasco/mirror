@@ -287,6 +287,8 @@ router.post("/modifyMime", (req, res) => {
     cat2: req.body.cat2,
     cat3: req.body.cat3,
     search_data: req.body.search_data,
+    width: req.body.width,
+    height: req.body.height,
     image: req.body.image,
     video: req.body.video,
     start: req.body.start,

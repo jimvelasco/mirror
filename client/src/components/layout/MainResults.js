@@ -84,8 +84,8 @@ class MainResults extends Component {
     //console.log("pon thumb click", val);
     let xpos = e.clientX;
     let ypos = e.clientY + window.scrollY;
-    let mwid = val.width;
-    let mhgt = val.height;
+    let mwid = val.width || 640;
+    let mhgt = val.height || 360;
     let wwid = window.innerWidth;
     if (xpos + mwid > wwid) {
       xpos = xpos - (xpos + mwid - wwid) - 40;
@@ -93,7 +93,7 @@ class MainResults extends Component {
 
     this.setState({
       selectedMime: val.mime,
-      width: val.width,
+      width: mwid,
       height: mhgt,
       posx: xpos,
       posy: ypos
@@ -132,6 +132,7 @@ class MainResults extends Component {
     let thumbContent;
     // console.log("props in search bar results");
     //console.log(this.props);
+    const selectecCategory = this.props.mimereducer.selectedCategory;
     const mimes = this.props.mimereducer.workmimes;
     let thumbnails = this.props.thumbnails;
     let cat = this.props.searchterm;
@@ -179,6 +180,9 @@ class MainResults extends Component {
       <div className="feed">
         <FilterMimesBar />
         <div className="container xmirrorborder">
+          <div style={{ height: "30px", color: "white", textAlign: "center" }}>
+            {selectecCategory}
+          </div>
           <div
             className="xbg-light"
             style={{

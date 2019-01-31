@@ -16,6 +16,7 @@ import {
 const initialState = {
   mimes: [],
   workmimes: [],
+  selectedCategory: "",
   mime: {}
 };
 
@@ -23,11 +24,14 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_MIMES:
-      // console.log("getting mimes payload is ", action.payload);
+      //console.log("getting mimes payload is ", action.payload);
+      let results = action.payload.results;
+      let category = action.payload.category;
       return {
         ...state,
-        mimes: action.payload,
-        workmimes: action.payload
+        mimes: results,
+        workmimes: results,
+        selectedCategory: category
       };
 
     case CREATE_MIME:
@@ -108,7 +112,8 @@ export default function(state = initialState, action) {
 
       return {
         ...state,
-        workmimes: fary
+        workmimes: fary,
+        selectedCategory: str
         // images: imgary
       };
 
@@ -130,7 +135,8 @@ export default function(state = initialState, action) {
       }
       return {
         ...state,
-        workmimes: cfary
+        workmimes: cfary,
+        selectedCategory: cat1
         // images: imgary
       };
 
