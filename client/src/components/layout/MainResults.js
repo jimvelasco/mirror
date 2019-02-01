@@ -134,18 +134,10 @@ class MainResults extends Component {
       cat1: cat1,
       cat2: cat2
     };
-    //console.log(logdata);
-
-    let logdata2 = {
-      mimeid: val._id,
-      cat0: val.cat0,
-      cat1: val.cat1,
-      cat2: val.cat2
-    };
 
     //console.log(logdata2);
 
-    // this.props.logClick(logdata);
+    this.props.logClick(logdata);
 
     this.setState({
       selectedMime: val.mime,
@@ -281,16 +273,6 @@ class MainResults extends Component {
                   />
                 </Link>
               </div> */}
-              {/* {mimes.map(thumb => (
-                <div key={thumb._id}>
-                  <ThumbnailItem
-                    key={thumb._id}
-                    id={thumb._id}
-                    thumb={thumb}
-                    onThumbClick={this.onThumbClick}
-                  />
-                </div>
-              ))} */}
             </div>
           </div>
           {selectedMime ? (

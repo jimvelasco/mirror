@@ -127,7 +127,6 @@ class FilterMimesBar extends Component {
   render() {
     const { errors } = this.state;
     const cat0list = list_helper.getCat0();
-    console.log("cat0list", cat0list);
 
     const mimes = this.props.mimereducer.mimes;
     let curcats = this.props.mimereducer.selectedCategories;
@@ -162,7 +161,7 @@ class FilterMimesBar extends Component {
     // console.log(mimecat0list);
     // console.log(mimecat1list);
     // console.log(mimecat2list);
-    console.log("selcat0", selcat0);
+    //console.log("selcat0", selcat0);
     let cat0Template = cat0list.map(
       (v, i) => (
         // selcat0 == "" || selcat0 !== v ? (
