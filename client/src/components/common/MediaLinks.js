@@ -7,10 +7,11 @@ import twitter from "../../img/icons/twitter-48.png";
 import instagram from "../../img/icons/instagram-48.png";
 import share from "../../img/icons/share-48.png";
 
-const MediaLinks = ({ close, link }) => {
+const MediaLinks = ({ close, link, onclick }) => {
+  //let link =  "<a href="#">close</a>";
   return (
     <div className="xcontainer linkswrapper">
-      <Link to="/" className="media_icon" style={{ marginLeft: "50px" }}>
+      <Link to="/" className="media_icon ml-4">
         <img src={facebook} alt="" />
       </Link>
       <Link to="/" className="media_icon">
@@ -25,6 +26,15 @@ const MediaLinks = ({ close, link }) => {
       <Link to="/" className="media_icon">
         <img src={share} alt="" />
       </Link>
+      {onclick ? (
+        <a
+          style={{ float: "right", paddingRight: "10px", paddingTop: "5px" }}
+          href="#"
+          onClick={onclick}
+        >
+          X
+        </a>
+      ) : null}
     </div>
   );
 };

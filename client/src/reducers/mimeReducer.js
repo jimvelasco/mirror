@@ -8,7 +8,8 @@ import {
   MODIFY_MIME,
   CHANGE_MIME_STATUS,
   FILTER_MIMES,
-  FILTER_CATEGORY_MIMES
+  FILTER_CATEGORY_MIMES,
+  GET_TRENDING
 } from "../actions/types";
 
 // import { TEST_DISPATCH } from "../actions/types";
@@ -34,6 +35,19 @@ export default function(state = initialState, action) {
         mimes: results,
         workmimes: results,
         selectedCategories: catary
+      };
+
+    case GET_TRENDING:
+      //console.log("getting mimes payload is ", action.payload);
+      let tresults = action.payload.results;
+      let tcategory = "Trending";
+      let tcatary = []; //state.selectedCategories;
+      tcatary.push(tcategory);
+      return {
+        ...state,
+        mimes: tresults,
+        workmimes: tresults,
+        selectedCategories: tcatary
       };
 
     case CREATE_MIME:

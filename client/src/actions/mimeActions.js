@@ -9,7 +9,8 @@ import {
   CHANGE_MIME_STATUS,
   SET_STATUS_MESSAGE,
   FILTER_MIMES,
-  FILTER_CATEGORY_MIMES
+  FILTER_CATEGORY_MIMES,
+  GET_TRENDING
 } from "./types";
 
 export const getMimes = obj => dispatch => {
@@ -248,5 +249,107 @@ export const uploadMimeJson = mimeFile => dispatch => {
         type: GET_ERRORS,
         payload: err.response.data
       });
+    });
+};
+
+export const logClick = logdata => dispatch => {
+  // dispatch({ type: CLEAR_ERRORS });
+  // console.log("we are in action about to upload file");
+  // console.log(mimeFile);
+  // console.log("end of we are in action about to upload file");
+  // dispatch({
+  //   type: SET_STATUS_MESSAGE,
+  //   payload: { message: "we have successfully uploaded records" }
+  // });
+
+  axios
+    .post("/api/mimes/logclick", logdata)
+    .then(res => {
+      console.log("this is the returned hit from action", res.data);
+      dispatch({
+        type: SET_STATUS_MESSAGE,
+        payload: "we have successfully logged a click "
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+      console.log("about to dispatch error");
+    });
+};
+
+// this is not used at the moment.
+// the input is an input object that has an array of mimeids
+// we getTrendingMimesAll which gets the object ids and then
+// queries for the actual mimes
+export const getTrendingMimes = obj => dispatch => {
+  //console.log("getTrendingMimes obj is", obj.results);
+  let objary = obj.results;
+  let link = "";
+  let idary = [];
+  objary.forEach(function(rec) {
+    idary.push(rec._id);
+  });
+
+  let pobj = { idary: idary };
+
+  link = "/api/mimes/trendingmimes";
+  axios
+    .post(link, pobj)
+    .then(res => {
+      let dobj = {};
+      dobj.results = res.data;
+      dispatch({
+        type: GET_TRENDING,
+        payload: dobj
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
+export const getTrendingMimesAll = obj => dispatch => {
+  //console.log("getTrendingMimes obj is", obj.results);
+
+  let link = "/api/mimes/trending";
+  //console.log("getTrending", link);
+  axios
+    .get(link)
+    // .then(res => console.log(res.data))
+    .then(res => {
+      let objary = res.data;
+      let idary = [];
+      objary.forEach(function(rec) {
+        // see the aggregation query.  we have to use _id which holds the
+        // mimeids.  Artifact of group by and count etc
+        idary.push(rec._id);
+      });
+      let pobj = { idary: idary };
+      let link2 = "/api/mimes/trendingmimes";
+      axios
+        .post(link2, pobj)
+        .then(res => {
+          let dobj = {};
+          dobj.results = res.data;
+          dispatch({
+            type: GET_TRENDING,
+            payload: dobj
+          });
+        })
+        .catch(err => {
+          dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+          });
+        });
+    })
+    .catch(err => {
+      console.log(err);
     });
 };

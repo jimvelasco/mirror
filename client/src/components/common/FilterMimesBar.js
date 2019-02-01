@@ -12,7 +12,8 @@ import list_helper from "../app_data";
 import {
   getMimes,
   filterMimes,
-  getCategoryMimes
+  getCategoryMimes,
+  getTrendingMimesAll
 } from "../../actions/mimeActions";
 
 class FilterMimesBar extends Component {
@@ -35,6 +36,7 @@ class FilterMimesBar extends Component {
     this.onCat0Select = this.onCat0Select.bind(this);
     this.onCat1Select = this.onCat1Select.bind(this);
     this.onCat2Select = this.onCat2Select.bind(this);
+    this.onTrendingSelect = this.onTrendingSelect.bind(this);
   }
 
   onChange(e) {
@@ -45,7 +47,11 @@ class FilterMimesBar extends Component {
     let cat1list = list_helper.getCat1(cat);
     this.setState({ cat0: cat, cat1_list: cat1list, cat2_list: [] });
     let fobj = { cat0: cat, cat1: "all" };
-    this.props.getMimes(fobj);
+    if (cat == "Trending") {
+      this.props.getTrendingMimesAll();
+    } else {
+      this.props.getMimes(fobj);
+    }
     // console.log(this.state);
   }
 
@@ -70,6 +76,15 @@ class FilterMimesBar extends Component {
     // console.log("select cat2", fobj);
 
     this.props.getMimes(fobj);
+  }
+
+  onTrendingSelect(e, v) {
+    e.preventDefault();
+    let fobj = {};
+    //fobj = { cat0: this.state.cat0, cat1: this.state.cat1, cat2: cat2 };
+    // console.log("select cat2", fobj);
+
+    this.props.getTrendingMimesAll();
   }
 
   onSubmit(e) {
@@ -112,6 +127,7 @@ class FilterMimesBar extends Component {
   render() {
     const { errors } = this.state;
     const cat0list = list_helper.getCat0();
+    console.log("cat0list", cat0list);
 
     const mimes = this.props.mimereducer.mimes;
     let curcats = this.props.mimereducer.selectedCategories;
@@ -146,23 +162,25 @@ class FilterMimesBar extends Component {
     // console.log(mimecat0list);
     // console.log(mimecat1list);
     // console.log(mimecat2list);
+    console.log("selcat0", selcat0);
     let cat0Template = cat0list.map(
-      (v, i) =>
-        selcat0 == "" || selcat0 !== v ? (
-          // if ({v} == selcat0) {(cls = "selected")}
-          // v == selcat0 || selcat0 == "" ? (
-          <div key={i} style={{ marginLeft: "5px", float: "left" }}>
-            <a
-              href="#"
-              className="xbtn xbtn-sm xbtn-secondary xbtn-block"
-              onClick={e => {
-                this.onCat0Select(e, v);
-              }}
-            >
-              {v}
-            </a>
-          </div>
-        ) : null
+      (v, i) => (
+        // selcat0 == "" || selcat0 !== v ? (
+        // if ({v} == selcat0) {(cls = "selected")}
+        // v == selcat0 || selcat0 == "" ? (
+        <div key={i} style={{ marginLeft: "5px", float: "left" }}>
+          <a
+            href="#"
+            className="xbtn xbtn-sm xbtn-secondary xbtn-block"
+            onClick={e => {
+              this.onCat0Select(e, v);
+            }}
+          >
+            {v}
+          </a>
+        </div>
+      )
+      // ) : null
       // <div key={i} style={{ marginLeft: "5px", float: "left" }}>
       //   <a
       //     href="#"
@@ -220,6 +238,18 @@ class FilterMimesBar extends Component {
             marginTop: "0px"
           }}
         >
+          {/* <div style={{ marginLeft: "5px", float: "left" }}>
+            <a
+              href="#"
+              className="xbtn xbtn-sm xbtn-secondary xbtn-block"
+              onClick={e => {
+                this.onTrendingSelect(e, "Trending");
+              }}
+            >
+              Trending
+            </a>
+          </div> */}
+
           {cat0Template}
 
           <div style={{ marginLeft: "5px", float: "left" }}>
@@ -304,6 +334,7 @@ export default connect(
   {
     getMimes,
     filterMimes,
-    getCategoryMimes
+    getCategoryMimes,
+    getTrendingMimesAll
   }
 )(withRouter(FilterMimesBar));

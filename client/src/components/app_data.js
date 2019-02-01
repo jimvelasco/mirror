@@ -34,6 +34,7 @@ const lists = {
   //   "Breaking Up",
   //   "It’s over"
   // ],
+  Trending: [],
   Communication: [
     "All",
     "Insults",

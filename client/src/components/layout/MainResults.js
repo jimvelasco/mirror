@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 //import Chart from "../components/chart";
@@ -21,7 +22,11 @@ import FilterMimesBar from "../common/FilterMimesBar";
 //import { performThumbCategorySearch } from "../../actions/thumbnailActions";
 //import { performThumbEmotionSearch } from "../../actions/thumbnailActions";
 import { performThumbnailSearch } from "../../actions/thumbnailActions";
-import { getMimes } from "../../actions/mimeActions";
+import {
+  getMimes,
+  logClick,
+  getTrendingMimesAll
+} from "../../actions/mimeActions";
 
 import mirror from "../../img/round-sphere-animated.gif";
 
@@ -41,6 +46,7 @@ class MainResults extends Component {
     // console.log("searchbar results incoming state");
     // console.log(this.state);
     this.onThumbClick = this.onThumbClick.bind(this);
+    // this.getTrending = this.getTrending.bind(this);
   }
 
   // componentDidMount() {
@@ -52,17 +58,8 @@ class MainResults extends Component {
     // this will start the screen with all of the thumbs
     // console.log("mresults cdm");
     // console.log(this.props);
-    let which = this.props.match.params.which;
-    let term = this.props.match.params.term;
-    if (!which) {
-      which = "category";
-      term = "all";
-    }
-
-    // let fobj = { cat0: "ALL" };
-    // this.props.getMimes(fobj);
-    // this.props.performThumbnailSearch(which, term);
-    //this.props.getMimes({ param: "all" });
+    // this.getTrending();
+    this.props.getTrendingMimesAll();
   }
   componentWillReceiveProps = nextProps => {
     // if (nextProps.location.key !== this.props.location.key) {
@@ -78,6 +75,28 @@ class MainResults extends Component {
     // }
   };
 
+  // getTrending = () => {
+  //   let link = "";
+
+  //   //let link = "/api/mimes/getMimes";
+
+  //   link = "/api/mimes/trending";
+  //   console.log("getTrending", link);
+  //   // router.get("/mimes/:cat", (req, res) => {
+  //   axios
+  //     .get(link)
+  //     // .then(res => console.log(res.data))
+  //     .then(res => {
+  //       let dobj = {};
+  //       dobj.results = res.data;
+  //       console.log(dobj);
+  //       this.props.getTrendingMimes(dobj);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
+
   onThumbClick = (e, val) => {
     // console.log(e);
     // console.log(e.clientX);
@@ -92,6 +111,42 @@ class MainResults extends Component {
       xpos = xpos - (xpos + mwid - wwid) - 40;
     }
 
+    let mimeid = val._id;
+    let cats = this.props.mimereducer.selectedCategories;
+    let cat0 = "";
+    let cat1 = "";
+    let cat2 = "";
+    if (cats.length == 1) {
+      cat0 = cats[0];
+    }
+    if (cats.length == 2) {
+      cat0 = cats[0];
+      cat1 = cats[1];
+    }
+    if (cats.length == 3) {
+      cat0 = cats[0];
+      cat1 = cats[1];
+      cat2 = cats[2];
+    }
+    let logdata = {
+      mimeid: mimeid,
+      cat0: cat0,
+      cat1: cat1,
+      cat2: cat2
+    };
+    //console.log(logdata);
+
+    let logdata2 = {
+      mimeid: val._id,
+      cat0: val.cat0,
+      cat1: val.cat1,
+      cat2: val.cat2
+    };
+
+    //console.log(logdata2);
+
+    // this.props.logClick(logdata);
+
     this.setState({
       selectedMime: val.mime,
       width: mwid,
@@ -99,6 +154,7 @@ class MainResults extends Component {
       posx: xpos,
       posy: ypos
     });
+
     //let m = document.getElementById("mimemain");
   };
 
@@ -140,6 +196,8 @@ class MainResults extends Component {
       </span>
     ));
 
+    let hideit = this.hideMime;
+
     const mimes = this.props.mimereducer.workmimes;
     let thumbnails = this.props.thumbnails;
     // let cat = this.props.searchterm;
@@ -161,7 +219,7 @@ class MainResults extends Component {
     let posx = this.state.posx + "px";
     let posy = this.state.posy + "px";
     let width = this.state.width / 2 + 4;
-    let height = this.state.height / 2 + 74;
+    let height = this.state.height / 2 + 44;
 
     let widthpx = width + "px";
     let heightpx = height + "px";
@@ -246,7 +304,7 @@ class MainResults extends Component {
                 height: heightpx
               }}
             >
-              <a
+              {/* <a
                 href="#"
                 className="btn btn-sm btn-primary btn-block"
                 onClick={e => {
@@ -254,8 +312,8 @@ class MainResults extends Component {
                 }}
               >
                 close
-              </a>
-              <MediaLinks />
+              </a> */}
+              <MediaLinks onclick={hideit} />
               <MimeDisplay
                 mime={selectedMime}
                 width={width}
@@ -293,7 +351,7 @@ const mapStateToProps = state => {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     // { performThumbCategorySearch, performThumbEmotionSearch },
-    { getMimes },
+    { getMimes, logClick, getTrendingMimesAll },
     dispatch
   );
 }

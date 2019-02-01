@@ -3,6 +3,7 @@ const S3 = require("aws-sdk/clients/s3");
 const express = require("express");
 const router = express.Router();
 const Mime = require("../../models/Mime");
+const Hit = require("../../models/Hit");
 
 const aws_key = require("../../config/aws").aws_key;
 const aws_secret = require("../../config/aws").aws_secret;
@@ -543,6 +544,105 @@ router.post("/uploadjson", (req, res) => {
     });
 
   // res.json(jobja);
+});
+
+router.post("/logclick", (req, res) => {
+  // const { errors, isValid } = validateAdvertisementInput(req.body);
+  // // Check Validation
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+
+  // const newMime = new Mime({
+  //   name: req.body.name,
+  //   artist: req.body.artist,
+  //   song: req.body.song,
+  //   lyrics: req.body.lyrics,
+  //   category: req.body.category,
+  //   emotion: req.body.emotion,
+  //   image: req.body.image,
+  //   releaseDate: req.body.releaseDate,
+  //   status: 0
+  // });
+
+  //console.log("request body", req.body);
+
+  const newHit = new Hit({
+    mimeid: req.body.mimeid,
+    cat0: req.body.cat0,
+    cat1: req.body.cat1,
+    cat2: req.body.cat2
+  });
+
+  // const newHit = {
+  //   mimeid: req.body.mimeid,
+  //   cat0: req.body.cat0,
+  //   cat1: req.body.cat1,
+  //   cat2: req.body.cat2
+  // };
+
+  console.log("new hit in api", newHit);
+
+  newHit
+    .save()
+    .then(hit => {
+      res.json(hit);
+    })
+    .catch(err =>
+      res.status(404).json({ message: "Create Mime Record Unsuccessful" })
+    );
+
+  // res.json(newHit);
+});
+
+router.get("/trending", (req, res) => {
+  //console.log("in advertisers get change-advertiser-status", req.params);
+
+  // Hit.find()
+  //   .then(function(hits) {
+  //     return res.json(hits);
+  //   })
+  //   .catch(err =>
+  //     res.status(404).json({ message: "Problem changing advertiser status" })
+  //   );
+
+  // db.whois_range.aggregate([
+  //   {"$group" :
+  //     {_id:{source:"$source",status:"$status"}, count:{$sum:1}}
+  //   },
+  //   {$sort:{"count":-1}}
+  // ])
+
+  Hit.aggregate([
+    //{ $match: { mimeid: "5c4b71cf4b178400150b2943" } }
+    // we have to use the _id or it does not work
+    // the return object mimeids are in the _id tag.  weird
+    {
+      $group: {
+        _id: "$mimeid",
+        count: { $sum: 1 }
+      }
+    },
+    { $sort: { count: -1 } },
+    { $limit: 10 }
+  ])
+    .then(function(hits) {
+      //console.log("aggregate hits ", hits);
+      return res.json(hits);
+    })
+    .catch(err =>
+      res.status(404).json({ message: "Problem changing advertiser status" })
+    );
+});
+
+router.post("/trendingmimes", (req, res) => {
+  //let query = { cat0: "Greetings" };
+  let mimeidary = req.body.idary;
+  let query = { _id: mimeidary };
+
+  Mime.find(query)
+    .then(thumbs => res.json(thumbs))
+    .catch(err => res.status(404).json({ noresults: "No Categories found" }));
 });
 
 module.exports = router;
