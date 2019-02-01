@@ -34,6 +34,8 @@ import MimeJsonUpload from "./components/layout/MimeJsonUpload";
 import About from "./components/static/about";
 import Contact from "./components/static/contact";
 
+import ApiTest from "./components/ApiTest";
+
 import "./App.css";
 
 // Check for token
@@ -71,6 +73,7 @@ class App extends Component {
                   <Navbar />
 
                   <div className="main_container">
+                    <Route exact path="/apitest" component={ApiTest} />
                     <Route exact path="/register" component={Register} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/about" component={About} />
