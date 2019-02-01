@@ -114,6 +114,17 @@ class FilterMimesBar extends Component {
     const cat0list = list_helper.getCat0();
 
     const mimes = this.props.mimereducer.mimes;
+    let curcats = this.props.mimereducer.selectedCategories;
+    let selcat0 = "";
+    let selcat1 = "";
+    if (curcats.length == 1) {
+      selcat0 = curcats[0];
+    }
+    if (curcats.length == 2) {
+      selcat0 = curcats[0];
+      selcat1 = curcats[1];
+    }
+
     let mimecat0list = [];
     let mimecat1list = [];
     let mimecat2list = [];
@@ -135,30 +146,46 @@ class FilterMimesBar extends Component {
     // console.log(mimecat0list);
     // console.log(mimecat1list);
     // console.log(mimecat2list);
-
-    let cat0Template = cat0list.map((v, i) => (
-      <div key={i} style={{ marginLeft: "5px", float: "left" }}>
-        <a
-          href="#"
-          className="xbtn xbtn-sm xbtn-secondary xbtn-block"
-          onClick={e => {
-            this.onCat0Select(e, v);
-          }}
-        >
-          {v}
-        </a>
-      </div>
-    ));
+    let cat0Template = cat0list.map(
+      (v, i) =>
+        selcat0 == "" || selcat0 !== v ? (
+          // if ({v} == selcat0) {(cls = "selected")}
+          // v == selcat0 || selcat0 == "" ? (
+          <div key={i} style={{ marginLeft: "5px", float: "left" }}>
+            <a
+              href="#"
+              className="xbtn xbtn-sm xbtn-secondary xbtn-block"
+              onClick={e => {
+                this.onCat0Select(e, v);
+              }}
+            >
+              {v}
+            </a>
+          </div>
+        ) : null
+      // <div key={i} style={{ marginLeft: "5px", float: "left" }}>
+      //   <a
+      //     href="#"
+      //     className="btn btn-sm btn-secondary btn-block"
+      //     onClick={e => {
+      //       this.onCat0Select(e, v);
+      //     }}
+      //   >
+      //     {v}
+      //   </a>
+      // </div>
+    );
 
     let cat1list = this.state.cat1_list;
 
+    let bclass = "btn btn-sm ml-2 mb-2 btn-primary";
     let cat1Template = cat1list.map(
       (v, i) =>
         mimecat1list.indexOf(v) > -1 || v == "All" ? (
           <a
             key={i}
             href="#"
-            className="btn btn-sm btn-primary ml-2 mb-2 xbtn-block"
+            className={bclass}
             onClick={e => {
               this.onCat1Select(e, v);
             }}
@@ -186,14 +213,10 @@ class FilterMimesBar extends Component {
     // ));
 
     return (
-      <div className="bordertest">
+      <div className="xbordertest">
         <div
           className="navbar navbar-dark xnavbackground"
           style={{
-            // color: "black",
-            // backgroundColor: "#e0e0e0",
-            // marginBottom: "5px",
-            // padding: "5px",
             marginTop: "0px"
           }}
         >

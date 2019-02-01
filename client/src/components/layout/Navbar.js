@@ -9,6 +9,9 @@ import SearchBar from "./SearchBar";
 //import { performThumbWildcardSearch } from "../../actions/thumbnailActions";
 import { performThumbnailSearch } from "../../actions/thumbnailActions";
 
+import MediaLinks from "../common/MediaLinks";
+import FilterMimesBar from "../common/FilterMimesBar";
+
 //import logo from "../../img/image1.jpeg";
 //import logo from "../../img/Image36.JPG";
 import logo from "../../img/MimeLogo.jpeg";
@@ -102,8 +105,12 @@ class Navbar extends Component {
         </li>
       </ul>
     );
+    let fnav = "<div />";
+    if (isAuthenticated) {
+      fnav = <FilterMimesBar />;
+    }
     return (
-      <div className="bordertest">
+      <div className="navbarwrapper">
         <nav className="navbar  navbar-expand-sm navbar-dark xnavbackground xmb-4">
           <div className="container">
             <Link to="/" className="navbar-brand">
@@ -113,7 +120,7 @@ class Navbar extends Component {
                 alt=""
               />
             </Link>
-            <Link to="/" className="media_icon" style={{ marginLeft: "50px" }}>
+            {/* <Link to="/" className="media_icon" style={{ marginLeft: "50px" }}>
               <img src={facebook} alt="" />
             </Link>
             <Link to="/" className="media_icon">
@@ -127,7 +134,9 @@ class Navbar extends Component {
             </Link>
             <Link to="/" className="media_icon">
               <img src={share} alt="" />
-            </Link>
+            </Link> */}
+
+            <MediaLinks />
             <button
               className="navbar-toggler"
               type="button"
@@ -138,10 +147,11 @@ class Navbar extends Component {
             </button>
 
             <div className="collapse navbar-collapse" id="mobile-nav">
-              {isAuthenticated ? authLinks : guestLinks}{" "}
+              {isAuthenticated ? authLinks : guestLinks}
             </div>
           </div>
         </nav>
+        {fnav}
       </div>
     );
   }

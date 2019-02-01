@@ -11,6 +11,7 @@ import ThumbnailFeed from "../thumbnails/ThumbnailFeed";
 import ThumbnailItem from "../thumbnails/ThumbnailItem";
 //import Home from "./Home";
 import { MirrorDictionary } from "../../utils/mirrordictionary";
+import MediaLinks from "../common/MediaLinks";
 
 import ImageDisplay from "../common/ImageDisplay";
 import MimeDisplay from "../common/MimeDisplay";
@@ -132,17 +133,23 @@ class MainResults extends Component {
     let thumbContent;
     // console.log("props in search bar results");
     //console.log(this.props);
-    const selectecCategory = this.props.mimereducer.selectedCategory;
+    const selectecCategories = this.props.mimereducer.selectedCategories;
+    let catDisplay = selectecCategories.map((v, i) => (
+      <span key={i} style={{ marginLeft: "10px" }}>
+        {v}
+      </span>
+    ));
+
     const mimes = this.props.mimereducer.workmimes;
     let thumbnails = this.props.thumbnails;
-    let cat = this.props.searchterm;
-    if (MirrorDictionary[cat]) {
-      cat = MirrorDictionary[cat];
-    }
+    // let cat = this.props.searchterm;
+    // if (MirrorDictionary[cat]) {
+    //   cat = MirrorDictionary[cat];
+    // }
     if (mimes.length == 0) {
       return (
         <div>
-          <FilterMimesBar />
+          {/* <FilterMimesBar /> */}
           <h5 style={{ textAlign: "center", margin: "40px", color: "#fff" }}>
             Please select from the categories above
           </h5>
@@ -154,7 +161,7 @@ class MainResults extends Component {
     let posx = this.state.posx + "px";
     let posy = this.state.posy + "px";
     let width = this.state.width / 2 + 4;
-    let height = this.state.height / 2 + 34;
+    let height = this.state.height / 2 + 74;
 
     let widthpx = width + "px";
     let heightpx = height + "px";
@@ -177,13 +184,20 @@ class MainResults extends Component {
       />
     ));
     return (
-      <div className="feed">
-        <FilterMimesBar />
+      <div className="mainresults">
+        {/* <FilterMimesBar /> */}
         <div className="container xmirrorborder">
-          <div style={{ height: "30px", color: "white", textAlign: "center" }}>
-            {selectecCategory}
-          </div>
           <div
+            style={{
+              height: "30px",
+              color: "white",
+              textAlign: "center",
+              marginTop: "15px"
+            }}
+          >
+            {catDisplay}
+          </div>
+          {/* <div
             className="xbg-light"
             style={{
               color: "white",
@@ -193,7 +207,7 @@ class MainResults extends Component {
             }}
           >
             {cat}
-          </div>
+          </div> */}
 
           <div style={{ clear: "left" }} />
 
@@ -241,6 +255,7 @@ class MainResults extends Component {
               >
                 close
               </a>
+              <MediaLinks />
               <MimeDisplay
                 mime={selectedMime}
                 width={width}

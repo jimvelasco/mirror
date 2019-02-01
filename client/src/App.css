@@ -259,11 +259,11 @@ li {
 }
 
 .bordertest {
-  border: 0px solid white;
+  border-bottom: 0px solid yellow;
 }
 
 .main_container {
-  border-top: 1px solid white;
+  border-top: 0px solid white;
   margin-top: 0px;
 }
 
@@ -299,6 +299,7 @@ li {
   width: 36px;
   height: 36px;
   margin-right: 10px;
+  float: left;
 }
 
 .staticpage {
@@ -309,6 +310,26 @@ li {
   margin-bottom: 10px;
   padding: 10px;
   max-width: 800px;
+}
+
+.linkswrapper {
+  height: 40px;
+  margin: 0px;
+  background-color: black;
+  border: 0px solid yellow;
+}
+
+.xxmainresults {
+  height: 500px;
+  overflow: scroll;
+}
+.navbarwrapper {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: black;
+  border-bottom: 1px solid white;
 }
 
 /* #060d65 */

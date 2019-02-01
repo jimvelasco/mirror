@@ -16,7 +16,7 @@ import {
 const initialState = {
   mimes: [],
   workmimes: [],
-  selectedCategory: "",
+  selectedCategories: [],
   mime: {}
 };
 
@@ -27,11 +27,13 @@ export default function(state = initialState, action) {
       //console.log("getting mimes payload is ", action.payload);
       let results = action.payload.results;
       let category = action.payload.category;
+      let catary = []; //state.selectedCategories;
+      catary.push(category);
       return {
         ...state,
         mimes: results,
         workmimes: results,
-        selectedCategory: category
+        selectedCategories: catary
       };
 
     case CREATE_MIME:
@@ -109,11 +111,13 @@ export default function(state = initialState, action) {
       });
 
       // console.log("workaryafter", workary);
+      let curcatary = state.selectedCategories;
+      curcatary[1] = str;
 
       return {
         ...state,
         workmimes: fary,
-        selectedCategory: str
+        selectedCategories: curcatary
         // images: imgary
       };
 
@@ -123,6 +127,10 @@ export default function(state = initialState, action) {
       let obj = action.payload;
       let cat1 = obj.cat1;
       let cfary = [];
+
+      let curcatsary = state.selectedCategories;
+      curcatsary[1] = cat1;
+
       if (cat1 === "All") {
         cfary = allary;
       } else {
@@ -133,10 +141,11 @@ export default function(state = initialState, action) {
           }
         });
       }
+
       return {
         ...state,
         workmimes: cfary,
-        selectedCategory: cat1
+        selectedCategories: curcatsary
         // images: imgary
       };
 
