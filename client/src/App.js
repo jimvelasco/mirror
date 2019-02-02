@@ -34,7 +34,7 @@ import MimeJsonUpload from "./components/layout/MimeJsonUpload";
 import About from "./components/static/about";
 import Contact from "./components/static/contact";
 
-import ApiTest from "./components/ApiTest";
+import ApiTest from "./components/apitest/ApiTest";
 
 import "./App.css";
 

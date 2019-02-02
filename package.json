@@ -14,6 +14,7 @@
   "author": "jjv",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "aws-sdk": "^2.391.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",

@@ -17,6 +17,7 @@ const users = require("./routes/api/users");
 // interact with the database
 const thumbnails = require("./routes/api/thumbnails");
 const mimes = require("./routes/api/mimes");
+const apitest = require("./routes/api/apitest");
 
 const app = express();
 
@@ -32,7 +33,7 @@ const db = require("./config/keys").mongoURI;
 // Connect to Mongo
 
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Mongo Connected"))
   .catch(err => console.log(err));
 
@@ -44,6 +45,15 @@ app.use(passport.initialize());
 // Passport Config
 require("./config/passport")(passport);
 
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
+
 app.use("/api/users", users);
 // app.use("/api/profile", profile);
 // app.use("/api/posts", posts);
@@ -54,6 +64,9 @@ app.use("/api/users", users);
 app.use("/api/thumbnails", thumbnails);
 
 app.use("/api/mimes", mimes);
+
+app.use("/api/apitest/", apitest);
+
 //app.use("/api/mythumbs", thumbnails);
 // app.get("/api/thumbs", thumbnails);
 // app.get("/api/thumbs/entertainment", thumbnails);
