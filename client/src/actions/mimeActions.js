@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   GET_MIMES,
+  GET_ADMIN_MIMES,
   CREATE_MIME,
   DELETE_MIME,
   GET_ERRORS,
@@ -73,7 +74,7 @@ export const searchMimes = obj => dispatch => {
     // .then(res => console.log(res.data))
     .then(res => {
       dispatch({
-        type: GET_MIMES,
+        type: GET_ADMIN_MIMES,
         payload: res.data
       });
     })
@@ -86,7 +87,7 @@ export const searchMimes = obj => dispatch => {
 };
 
 export const statusMimes = obj => dispatch => {
-  //console.log("obj is", obj);
+  console.log("obj is", obj);
   let parm = obj.param;
   // search/:term
   //let link = "/api/mimes/getMimes";
@@ -100,8 +101,9 @@ export const statusMimes = obj => dispatch => {
     .get(link)
     // .then(res => console.log(res.data))
     .then(res => {
+      //console.log(res.data);
       dispatch({
-        type: GET_MIMES,
+        type: GET_ADMIN_MIMES,
         payload: res.data
       });
     })

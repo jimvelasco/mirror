@@ -347,7 +347,7 @@ class MimeRecords extends Component {
 
     return (
       <div>
-        <FilterMimesBar />
+        {/* <FilterMimesBar /> */}
         <FilterMimes passedFunction={this.doFiltering} />
         <h5 style={{ textAlign: "center", color: "white" }}>Mimes</h5>
         <div className="xcontainer xmimerecordstablewrapper">

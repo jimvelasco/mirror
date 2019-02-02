@@ -2,6 +2,7 @@ import isEmpty from "../validation/is-empty";
 
 import {
   GET_MIMES,
+  GET_ADMIN_MIMES,
   CREATE_MIME,
   DELETE_MIME,
   SET_CURRENT_MIME,
@@ -35,6 +36,14 @@ export default function(state = initialState, action) {
         mimes: results,
         workmimes: results,
         selectedCategories: catary
+      };
+
+    case GET_ADMIN_MIMES:
+      return {
+        ...state,
+        mimes: action.payload,
+        workmimes: action.payload,
+        selectedCategories: []
       };
 
     case GET_TRENDING:
