@@ -15,7 +15,7 @@ class FilterMimes extends Component {
     this.state = {
       searchterm: "",
       selectValue: "",
-      selectStatusValue: "1",
+      selectStatusValue: "0",
       thumbnails: [],
       errors: {}
     };

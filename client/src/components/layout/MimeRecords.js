@@ -30,7 +30,6 @@ import list_helper from "../app_data";
 // import { setCurrentAdvertisement } from "../../actions/advertisementActions";
 
 import {
-  getMimes,
   searchMimes,
   statusMimes,
   createMime,
@@ -118,16 +117,11 @@ class MimeRecords extends Component {
     // let bizid = this.props.selectedBizid;
     // console.log(list_helper.getCats());
     // console.log(list_helper.getEmotions("cool"));
-    // this.props.getMimes();
     // let fobj = { cat0: "ALL", cat1: "ALL" };
 
-    let fobj = { type: "status", param: 1 };
+    let fobj = { type: "status", param: 0 };
 
     this.props.statusMimes(fobj);
-
-    //this.props.getMimes(fobj);
-
-    // this.props.getMimes({ param: "all" });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -252,7 +246,6 @@ class MimeRecords extends Component {
   doFiltering(fobj) {
     //console.log("filtering object", fobj);
     // if (fobj.type == "category") {
-    //   this.props.getMimes(fobj);
     // }
     if (fobj.type == "wildcard") {
       this.props.searchMimes(fobj);
@@ -294,7 +287,7 @@ class MimeRecords extends Component {
     formdata.append("end", this.state.end);
     formdata.append("duration", this.state.duration);
     formdata.append("releaseDate", this.state.releaseDate);
-    formdata.append("status", 0);
+    formdata.append("status", 1);
     for (var pair of formdata.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
@@ -369,9 +362,9 @@ class MimeRecords extends Component {
                 <th>Start</th>
                 <th>End</th>
                 <th>Dur</th> */}
+                      <th>Cat0</th>
                       <th>Cat1</th>
-                      <th>Cat2</th>
-                      <th>Cat3</th>
+                      {/* <th>Cat3</th> */}
                       <th>Search</th>
                       <th>Status</th>
                       <th>&nbsp;</th>
@@ -395,8 +388,12 @@ class MimeRecords extends Component {
                   <td>{mime.duration}</td> */}
                         <td>{mime.cat0}</td>
                         <td>{mime.cat1}</td>
-                        <td>{mime.cat2}</td>
-                        <td>{mime.search_data}</td>
+                        {/* <td>{mime.cat2}</td> */}
+                        <td>
+                          <div style={{ overflow: "hidden", width: "130px" }}>
+                            {mime.search_data}
+                          </div>
+                        </td>
                         <td>
                           <a
                             href="#"
@@ -718,7 +715,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getMimes,
     searchMimes,
     statusMimes,
     createMime,

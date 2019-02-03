@@ -18,19 +18,22 @@ router.get("/mimes/:cat0/:cat1/:cat2", (req, res) => {
   let cat1 = req.params.cat1;
   let cat2 = req.params.cat2;
 
-  //console.log(cat0 + " " + cat1 + " " + cat2);
+  //console.log("cat0 " + cat0 + " cat1 " + cat1 + " cat2 " + cat2);
 
   let rary = null;
   let query = {};
-  let query0 = { cat0: cat0 };
-  let query1 = { $and: [{ cat0: cat0 }, { cat1: cat1 }] };
-  let query2 = { $and: [{ cat0: cat0 }, { cat1: cat1 }, { cat2: cat2 }] };
+  // let query0 = { cat0: cat0 };
+  // let query1 = { $and: [{ cat0: cat0 }, { cat1: cat1 }] };
+  // let query2 = { $and: [{ cat0: cat0 }, { cat1: cat1 }, { cat2: cat2 }] };
 
-  // if (cat2 === "undefined") {
-  //   console.log("cat2 is undefined");
-  // } else {
-  //   console.log("cat2 is defined");
-  // }
+  let query0 = { $and: [{ status: 1 }, { cat0: cat0 }] };
+  let query1 = { $and: [{ status: 1 }, { cat0: cat0 }, { cat1: cat1 }] };
+  let query2 = {
+    $and: [{ status: 1 }, { cat0: cat0 }, { cat1: cat1 }, { cat2: cat2 }]
+  };
+
+  // we never actually query the database for anthing other than query0
+  // the other categories are displayed via filtering which only uses the reducer
 
   if (cat2 !== "undefined") {
     if (cat2 === "all") {
@@ -78,14 +81,16 @@ router.get("/mimes/:cat0/:cat1/:cat2", (req, res) => {
 router.get("/search/:term", (req, res) => {
   let rary = null;
   let wc = req.params.term;
-  let sterm = { $regex: ".*" + req.params.term + ".*" }; //"/" + req.params.term + "/";
-  //console.log("sterm passed in " + sterm);
+  let sterm = { $regex: ".*" + wc + ".*" }; //"/" + req.params.term + "/";
+  // console.log("sterm passed in " + wc);
   if (wc == "*") {
-    Mime.find({ status: 0 })
+    Mime.find()
+      .sort({ status: 1 })
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
   } else {
     Mime.find({ search_data: sterm })
+      .sort({ status: 1 })
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
   }
@@ -94,7 +99,7 @@ router.get("/search/:term", (req, res) => {
 router.get("/status/:status", (req, res) => {
   if (req.params.status == "*") {
     Mime.find()
-      .sort({ image: 1 })
+      .sort({ status: 1 })
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
   } else {
@@ -102,15 +107,6 @@ router.get("/status/:status", (req, res) => {
       .then(thumbs => res.json(thumbs))
       .catch(err => res.status(404).json({ noresults: "No Wildcards found" }));
   }
-});
-
-router.get("/xxxgetMimes", (req, res) => {
-  // console.log("in api getting stuff thumbs");
-  //console.log("cat passed in " + req.params.cat);
-
-  Mime.find()
-    .then(thumbs => res.json(thumbs))
-    .catch(err => res.status(404).json({ noresults: "No Categories found" }));
 });
 
 // router.get("/delete-business/:id", (req, res) => {
@@ -256,7 +252,7 @@ router.post("/createMime", (req, res) => {
     fps: req.body.fps,
     video_url: req.body.video_url,
     releaseDate: req.body.releaseDate,
-    status: 0
+    status: 1
   });
 
   //console.log("new newMime in api", newMime);
@@ -300,8 +296,8 @@ router.post("/modifyMime", (req, res) => {
     //height: req.body.height,
     //fps: req.body.fps,
     //video_url: req.body.video_url,
-    releaseDate: req.body.releaseDate
-    // status: 0
+    releaseDate: req.body.releaseDate,
+    status: 1
   };
 
   // formdata.append("rating", this.state.rating);

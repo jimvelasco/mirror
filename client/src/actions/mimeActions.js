@@ -15,13 +15,10 @@ import {
 } from "./types";
 
 export const getMimes = obj => dispatch => {
-  // console.log("getMimes obj is", obj);
   let link = "";
   let cat0 = obj.cat0;
   let cat1 = obj.cat1;
   let cat2 = obj.cat2;
-
-  //let link = "/api/mimes/getMimes";
 
   link = "/api/mimes/mimes/" + cat0 + "/" + cat1 + "/" + cat2;
   // router.get("/mimes/:cat", (req, res) => {
@@ -47,13 +44,10 @@ export const getMimes = obj => dispatch => {
 };
 
 export const getCategoryMimes = obj => dispatch => {
-  // console.log("getMimes obj is", obj);
   let link = "";
   let cat0 = obj.cat0;
   let cat1 = obj.cat1;
   let cat2 = obj.cat2;
-
-  //let link = "/api/mimes/getMimes";
 
   dispatch({ type: FILTER_CATEGORY_MIMES, payload: obj });
 };
@@ -62,7 +56,6 @@ export const searchMimes = obj => dispatch => {
   //console.log("obj is", obj);
   let parm = obj.param;
   // search/:term
-  //let link = "/api/mimes/getMimes";
   //let link = "/api/thumbnails/search/" + parm;
   let link = "/api/mimes/search/" + parm;
   // if (parm === "*") {
@@ -87,7 +80,7 @@ export const searchMimes = obj => dispatch => {
 };
 
 export const statusMimes = obj => dispatch => {
-  console.log("obj is", obj);
+  //console.log("obj is", obj);
   let parm = obj.param;
   // search/:term
   //let link = "/api/mimes/getMimes";
